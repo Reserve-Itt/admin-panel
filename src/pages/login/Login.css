@@ -1,0 +1,100 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7cac9;
+}
+
+.login-form {
+    width: 400px;
+    padding: 40px;
+    border-radius: 16px;
+    background-color: #ffffff;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    color: #c0392b;
+    font-weight: 800;
+    margin-bottom: 32px;
+}
+
+input {
+    width: 100%;
+    height: 40px;
+    padding: 8px 12px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: #f7f1e3;
+    font-size: 16px;
+    color: #444444;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #c0392b;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+button {
+    width: 100%;
+    height: 48px;
+    margin-top: 24px;
+    padding: 12px 24px;
+    background-color: #c0392b;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-color: #9b2c20;
+}
+
+a {
+    margin-top: 16px;
+    color: #444444;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #c0392b;
+}
+
+.forgot-password {
+    text-align: center;
+    margin-top: 16px;
+    color: #444444;
+    font-size: 14px;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 16px;
+    color: #444444;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.signup-link:hover {
+    color: #c0392b;
+}
