@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import './forgotpassword.css';
+import { useNavigate } from 'react-router-dom';
+
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
-
+    const navigate = useNavigate();
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log('Email submitted:', email);
+
+        navigate('/confirm-password');
         // Add code to submit email and send password reset link
     };
 

@@ -99,7 +99,7 @@ const Login: React.FC<LoginProps> = () => {
             )}
           </button>
           <a href="/signup">Signup</a>
-          <a href="#">Forgot Password</a>
+          <a href="/forgot-password">Forgot Password</a>
         </form>
       </div>
     </>
