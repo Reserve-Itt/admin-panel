@@ -1,23 +1,36 @@
 import React, { useState } from "react";
 import "./otp.css";
 import OtpInput from "react-otp-input";
-import { useVerifyOtpMutation } from "../../services/authApi";
+import {
+  useResendOtpMutation,
+  useVerifyOtpMutation,
+} from "../../services/authApi";
 import { AppErrorMessage, AppSuccesMessage } from "../../services/toastService";
 import { useNavigate } from "react-router";
 import { setUser } from "../../features/authSlice";
 import { useAppDispatch } from "../../App/hooks";
 import { ClipLoader } from "react-spinners";
+import { setIsForgotActivated } from "../../features/forgotPassworddSlice";
 
 const Otp = () => {
+  // otp state
   const [otp, setOtp] = useState("");
+
+  // resend button visiblity controller
   const [showResend, setShowResend] = useState(false);
+
+  // routing control
   const navigate = useNavigate();
+
+  // otp updater
   const handleOtpChange = (value: string) => {
     setOtp(value);
   };
 
+  // main slice usage
   const appDispatch = useAppDispatch();
 
+  // send otp mutation
   const [
     sendOtp,
     {
@@ -30,21 +43,50 @@ const Otp = () => {
     },
   ] = useVerifyOtpMutation({});
 
+  // resend otp mutation
+  const [
+    resendOtp,
+    {
+      isSuccess: isResendScuccess,
+      isError: isResendError,
+      error: resendError,
+      isLoading: isResendLoading,
+      status: resendStatus,
+    },
+  ] = useResendOtpMutation({});
+  const email: { email: string } = JSON.parse(
+    localStorage.getItem("email") || "{}"
+  );
+  const isForgotActivated: { isForgotActivated: boolean } = JSON.parse(
+    localStorage.getItem("isForgotActivated") || "{}"
+  );
+
+  // otp verification handler
   const otpSendHandle = async () => {
-    console.log("otp", otp);
-    const email = JSON.parse(localStorage.getItem("email") || "{}"); // controls the signup.
     console.log("email", email);
-    await sendOtp({ email: "betonnecmi06@gmail.com", otp_code: Number(otp) });
+
+    await sendOtp({ email: email.email, otp_code: Number(otp) });
   };
 
+  // resend otp handler rtk
+  const otpResendHandle = async () => {
+    await resendOtp({ email: email.email });
+  };
+
+  //? otp verification function result handler
   // if sucessfull redirect to otp page
   if (isOtpUpSuccess) {
     AppSuccesMessage("Sign Up SuccesFull");
     appDispatch(setUser(loginData));
-    navigate("/profile");
+    if (isForgotActivated) {
+      navigate("/confirm-password");
+      appDispatch(setIsForgotActivated({ isForgotActivated: false }));
+    } else {
+      navigate("/profile");
+    }
+
     // if error show error in app message
   } else if (isOtpUpError) {
-    console.log("🚀 ~ file: Signup.tsx:71 ~ isSignUpError", OtpUpError);
     let data: any = OtpUpError;
     // data status may change because we have two different error.
     // one type comes from nestJs and the other one comes from our rest api
@@ -54,16 +96,34 @@ const Otp = () => {
     // console.log(data.data.message);
   }
 
+  // otp submitr main handler
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Submitting OTP:", otp);
     otpSendHandle();
   };
 
+  // resent main otp handler
   const handleResend = () => {
     console.log("Resending OTP");
     setShowResend(false); // simulate OTP being resent
+    otpResendHandle();
   };
+
+  //? otp resend  function result handler
+  // if sucessfull redirect to otp page
+  if (isResendScuccess) {
+    AppSuccesMessage(" Validation SuccesFull");
+    // if error show error in app message
+  } else if (isResendError) {
+    let data: any = OtpUpError;
+    // data status may change because we have two different error.
+    // one type comes from nestJs and the other one comes from our rest api
+    // the nest js comes with status code 400.
+    if (data.status == 400) AppErrorMessage("bad request");
+    else AppErrorMessage(data.data.message);
+  }
+  // cons
 
   return (
     <div className="otp-container">
@@ -108,7 +168,9 @@ const Otp = () => {
               "Verify Code"
             )}
           </button>
-          <p className="otp-resend">Didn't receive the code?  <a href="/">Resend Code</a></p>
+          <p className="otp-resend">
+            Didn't receive the code? <a href="/">Resend Code</a>
+          </p>
         </form>
       </div>
     </div>

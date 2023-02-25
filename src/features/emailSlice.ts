@@ -19,7 +19,7 @@ export const emailSlice = createSlice({
   },
 });
 
-export const SelectAuth = (state: RootState) => state.auth;
+export const selectEmail = (state: RootState) => state.email;
 
 export const { setEmail } = emailSlice.actions;
 export default emailSlice.reducer;

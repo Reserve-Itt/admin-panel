@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "../features/authSlice";
 import { authApi } from "../services/authApi";
+import emailSlice from "../features/emailSlice";
+import forgotPassworddSlice from "../features/forgotPassworddSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authSlice,
+    email: emailSlice,
+    forgotPassword: forgotPassworddSlice,
     [authApi.reducerPath]: authApi.reducer,
   },
 

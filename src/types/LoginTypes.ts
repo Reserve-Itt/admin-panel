@@ -1,12 +1,8 @@
 /**
- * This page contains the types of the back-end structure. 
- * 
- * 
+ * This page contains the types of the back-end structure.
+ *
+ *
  */
-
-
-
-
 
 export interface IsignUpProvider {
   tax_number?: string;
