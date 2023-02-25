@@ -4,6 +4,7 @@ import Beton from "./Beton";
 import { setUser } from "./features/authSlice";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Login, Main, Signup } from "./pages";
+import Navbar from './NavBar/Navbar';
 import OTP from "./pages/sign-up/OTP"
 import ConfirmPassword from "./pages/confirmPassword/confirmPassword"
 import ForgotPassword from "./pages/ForgotPassword/forgotpassword"
@@ -23,6 +24,7 @@ export default function App() {
 
   return (
     <>
+      <Navbar />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
