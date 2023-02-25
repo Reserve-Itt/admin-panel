@@ -105,9 +105,10 @@ const Otp = () => {
                 data-testid="loader"
               />
             ) : (
-              "Send Otp"
+              "Verify Code"
             )}
           </button>
+          <p className="otp-resend">Didn't receive the code?  <a href="/">Resend Code</a></p>
         </form>
       </div>
     </div>

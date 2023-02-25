@@ -122,3 +122,13 @@
 .otp-button:hover {
     background-color: #d32f2f;
 }
+
+.otp-resend {
+    margin-right: 10px;
+    text-align: right;
+}
+
+.otp-resend a{
+    font-size: 17px;
+    color: #045593;
+}
