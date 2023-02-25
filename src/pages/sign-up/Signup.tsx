@@ -1,11 +1,12 @@
 import React, { useState, FC } from "react";
 import "./Signup.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../App/hooks";
 import { useSignUpUserMutation } from "../../services/authApi";
 import { AppErrorMessage, AppSuccesMessage } from "../../services/toastService";
 import { setUser } from "../../features/authSlice";
 import { IsignUpProvider } from "../../types";
+import { setEmail } from "../../features/emailSlice";
 interface IProps {}
 
 const Signup: FC<IProps> = () => {
@@ -25,7 +26,7 @@ const Signup: FC<IProps> = () => {
 
   // navigation object.
   const appDispatch = useAppDispatch();
-
+  const navigate = useNavigate();
   // userlogin object
   const [
     signUpUser,
@@ -64,8 +65,10 @@ const Signup: FC<IProps> = () => {
   // if sucessfull redirect to otp page
   if (isSignUpSuccess) {
     AppSuccesMessage("Sign Up SuccesFull");
-    // TODO: navigate to otp code.
-    // navigate("/main");
+    appDispatch(setEmail({ email: formData.email }));
+
+    navigate("/otp");
+
     // if error show error in app message
   } else if (isSignUpError) {
     console.log("🚀 ~ file: Signup.tsx:71 ~ isSignUpError", signUpError);
