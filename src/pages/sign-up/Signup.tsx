@@ -96,9 +96,11 @@ const Signup: FC<IProps> = () => {
         </div>
         <div className="form-container">
           <form className="signup-form" onSubmit={handleSubmit}>
+            <div className="double-input">
             <div className="input-group">
-              <label htmlFor="firstName">Provider Name</label>
+
               <input
+                  placeholder="Name"
                 type="text"
                 name="firstName"
                 value={formData.firstName}
@@ -108,8 +110,9 @@ const Signup: FC<IProps> = () => {
             </div>
 
             <div className="input-group">
-              <label htmlFor="lastName">Owner Name</label>
+
               <input
+                  placeholder="Owner Name"
                 type="text"
                 name="lastName"
                 value={formData.lastName}
@@ -117,19 +120,23 @@ const Signup: FC<IProps> = () => {
                 required
               />
             </div>
-            <div className="input-group">
-              <label htmlFor="description">Description</label>
+            </div>
+
+
               <input
+                  placeholder="Description"
                 type="text"
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
                 required
               />
-            </div>
+
+            <div className="double-input">
             <div className="input-group">
-              <label htmlFor="taxNumber">Tax Number</label>
+
               <input
+                  placeholder="Tax Number"
                 type="text"
                 name="taxNumber"
                 value={formData.taxNumber}
@@ -137,9 +144,11 @@ const Signup: FC<IProps> = () => {
                 required
               />
             </div>
+
             <div className="input-group">
-              <label htmlFor="adress">Adress</label>
+
               <input
+                  placeholder="Address"
                 type="text"
                 name="adress"
                 value={formData.adress}
@@ -147,9 +156,11 @@ const Signup: FC<IProps> = () => {
                 required
               />
             </div>
+            </div>
             <div className="input-group">
-              <label htmlFor="phoneNumber">Phone Number</label>
+
               <input
+                  placeholder="Phone Number"
                 type="text"
                 name="phoneNumber"
                 value={formData.phoneNumber}
@@ -158,8 +169,8 @@ const Signup: FC<IProps> = () => {
               />
             </div>
 
-            <div className="input-group">
-              <label htmlFor="gender"> Select Provider Type</label>
+
+
               <select
                 name="select"
                 className="select"
@@ -180,20 +191,23 @@ const Signup: FC<IProps> = () => {
                   Individual
                 </option>
               </select>
-            </div>
-            <div className="input-group">
-              <label htmlFor="email">Email</label>
+
+
+
               <input
+                  placeholder="Email"
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 required
               />
-            </div>
+
+            <div className="double-input">
             <div className="input-group">
               <label htmlFor="password">Password</label>
               <input
+                  placeholder="Password"
                 type="password"
                 name="password"
                 value={formData.password}
@@ -210,6 +224,7 @@ const Signup: FC<IProps> = () => {
                 onChange={handleChange}
                 required
               />
+            </div>
             </div>
             <button type="submit">Sign Up</button>
           </form>

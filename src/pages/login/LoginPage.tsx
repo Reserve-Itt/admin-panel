@@ -40,6 +40,7 @@ const Login: React.FC<LoginProps> = () => {
     AppSuccesMessage("Login SuccesFull");
     // sets user data and writes it to browser.
     appDispatch(setUser(loginData));
+    console.log('loginData',loginData)
     // navigate("/main");
   } else if (isLoginError) {
     // if there is an error writes it to app message.
