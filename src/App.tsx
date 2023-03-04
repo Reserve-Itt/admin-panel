@@ -6,6 +6,7 @@ import Profile from "./pages/myProfile/Profile";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Login, Main, Signup } from "./pages";
 import Navbar from "./NavBar/Navbar";
+import AddService from "./pages/addService/addService";
 import OTP from "./pages/sign-up/OTP";
 import ConfirmPassword from "./pages/confirmPassword/confirmPassword";
 import ForgotPassword from "./pages/ForgotPassword/forgotpassword";
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="/confirm-password" element={<ConfirmPassword />} />
           <Route path="/profile" element={<Profile {...userDummy} />} />
           <Route path="/beton" element={<Beton />} />
+          <Route path="/addService" element={<AddService />} />
         </Routes>
       </BrowserRouter>
       {/* container to control the toastify.  */}
