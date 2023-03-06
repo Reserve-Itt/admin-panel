@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 import Beton from "./Beton";
 import { setUser } from "./features/authSlice";
 import Profile from "./pages/myProfile/Profile";
@@ -24,6 +24,7 @@ export default function App() {
     providerType: "Halısaha",
     profilePictureUrl: "https://via.placeholder.com/200x200",
   };
+
   const handleSubmit = (password: string) => {
     console.log(`Submitted password: ${password}`);
   };

@@ -71,7 +71,7 @@ const Login: React.FC<LoginProps> = () => {
 
     // controls the login process
     if (isLoginSuccess) {
-        AppSuccesMessage("Login SuccesFull");
+        AppSuccesMessage("Login Successfully");
         // sets user data and writes it to browser.
         appDispatch(setUser(loginData));
         console.log('loginData', loginData)
@@ -101,8 +101,7 @@ const Login: React.FC<LoginProps> = () => {
         <>
             <div className="login-container">
                 <form onSubmit={handleSubmit} className="login-form">
-                    <h1>Welcome</h1>
-                    <h1>Login</h1>
+                    <h1 className="welcome-header">Welcome</h1>
                     {/*  <div>
             <label htmlFor="email">Email</label>
             <input
@@ -162,7 +161,7 @@ const Login: React.FC<LoginProps> = () => {
                             />
                         </FormControl>
                     </div>
-                    <button type="submit">
+                    <button className="submit-button" type="submit">
                         {isLoginLoading ? (
                             <ClipLoader
                                 color={"red"}
@@ -172,7 +171,7 @@ const Login: React.FC<LoginProps> = () => {
                                 data-testid="loader"
                             />
                         ) : (
-                            "Log in"
+                            "Login"
                         )}
                     </button>
                     <a href="/signup">Signup</a>

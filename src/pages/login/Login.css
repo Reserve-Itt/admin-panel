@@ -18,12 +18,53 @@
     flex-direction: column;
 
 }
+.submit-button {
+    background: linear-gradient(120deg, #ff4f4f, #ff4f4f, #ffffff);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.submit-button:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+    background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+    filter: blur(10px);
+    z-index: -1;
+}
+
+.submit-button:hover:before {
+    opacity: 0.4;
+    transform: scale(1.5);
+    transition: all 0.6s ease-in-out;
+}
+
+.submit-button:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+}
+
+
+
 
 h1 {
     text-align: center;
     color: #c0392b;
     font-weight: 800;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
 
 input {
@@ -52,15 +93,7 @@ button {
     height: 48px;
     margin-top: 40px;
     padding: 12px 24px;
-    background-color: #c0392b;
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
+
 }
 
 button:hover {
@@ -100,3 +133,33 @@ a:hover {
 .signup-link:hover {
     color: #c0392b;
 }
+
+
+
+.welcome-header {
+    font-size: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #333;
+    position: relative;
+}
+
+.welcome-header:after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #ff4f4f;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+}
+
+.welcome-header span {
+    display: inline-block;
+    position: relative;
+    transition: transform 0.5s ease-in-out;
+}
+
+
+
