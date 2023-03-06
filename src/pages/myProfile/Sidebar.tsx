@@ -1,45 +1,43 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import './Sidebar.css';
 
+const Sidebar: React.FC = () => {
+    const [selection, setSelection] = useState<string>('Home');
+    const [showSidebar, setShowSidebar] = useState<boolean>(true);
 
-interface SidebarProps {
-    links: { name: string; url: string }[];
-    isOpen: boolean;
-    handleToggle: () => void;
-}
+    const handleSelection = (option: string) => {
+        setSelection(option);
+    };
 
-const Sidebar: React.FC<SidebarProps> = ({ links, isOpen, handleToggle }) => {
+    const handleToggleSidebar = () => {
+        setShowSidebar(!showSidebar);
+    };
+
     return (
-        <div className={`sidebar ${isOpen ? "open" : ""}`}>
-            <div className="toggle-button" onClick={handleToggle}>
-                {isOpen ? "Close" : "Open"}
+        <>
+            <button className="toggle-button" onClick={handleToggleSidebar}>
+                <i className="fas fa-bars"></i>
+            </button>
+            <div className={`sidebar ${showSidebar ? 'show' : 'hide'}`}>
+                <h2>Settings</h2>
+                <ul>
+                    <li className={selection === 'Home' ? 'active' : ''} onClick={() => handleSelection('Home')}>
+                        <a href="/">Home</a>
+                    </li>
+                    <li className={selection === 'Users' ? 'active' : ''} onClick={() => handleSelection('Users')}>
+                        <a href="/users">Users</a>
+                    </li>
+                    <li className={selection === 'Analytics' ? 'active' : ''} onClick={() => handleSelection('Analytics')}>
+                        <a href="/analytics">Analytics</a>
+                    </li>
+                    <li className={selection === 'Messages' ? 'active' : ''} onClick={() => handleSelection('Messages')}>
+                        <a href="/messages">Messages</a>
+                    </li>
+                </ul>
+                <button className="button">Upgrade</button>
             </div>
-            <div className="links">
-                {links.map((link) => (
-                    <a href={link.url} key={link.url}>
-                        {link.name}
-                    </a>
-                ))}
-            </div>
-        </div>
+        </>
     );
 };
 
-// Dummy data
-const links = [
-    { name: "Home", url: "#" },
-    { name: "About", url: "#" },
-    { name: "Services", url: "#" },
-    { name: "Contact", url: "#" },
-];
-
-const App = () => {
-    const [isOpen, setIsOpen] = useState(true);
-
-    const handleToggle = () => {
-        setIsOpen(!isOpen);
-    };
-
-    return <Sidebar links={links} isOpen={isOpen} handleToggle={handleToggle} />;
-};
-
-export default App;
+export default Sidebar;

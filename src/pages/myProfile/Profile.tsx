@@ -1,7 +1,15 @@
 import React from 'react';
 import './Profile.css';
-import Sidebar from './Sidebar';
-
+import Sidebar  from './Sidebar';
+const links = [
+    { label: 'Link 1', url: '#' },
+    { label: 'Link 2', url: '#' },
+    { label: 'Link 3', url: '#' },
+    { label: 'Link 3', url: '#' },
+    { label: 'Link 3', url: '#' },
+    { label: 'Link 3', url: '#' },
+    { label: 'Link 3', url: '#' },
+];
 interface ProfileProps {
     name: string;
     surname: string;
@@ -17,7 +25,7 @@ const Profile: React.FC<ProfileProps> = ({
                                          }) => {
     return (
         <body className="body">
-        <Sidebar/>
+        <Sidebar  />
         <div className="profile-container">
             <div className="profile">
                 <img className="profile-picture" src={profilePictureUrl} alt="Profile"/>

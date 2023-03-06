@@ -10,6 +10,7 @@ import AddService from "./pages/addService/addService";
 import OTP from "./pages/sign-up/OTP";
 import ConfirmPassword from "./pages/confirmPassword/confirmPassword";
 import ForgotPassword from "./pages/ForgotPassword/forgotpassword";
+
 import { toast, ToastContainer } from "react-toastify";
 import { AppSuccesMessage } from "./services/toastService";
 import "react-toastify/dist/ReactToastify.css";
