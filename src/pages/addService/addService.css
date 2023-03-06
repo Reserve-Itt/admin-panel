@@ -50,3 +50,53 @@
     font-size: 16px;
     margin-right: 10px;
 }
+.add-service-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+    background-image: linear-gradient(to right, #de0606, #b5afe0);
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.add-service-button:before {
+    content: "";
+    position: absolute;
+    top: -120%;
+    left: -120%;
+    width: 350%;
+    height: 350%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6));
+    transform: rotate(45deg);
+    transition: all 0.5s ease-in-out;
+}
+
+.add-service-button:hover:before {
+    top: -30%;
+    left: -30%;
+}
+
+.add-service-button:hover {
+    animation: pulse 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes pulse {
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+
+

@@ -3,6 +3,7 @@ import './addService.css';
 import {useAddServiceMutation} from "../../services/authApi";
 import {AppErrorMessage, AppSuccesMessage} from "../../services/toastService";
 import {IAddService} from "../../types";
+import Sidebar from "../../Sidebar/Sidebar";
 
 interface Service {
     name: string;
@@ -94,41 +95,44 @@ const AddService: React.FC = () => {
 
 
     return (
-        <body className="body">
-        <div className="add-service">
-            <h1>Add Service</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">Name:</label>
-                    <input type="text" id="name" name="name" value={service.name} onChange={handleChange}/>
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="price">Price:</label>
-                    <div className="input-group">
-                        <span className="input-group-addon">{formatPrice(service.price)}</span>
-                        <input type="number" id="price" name="price" value={service.price} onChange={handleChange}/>
+        <><Sidebar/>
+            <body className="body">
+            <div className="add-service">
+                <h1>Add Service</h1>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="name">Name:</label>
+                        <input type="text" id="name" name="name" value={service.name} onChange={handleChange}/>
                     </div>
-                </div>
 
-                <div className="form-group">
-                    <label htmlFor="description">Description:</label>
-                    <textarea id="description" name="description" value={service.description} onChange={handleChange}/>
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="duration">Duration:</label>
-                    <div className="input-group">
-                        <span className="input-group-addon">{formatDuration(service.duration)}</span>
-                        <input type="number" id="duration" name="duration" value={service.duration}
-                               onChange={handleChange}/>
+                    <div className="form-group">
+                        <label htmlFor="price">Price:</label>
+                        <div className="input-group">
+                            <span className="input-group-addon">{formatPrice(service.price)}</span>
+                            <input type="number" id="price" name="price" value={service.price} onChange={handleChange}/>
+                        </div>
                     </div>
-                </div>
 
-                <button type="submit">Add Service</button>
-            </form>
-        </div>
-        </body>
+                    <div className="form-group">
+                        <label htmlFor="description">Description:</label>
+                        <textarea id="description" name="description" value={service.description}
+                                  onChange={handleChange}/>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="duration">Duration:</label>
+                        <div className="input-group">
+                            <span className="input-group-addon">{formatDuration(service.duration)}</span>
+                            <input type="number" id="duration" name="duration" value={service.duration}
+                                   onChange={handleChange}/>
+                        </div>
+                    </div>
+
+                    <button className="add-service-button" type="submit">Add Service</button>
+                </form>
+            </div>
+            </body>
+        </>
     );
 };
 

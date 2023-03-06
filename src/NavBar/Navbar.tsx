@@ -5,7 +5,7 @@ const Navbar = () => {
     return (
         <nav className={styles.navbar}>
             <div className={styles.left}>
-                <a href="/" className={styles.homeLink}>Home</a>
+                <a href="/profile" className={styles.homeLink}>Home</a>
             </div>
             <div className={styles.right}>
                 <div className={styles.profileDropdown}>
