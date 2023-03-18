@@ -41,11 +41,11 @@ const LoginRoute = () => {
             <Main />
           </RequireAuth>
         }
-      >
+      > </Route>
         <Route path="main/profile" element={<Profile {...userDummy} />} />
         <Route path="main/beton" element={<Beton />} />
         <Route path="main/addService" element={<AddService />} />
-      </Route>
+
 
       <Route path="*" element={<Navigate to="/not-found" />} />
     </Routes>

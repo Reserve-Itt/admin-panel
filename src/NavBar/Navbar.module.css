@@ -2,11 +2,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: red;
+    background-color: #a59090;
     height: 60px;
     padding: 0 20px;
     position: sticky;
     top: 0;
+    margin-left: 300px;
 }
 
 .left {
