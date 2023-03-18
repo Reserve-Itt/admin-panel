@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./otp.css";
 import OtpInput from "react-otp-input";
 import {
@@ -11,6 +11,7 @@ import { setUser } from "../../features/authSlice";
 import { useAppDispatch } from "../../App/hooks";
 import { ClipLoader } from "react-spinners";
 import { setIsForgotActivated } from "../../features/forgotPassworddSlice";
+import { error } from "console";
 
 const Otp = () => {
   // otp state
@@ -86,14 +87,6 @@ const Otp = () => {
     }
 
     // if error show error in app message
-  } else if (isOtpUpError) {
-    let data: any = OtpUpError;
-    // data status may change because we have two different error.
-    // one type comes from nestJs and the other one comes from our rest api
-    // the nest js comes with status code 400.
-    if (data.status == 400) AppErrorMessage("bad request");
-    else AppErrorMessage(data.data.message);
-    // console.log(data.data.message);
   }
 
   // otp submitr main handler
@@ -114,16 +107,36 @@ const Otp = () => {
   // if sucessfull redirect to otp page
   if (isResendScuccess) {
     AppSuccesMessage(" Validation SuccesFull");
-    // if error show error in app message
-  } else if (isResendError) {
-    let data: any = OtpUpError;
-    // data status may change because we have two different error.
-    // one type comes from nestJs and the other one comes from our rest api
-    // the nest js comes with status code 400.
-    if (data.status == 400) AppErrorMessage("bad request");
-    else AppErrorMessage(data.data.message);
   }
-  // cons
+
+
+
+
+
+
+
+
+
+  
+  // resend otp error handler
+  useEffect(() => {
+    if (isResendError) {
+      let data: any = OtpUpError;
+      // data status may change because we have two different error.
+      // one type comes from nestJs and the other one comes from our rest api
+      // the nest js comes with status code 400.
+      if (data.status == 400) AppErrorMessage("bad request");
+      if (isOtpUpError) {
+        let data: any = OtpUpError;
+        // data status may change because we have two different error.
+        // one type comes from nestJs and the other one comes from our rest api
+        // the nest js comes with status code 400.
+        if (data.status == 400) AppErrorMessage("bad request");
+        else AppErrorMessage(data.data.message);
+        // console.log(data.data.message);
+      } else AppErrorMessage(data.data.message);
+    }
+  }, [isResendError, resendError, isOtpUpError, OtpUpError]);
 
   return (
     <div className="otp-container">

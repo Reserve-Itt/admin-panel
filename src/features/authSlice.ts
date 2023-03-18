@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { json } from "stream/consumers";
-import { isNullishCoalesce } from "typescript";
 import { RootState } from "../App/store";
 import { IAuthState } from "../types";
 
@@ -17,6 +15,7 @@ const initialState: IAuthState = {
     fcmTokens: undefined,
     isVerified: undefined,
   },
+  isUserLoggedIn: undefined,
 };
 
 export const authSlice = createSlice({
@@ -24,13 +23,30 @@ export const authSlice = createSlice({
   initialState: initialState,
   reducers: {
     setUser: (state, action: PayloadAction<IAuthState>) => {
-      localStorage.setItem("user", JSON.stringify(action.payload));
-      state = action.payload;
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          token: action.payload.token,
+          userData: action.payload.userData,
+          isUserLoggedIn: action.payload.isUserLoggedIn,
+          success: action.payload.success,
+        })
+      );
+      state.token = action.payload.token;
+      state.userData = action.payload.userData;
+      state.isUserLoggedIn = action.payload.isUserLoggedIn;
+      state.success = action.payload.success;
+    },
+    logout: (state) => {
+      localStorage.clear();
+      state.token = undefined;
+      state.userData = undefined;
+      state.isUserLoggedIn = undefined;
+      state.success = undefined;
     },
   },
 });
 
 export const SelectAuth = (state: RootState) => state.auth;
-
-export const { setUser } = authSlice.actions;
+export const { setUser, logout } = authSlice.actions;
 export default authSlice.reducer;

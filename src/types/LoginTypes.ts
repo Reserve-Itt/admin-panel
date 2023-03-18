@@ -37,6 +37,7 @@ export interface IAuthState {
     __v?: number;
     providerType?: "FOOTBALL" | "HAIRDRESSER";
   };
+  isUserLoggedIn?: boolean;
 }
 
 export interface IAddService {

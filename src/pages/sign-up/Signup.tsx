@@ -1,4 +1,4 @@
-import React, { useState, FC } from "react";
+import React, { useState, FC, useEffect } from "react";
 import "./Signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../App/hooks";
@@ -66,20 +66,24 @@ const Signup: FC<IProps> = () => {
   if (isSignUpSuccess) {
     AppSuccesMessage("Sign Up SuccesFull");
     appDispatch(setEmail({ email: formData.email }));
-
     navigate("/otp");
 
     // if error show error in app message
-  } else if (isSignUpError) {
-    console.log("🚀 ~ file: Signup.tsx:71 ~ isSignUpError", signUpError);
-    let data: any = signUpError;
-    // data status may change because we have two different error.
-    // one type comes from nestJs and the other one comes from our rest api
-    // the nest js comes with status code 400.
-    if (data.status == 400) AppErrorMessage("bad request");
-    else AppErrorMessage(data.data.message);
-    // console.log(data.data.message);
   }
+
+  // if error show error in app message
+  useEffect(() => {
+    if (isSignUpError) {
+      console.log("🚀 ~ file: Signup.tsx:71 ~ isSignUpError", signUpError);
+      let data: any = signUpError;
+      // data status may change because we have two different error.
+      // one type comes from nestJs and the other one comes from our rest api
+      // the nest js comes with status code 400.
+      if (data.status == 400) AppErrorMessage("bad request");
+      else AppErrorMessage(data.data.message);
+      // console.log(data.data.message);
+    }
+  }, [isSignUpError, signUpError]);
 
   // handles submit when button clicked.
   const handleSubmit = (e: { preventDefault: () => void }) => {
@@ -97,70 +101,64 @@ const Signup: FC<IProps> = () => {
         <div className="form-container">
           <form className="signup-form" onSubmit={handleSubmit}>
             <div className="double-input">
-            <div className="input-group">
-
-              <input
+              <div className="input-group">
+                <input
                   placeholder="Name"
-                type="text"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-              />
-            </div>
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            <div className="input-group">
-
-              <input
+              <div className="input-group">
+                <input
                   placeholder="Owner Name"
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                required
-              />
-            </div>
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
 
-
-              <input
-                  placeholder="Description"
-                type="text"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                required
-              />
+            <input
+              placeholder="Description"
+              type="text"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              required
+            />
 
             <div className="double-input">
-            <div className="input-group">
-
-              <input
+              <div className="input-group">
+                <input
                   placeholder="Tax Number"
-                type="text"
-                name="taxNumber"
-                value={formData.taxNumber}
-                onChange={handleChange}
-                required
-              />
-            </div>
+                  type="text"
+                  name="taxNumber"
+                  value={formData.taxNumber}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            <div className="input-group">
-
-              <input
+              <div className="input-group">
+                <input
                   placeholder="Address"
-                type="text"
-                name="adress"
-                value={formData.adress}
-                onChange={handleChange}
-                required
-              />
-            </div>
+                  type="text"
+                  name="adress"
+                  value={formData.adress}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
             <div className="input-group">
-
               <input
-                  placeholder="Phone Number"
+                placeholder="Phone Number"
                 type="text"
                 name="phoneNumber"
                 value={formData.phoneNumber}
@@ -169,62 +167,58 @@ const Signup: FC<IProps> = () => {
               />
             </div>
 
+            <select
+              name="select"
+              className="select"
+              value={formData.select}
+              onChange={handleChange}
+              required
+            >
+              <option className="option" value="">
+                Select Provider Type
+              </option>
+              <option className="option" value="FOOTBALL">
+                Football pitch owner
+              </option>
+              <option className="option" value="HAIRDRESSER">
+                Hairdresser
+              </option>
+              <option className="option" value="INDIVIDUAL">
+                Individual
+              </option>
+            </select>
 
-
-              <select
-                name="select"
-                className="select"
-                value={formData.select}
-                onChange={handleChange}
-                required
-              >
-                <option className="option" value="">
-                  Select Provider Type
-                </option>
-                <option className="option" value="FOOTBALL">
-                  Football pitch owner
-                </option>
-                <option className="option" value="HAIRDRESSER">
-                  Hairdresser
-                </option>
-                <option className="option" value="INDIVIDUAL">
-                  Individual
-                </option>
-              </select>
-
-
-
-              <input
-                  placeholder="Email"
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
+            <input
+              placeholder="Email"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
 
             <div className="double-input">
-            <div className="input-group">
-              <label htmlFor="password">Password</label>
-              <input
+              <div className="input-group">
+                <label htmlFor="password">Password</label>
+                <input
                   placeholder="Password"
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="input-group">
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <input
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-              />
-            </div>
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="input-group">
+                <label htmlFor="confirmPassword">Confirm Password</label>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
             <button type="submit">Sign Up</button>
           </form>
