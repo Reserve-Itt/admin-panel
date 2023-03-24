@@ -3,9 +3,8 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
 
-type Props = {};
 
-const NotFound = (props: Props) => {
+const NotFound: React.FC = () => {
   const navigate = useNavigate();
   const onclickHandler = () => {
     navigate("/login");

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "./App/hooks";
 import { setUser } from "./features/authSlice";
-import { useGetUserQuery, useLoginUserMutation } from "./services/authApi";
+import { useGetUserQuery, useLoginUserMutation } from "./services/ApiService/authApi";
 import { MuiThemeProvider } from "@material-ui/core";
 
 

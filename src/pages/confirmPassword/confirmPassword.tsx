@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { ClipLoader } from "react-spinners";
 import { useAppDispatch } from "../../App/hooks";
-import { useResetPasswordMutation } from "../../services/authApi";
+import { useResetPasswordMutation } from "../../services/ApiService/authApi";
 import { AppErrorMessage, AppSuccesMessage } from "../../services/toastService";
 import "./confirmPassword.css";
 
-const ConfirmPassword = () => {
+const ConfirmPassword : React.FC = ()=> {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 

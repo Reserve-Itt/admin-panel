@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import "./forgotpassword.css";
 import { useNavigate } from "react-router-dom";
-import { useForgotPasswordMutation } from "../../services/authApi";
+import { useForgotPasswordMutation } from "../../services/ApiService/authApi";
 import { useAppDispatch } from "../../App/hooks";
 import { setEmail } from "../../features/emailSlice";
 import { AppErrorMessage, AppSuccesMessage } from "../../services/toastService";
 import { setIsForgotActivated } from "../../features/forgotPassworddSlice";
 
-const ForgotPassword = () => {
+const ForgotPassword : React.FC = ()=> {
   const [email, setLocalEmail] = useState("");
   const navigate = useNavigate();
   // main slice usage

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { SelectAuth, setUser } from "../../features/authSlice";
-import { useLoginUserMutation } from "../../services/authApi";
+import { useLoginUserMutation } from "../../services/ApiService/authApi";
 import { AppErrorMessage, AppSuccesMessage } from "../../services/toastService";
 import "./Login.css";
 import { ClipLoader } from "react-spinners";

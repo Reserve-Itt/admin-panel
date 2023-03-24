@@ -1,6 +1,6 @@
     import React from 'react';
     import './Profile.css';
-    import Sidebar from '../../Sidebar/Sidebar';
+    import Sidebar from '../Sidebar/Sidebar';
     import { Container, Row, Col, Card } from 'react-bootstrap';
     import { FaComment, FaUsers, FaMoneyBillAlt, FaCalendarCheck } from 'react-icons/fa';
     import { makeStyles } from '@material-ui/core/styles';
@@ -188,7 +188,7 @@
         const classes2 = useStyles2();
         return (
             <body className="body">
-            <Sidebar />
+           
             <Container>
                 <Row style={{ display: 'flex', flexWrap: 'nowrap' }}>
 

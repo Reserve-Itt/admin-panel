@@ -1,7 +1,8 @@
 import React, { FC, useEffect } from "react";
 import { useAppSelector } from "../../App/hooks";
-import { SelectAuth } from "../../features/authSlice";
+
 import { json } from "body-parser";
+import { SelectAuth } from "../../features/authSlice";
 
 interface IProps {}
 

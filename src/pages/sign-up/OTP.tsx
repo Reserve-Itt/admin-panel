@@ -4,7 +4,7 @@ import OtpInput from "react-otp-input";
 import {
   useResendOtpMutation,
   useVerifyOtpMutation,
-} from "../../services/authApi";
+} from "../../services/ApiService/authApi";
 import { AppErrorMessage, AppSuccesMessage } from "../../services/toastService";
 import { useNavigate } from "react-router";
 import { setUser } from "../../features/authSlice";
@@ -13,7 +13,7 @@ import { ClipLoader } from "react-spinners";
 import { setIsForgotActivated } from "../../features/forgotPassworddSlice";
 import { error } from "console";
 
-const Otp = () => {
+const Otp: React.FC = () => {
   // otp state
   const [otp, setOtp] = useState("");
 
@@ -117,7 +117,7 @@ const Otp = () => {
 
 
 
-  
+
   // resend otp error handler
   useEffect(() => {
     if (isResendError) {

@@ -2,7 +2,7 @@ import React, { useState, FC, useEffect } from "react";
 import "./Signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../App/hooks";
-import { useSignUpUserMutation } from "../../services/authApi";
+import { useSignUpUserMutation } from "../../services/ApiService/authApi";
 import { AppErrorMessage, AppSuccesMessage } from "../../services/toastService";
 import { setUser } from "../../features/authSlice";
 import { IsignUpProvider } from "../../types";

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import './addService.css';
-import {useAddServiceMutation} from "../../services/authApi";
+import {useAddServiceMutation} from "../../services/ApiService/authApi";
 import {AppErrorMessage, AppSuccesMessage} from "../../services/toastService";
 import {IAddService} from "../../types";
-import Sidebar from "../../Sidebar/Sidebar";
+import Sidebar from "../Sidebar/Sidebar";
 
 interface Service {
     name: string;
