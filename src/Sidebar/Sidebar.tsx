@@ -1,42 +1,137 @@
-import React, { useState } from 'react';
-import './Sidebar.css';
+import React, { useState } from "react";
+import {
+    makeStyles,
+    Drawer,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Typography,
+} from "@material-ui/core";
+import {
+    Inbox as InboxIcon,
+    Mail as MailIcon,
+    Menu as MenuIcon,
+    BusinessCenter as BusinessCenterIcon,
+    EventNote as EventNoteIcon,
+    People as PeopleIcon,
+    Build as BuildIcon,
+    LocalOffer as LocalOfferIcon,
+} from "@material-ui/icons";
+import { useNavigate } from "react-router-dom";
 
-const Sidebar: React.FC = () => {
-    const [selection, setSelection] = useState<string>('Home');
-    const [showSidebar, setShowSidebar] = useState<boolean>(true);
+const drawerWidth = 300;
 
-    const handleSelection = (option: string) => {
-        setSelection(option);
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: "flex",
+    },
+    drawer: {
+        width: drawerWidth,
+        flexShrink: 0,
+    },
+    drawerPaper: {
+        width: drawerWidth,
+    },
+    drawerContainer: {
+        overflow: "auto",
+    },
+    content: {
+        flexGrow: 1,
+        padding: theme.spacing(),
+    },
+    title: {
+        flexGrow: 1,
+        padding: theme.spacing(2),
+        fontSize: "2rem",
+        color: "red",
+        fontWeight: "bold",
+    },
+}));
+
+const Sidebar = () => {
+    const classes = useStyles();
+    const navigate = useNavigate();
+
+    const [drawerOpen, setDrawerOpen] = useState(true);
+
+    const handleDrawerOpen = () => {
+        setDrawerOpen(true);
     };
 
-    const handleToggleSidebar = () => {
-        setShowSidebar(!showSidebar);
+    const handleDrawerClose = () => {
+        setDrawerOpen(false);
+    };
+
+    const handleNavigation = (path: string) => {
+        navigate(path);
+
     };
 
     return (
-        <>
-            <button className={`toggle-button ${showSidebar ? 'show' : 'hide'}`} onClick={handleToggleSidebar}>
-                <i className="fas fa-bars"></i>
-            </button>
-            <div className={`sidebar ${showSidebar ? 'show' : 'hide'}`}>
-                <h2>Settings</h2>
-                <ul>
-                    <li className={selection === 'Home' ? 'active' : ''} onClick={() => handleSelection('Home')}>
-                        <a href="/">Home</a>
-                    </li>
-                    <li className={selection === 'Users' ? 'active' : ''} onClick={() => handleSelection('Users')}>
-                        <a href="/users">Users</a>
-                    </li>
-                    <li className={selection === 'Analytics' ? 'active' : ''} onClick={() => handleSelection('Analytics')}>
-                        <a href="/analytics">Analytics</a>
-                    </li>
-                    <li className={selection === 'Messages' ? 'active' : ''} onClick={() => handleSelection('Messages')}>
-                        <a href="/messages">Messages</a>
-                    </li>
-                </ul>
-                <button className="button">Upgrade</button>
-            </div>
-        </>
+        <div className={classes.root}>
+            <Drawer
+                className={classes.drawer}
+                variant="persistent"
+                anchor="left"
+                open={drawerOpen}
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
+            >
+
+                <div className={classes.drawerContainer}>
+                    <div className={classes.title}>
+                        <Typography variant="h2">ADMIN</Typography>
+                    </div>
+                    <List>
+                        <ListItem button onClick={() => handleNavigation("/")}>
+                            <ListItemIcon>
+                                <InboxIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Home" />
+                        </ListItem>
+                        <ListItem button onClick={() => handleNavigation("/main/profile")}>
+                            <ListItemIcon>
+                                <MailIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="About" />
+                        </ListItem>
+                        <ListItem button onClick={() => handleNavigation("/services")}>
+                            <ListItemIcon>
+                                <BusinessCenterIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="My Services" />
+                        </ListItem>
+                        <ListItem button onClick={() => handleNavigation("/reservations")}>
+                            <ListItemIcon>
+                                <EventNoteIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="My Reservations" />
+                        </ListItem>
+                        <ListItem button onClick={() => handleNavigation("/clients")}>
+                            <ListItemIcon>
+                                <PeopleIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Clients" />
+                        </ListItem>
+                        <ListItem button onClick={() => handleNavigation("/settings")}>
+                            <ListItemIcon>
+                                <BuildIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Settings" />
+                        </ListItem>
+                        <ListItem button onClick={() => handleNavigation("/offers")}>
+                            <ListItemIcon>
+                                <LocalOfferIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Offers" />
+                        </ListItem>
+                    </List>
+                </div>
+            </Drawer>
+
+        </div>
     );
 };
 

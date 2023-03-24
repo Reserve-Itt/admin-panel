@@ -40,12 +40,19 @@ const LoginRoute = () => {
 
       <Route path="/main" element={val ? <Main /> : <Login />} />
       <Route
-        path="/profile"
-        element={val ? <Profile {...userDummy} /> : <Login />}
-      />
-      <Route path="/beton" element={val ? <Beton /> : <Login />} />
-      <Route path="/addService" element={val ? <AddService /> : <Login />} />
-      <Route path="*" element={<NotFound />} />
+        path="/main"
+        element={
+          <RequireAuth>
+            <Main />
+          </RequireAuth>
+        }
+      > </Route>
+        <Route path="main/profile" element={<Profile {...userDummy} />} />
+        <Route path="main/beton" element={<Beton />} />
+        <Route path="main/addService" element={<AddService />} />
+
+
+      <Route path="*" element={<Navigate to="/not-found" />} />
     </Routes>
   );
 };
