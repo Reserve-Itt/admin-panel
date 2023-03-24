@@ -13,8 +13,11 @@ export const isForgotActivated = createSlice({
       state,
       action: PayloadAction<{ isForgotActivated: boolean }>
     ) => {
-      localStorage.setItem("isForgotActivated", JSON.stringify(action.payload));
-      state = action.payload;
+      localStorage.setItem(
+        "isForgotActivated",
+        JSON.stringify({ isForgotActivated: action.payload.isForgotActivated })
+      );
+      state.isForgotActivated = action.payload.isForgotActivated;
     },
   },
 });

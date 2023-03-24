@@ -8,7 +8,7 @@ import {
 import { AppErrorMessage, AppSuccesMessage } from "../../services/toastService";
 import { useNavigate } from "react-router";
 import { setUser } from "../../features/authSlice";
-import { useAppDispatch } from "../../App/hooks";
+import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { ClipLoader } from "react-spinners";
 import { setIsForgotActivated } from "../../features/forgotPassworddSlice";
 import { error } from "console";
@@ -55,11 +55,15 @@ const Otp: React.FC = () => {
       status: resendStatus,
     },
   ] = useResendOtpMutation({});
-  const email: { email: string } = JSON.parse(
-    localStorage.getItem("email") || "{}"
-  );
-  const isForgotActivated: { isForgotActivated: boolean } = JSON.parse(
-    localStorage.getItem("isForgotActivated") || "{}"
+  // const email: { email: string } = JSON.parse(
+  //   localStorage.getItem("email") || "{}"
+  // );
+  // const isForgotActivated: { isForgotActivated: boolean } = JSON.parse(
+  //   localStorage.getItem("isForgotActivated") || "{}"
+  // );
+  const email = useAppSelector((state: any) => state.email.email);
+  const isForgotActivated = useAppSelector(
+    (state: any) => state.isForgotActivated.isForgotActivated
   );
 
   // otp verification handler
@@ -108,15 +112,6 @@ const Otp: React.FC = () => {
   if (isResendScuccess) {
     AppSuccesMessage(" Validation SuccesFull");
   }
-
-
-
-
-
-
-
-
-
 
   // resend otp error handler
   useEffect(() => {

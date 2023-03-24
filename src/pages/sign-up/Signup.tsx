@@ -61,7 +61,6 @@ const Signup: FC<IProps> = () => {
     });
   };
 
-  // todo this can be changed to useEffect if there is to much render.
   // if sucessfull redirect to otp page
   if (isSignUpSuccess) {
     AppSuccesMessage("Sign Up SuccesFull");

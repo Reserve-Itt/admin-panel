@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Navbar.module.css";
+import { AppErrorMessage } from "../../services";
 
 const Navbar: React.FC = () => {
+  useEffect(() => {
+    AppErrorMessage(
+      "Navigation bar is deprecated by the order of beton. Please do not use Navigation Bar. If you need to use it, probably you do not need to use it and you dont know yet."
+    );
+  }, []);
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.left}>

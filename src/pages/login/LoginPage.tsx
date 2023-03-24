@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../App/hooks";
-import { SelectAuth, setUser } from "../../features/authSlice";
+import { SelectAuth, setUser } from "../../features";
 import { useLoginUserMutation } from "../../services/ApiService/authApi";
-import { AppErrorMessage, AppSuccesMessage } from "../../services/toastService";
+import { AppErrorMessage, AppSuccesMessage } from "../../services";
 import "./Login.css";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { AccountCircle, Password, PasswordOutlined } from "@mui/icons-material";
+import { AccountCircle, Password } from "@mui/icons-material";
 
 interface LoginProps {}
 

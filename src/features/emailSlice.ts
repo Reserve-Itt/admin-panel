@@ -13,8 +13,8 @@ export const emailSlice = createSlice({
   initialState: initialState,
   reducers: {
     setEmail: (state, action: PayloadAction<{ email: string }>) => {
-      localStorage.setItem("email", JSON.stringify(action.payload));
-      state = action.payload;
+      localStorage.setItem("email", JSON.stringify({ email: action.payload }));
+      state.email = action.payload.email;
     },
   },
 });

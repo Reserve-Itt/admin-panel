@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { SelectAuth } from "../../features/authSlice";
 import { IAddService, IAuthState, IsignUpProvider } from "../../types";
+
 
 export const authApi = createApi({
   reducerPath: "authApi",

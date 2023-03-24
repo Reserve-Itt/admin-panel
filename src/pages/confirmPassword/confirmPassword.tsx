@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { ClipLoader } from "react-spinners";
-import { useAppDispatch } from "../../App/hooks";
+import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { useResetPasswordMutation } from "../../services/ApiService/authApi";
-import { AppErrorMessage, AppSuccesMessage } from "../../services/toastService";
+import { AppErrorMessage, AppSuccesMessage } from "../../services";
 import "./confirmPassword.css";
 
-const ConfirmPassword : React.FC = ()=> {
+const ConfirmPassword: React.FC = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -24,9 +24,11 @@ const ConfirmPassword : React.FC = ()=> {
     },
   ] = useResetPasswordMutation({});
 
-  const email: { email: string } = JSON.parse(
-    localStorage.getItem("email") || "{}"
-  );
+  // const email: { email: string } = JSON.parse(
+  //   localStorage.getItem("email") || "{}"
+  // );
+  //tODO: değişikiliği kontrol et
+  const email = useAppSelector((state: any) => state.email.email);
 
   const resetPasswordHandler = async () => {
     resetPassword({ email: email.email, password: password });
