@@ -1,7 +1,7 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Outlet, Route, Router, Routes } from "react-router-dom";
 
 import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../App/hooks";
+import { useAppSelector } from "../App/hooks";
 import { setUser } from "../features/authSlice";
 import { SelectAuth } from "../features/authSlice";
 
@@ -13,17 +13,20 @@ import Profile from "../pages/myProfile/Profile";
 import Beton from "../Beton";
 import AddService from "../pages/addService/addService";
 import NotFound from "../pages/notFoundPage/notFound";
+import { log } from "console";
 
 const LoginRoute = () => {
-  const { isUserLoggedIn } = useAppSelector(SelectAuth);
-
-  useEffect(() => {}, [isUserLoggedIn]);
   const userDummy = {
     name: "Enes ",
     surname: "YARDIM",
     providerType: "Halısaha",
     profilePictureUrl: "https://via.placeholder.com/200x200",
   };
+
+  let val = false;
+
+  const { isUserLoggedIn } = useAppSelector(SelectAuth);
+  val = isUserLoggedIn ? true : false;
 
   return (
     <Routes>
@@ -34,37 +37,17 @@ const LoginRoute = () => {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/confirm-password" element={<ConfirmPassword />} />
       <Route path="/not-found" element={<NotFound />} />
-      <Route
-        path="/main"
-        element={
-          <RequireAuth>
-            <Main />
-          </RequireAuth>
-        }
-      >
-        <Route path="main/profile" element={<Profile {...userDummy} />} />
-        <Route path="main/beton" element={<Beton />} />
-        <Route path="main/addService" element={<AddService />} />
-      </Route>
 
-      <Route path="*" element={<Navigate to="/not-found" />} />
+      <Route path="/main" element={val ? <Main /> : <Login />} />
+      <Route
+        path="/profile"
+        element={val ? <Profile {...userDummy} /> : <Login />}
+      />
+      <Route path="/beton" element={val ? <Beton /> : <Login />} />
+      <Route path="/addService" element={val ? <AddService /> : <Login />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
 
 export default LoginRoute;
-
-function RequireAuth({ children }: { children: JSX.Element }) {
-  const { isUserLoggedIn } = useAppSelector(SelectAuth);
-  // let auth = useAuth();
-  let location = "/main";
-
-  if (!isUserLoggedIn) {
-    // Redirect them to the /login page, but save the current location they were
-    // trying to go to when they were redirected. This allows us to send them
-    // along to that page after they login, which is a nicer user experience
-    // than dropping them off on the home page.
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
-  return children;
-}

@@ -33,6 +33,8 @@ const Login: React.FC<LoginProps> = () => {
   };
   // routing object.
   const appDispatch = useAppDispatch();
+  const { isUserLoggedIn } = useAppSelector(SelectAuth);
+
   const navigate = useNavigate();
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -67,22 +69,24 @@ const Login: React.FC<LoginProps> = () => {
     await loginUser({ email: email, password: password });
   };
 
-  // controls the login process
-  if (isLoginSuccess) {
-    AppSuccesMessage("Login Successfully");
-    // sets user data and writes it to browser.
-    appDispatch(
-      setUser({
-        success: loginData.success,
-        token: loginData.token,
-        userData: loginData.user,
-        isUserLoggedIn: true,
-      })
-    );
-    console.log("loginData", loginData);
-
-    // navigate("/main");
-  }
+  useEffect(() => {
+    // controls the login process
+    if (isLoginSuccess) {
+      AppSuccesMessage("Login Successfully");
+      // sets user data and writes it to browser.
+      appDispatch(
+        setUser({
+          success: loginData.success,
+          token: loginData.token,
+          userData: loginData.user,
+          isUserLoggedIn: true,
+        })
+      );
+      console.log("loginData", loginData);
+      navigate("/main");
+      // navigate("/main");
+    }
+  }, [isLoginSuccess]);
 
   useEffect(() => {
     if (isLoginError) {
@@ -93,13 +97,6 @@ const Login: React.FC<LoginProps> = () => {
     }
   }, [isLoginError, loginError]);
 
-  // when login succes object changes controls it and redirects accordingly.
-  useEffect(() => {
-    if (isLoginSuccess) {
-      navigate("/main");
-    }
-  }, [isLoginSuccess]);
-
   // handles the login
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -107,7 +104,7 @@ const Login: React.FC<LoginProps> = () => {
     // Handle login logic here
   };
 
-  const classes = useStyles();
+
   return (
     <>
       <div className="login-container">

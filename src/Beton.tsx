@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { useAppDispatch } from "./App/hooks";
 import { setUser } from "./features/authSlice";
 import { useGetUserQuery, useLoginUserMutation } from "./services/authApi";
+import { MuiThemeProvider } from "@material-ui/core";
+
+
 
 type Props = {};
 const obj = { email: "provider@gmail.com", password: "123456" };
