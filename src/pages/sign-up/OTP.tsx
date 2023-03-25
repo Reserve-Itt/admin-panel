@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { ClipLoader } from "react-spinners";
 import { setIsForgotActivated } from "../../features/forgotPassworddSlice";
 import { error } from "console";
+import { SelectForgotEmail } from "../../features";
 
 const Otp: React.FC = () => {
   // otp state
@@ -62,10 +63,7 @@ const Otp: React.FC = () => {
   //   localStorage.getItem("isForgotActivated") || "{}"
   // );
   const email = useAppSelector((state: any) => state.email.email);
-  const isForgotActivated = useAppSelector(
-    (state: any) => state.isForgotActivated.isForgotActivated
-  );
-
+  const {isForgotActivated} = useAppSelector(SelectForgotEmail );
   // otp verification handler
   const otpSendHandle = async () => {
     console.log("email", email);
