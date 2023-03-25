@@ -1,7 +1,4 @@
-import {
-  IsignUpProvider,
-  IAuthState,
-  IAddService,
-} from "./LoginTypes";
+import { IsignUpProvider, IAuthState, IAddService } from "./LoginTypes";
 
-export type { IsignUpProvider, IAuthState, IAddService };
+import { IAddAdvertisement } from "./ProviderTypes";
+export type { IsignUpProvider, IAuthState, IAddService, IAddAdvertisement };

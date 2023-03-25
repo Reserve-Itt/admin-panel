@@ -15,6 +15,7 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { AccountCircle, Password } from "@mui/icons-material";
+import { IAuthState } from "../../types";
 
 interface LoginProps {}
 
@@ -74,15 +75,34 @@ const Login: React.FC<LoginProps> = () => {
     if (isLoginSuccess) {
       AppSuccesMessage("Login Successfully");
       // sets user data and writes it to browser.
+      console.log("loginData", loginData);
+
+      let loginData2: IAuthState = loginData;
+      if (!loginData2.userData) return;
       appDispatch(
         setUser({
           success: loginData.success,
           token: loginData.token,
-          userData: loginData.user,
+          userData: {
+            providerName: loginData2.userData.providerName,
+            _id: loginData2.userData._id,
+            role: loginData2.userData.role,
+            createdAt: loginData2.userData.createdAt,
+            updatedAt: loginData2.userData.updatedAt,
+            description: loginData2.userData.description,
+            tax_number: loginData2.userData.tax_number,
+            phoneNumber: loginData2.userData.phoneNumber,
+            address: loginData2.userData.address,
+            __v: loginData2.userData.__v,
+            fcmTokens: loginData2.userData.fcmTokens,
+            isVerified: loginData2.userData.isVerified,
+            ownerName: loginData2.userData.ownerName,
+            providerType: loginData2.userData.providerType,
+          },
           isUserLoggedIn: true,
         })
       );
-      console.log("loginData", loginData);
+
       navigate("/main");
       // navigate("/main");
     }
@@ -104,7 +124,6 @@ const Login: React.FC<LoginProps> = () => {
     // Handle login logic here
   };
 
-
   return (
     <>
       <div className="login-container">
@@ -121,7 +140,12 @@ const Login: React.FC<LoginProps> = () => {
             />
           </div>*/}
           <FormControl sx={{ m: 1, width: "45ch" }} variant="standard">
-            <InputLabel htmlFor="input-with-icon-adornment">E-mail</InputLabel>
+            <InputLabel
+              style={{ backgroundColor: "rgba(0, 188, 212, 0.5)" }}
+              htmlFor="input-with-icon-adornment"
+            >
+              E-mail
+            </InputLabel>
             <Input
               id="input-with-icon-adornment"
               onChange={(e) => setEmail(e.target.value)}
@@ -146,7 +170,10 @@ const Login: React.FC<LoginProps> = () => {
                        onChange={(e) => setPassword(e.target.value)} />*/}
 
             <FormControl sx={{ m: 1, width: "45ch" }} variant="standard">
-              <InputLabel htmlFor="standard-adornment-password">
+              <InputLabel
+                style={{ backgroundColor: "rgba(0, 188, 212, 0.5)" }}
+                htmlFor="standard-adornment-password"
+              >
                 Password
               </InputLabel>
               <Input

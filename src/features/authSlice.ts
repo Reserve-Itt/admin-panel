@@ -23,17 +23,41 @@ export const authSlice = createSlice({
   initialState: initialState,
   reducers: {
     setUser: (state, action: PayloadAction<IAuthState>) => {
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          token: action.payload.token,
-          userData: action.payload.userData,
-          isUserLoggedIn: action.payload.isUserLoggedIn,
-          success: action.payload.success,
-        })
-      );
+      if (action.payload.userData) {
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            token: action.payload.token,
+            userData: {
+              __v: action.payload.userData.__v,
+              _id: action.payload.userData._id,
+              address: action.payload.userData.address,
+              createdAt: action.payload.userData.createdAt,
+              description: action.payload.userData.description,
+              email: action.payload.userData.email,
+              fcmTokens: action.payload.userData.fcmTokens,
+              isVerified: action.payload.userData.isVerified,
+            },
+            isUserLoggedIn: action.payload.isUserLoggedIn,
+            success: action.payload.success,
+          })
+        );
+      }
+
       state.token = action.payload.token;
-      state.userData = action.payload.userData;
+      if (action.payload.userData) {
+        state.userData = {
+          __v: action.payload.userData.__v,
+          _id: action.payload.userData._id,
+          address: action.payload.userData.address,
+          createdAt: action.payload.userData.createdAt,
+          description: action.payload.userData.description,
+          email: action.payload.userData.email,
+          fcmTokens: action.payload.userData.fcmTokens,
+          isVerified: action.payload.userData.isVerified,
+        };
+      }
+
       state.isUserLoggedIn = action.payload.isUserLoggedIn;
       state.success = action.payload.success;
     },

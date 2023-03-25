@@ -1,6 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IAddService, IAuthState, IsignUpProvider } from "../../types";
-
+import {
+  IAddAdvertisement,
+  IAddService,
+  IAuthState,
+  IsignUpProvider,
+} from "../../types";
 
 export const authApi = createApi({
   reducerPath: "authApi",
@@ -107,6 +111,16 @@ export const authApi = createApi({
     listServices: builder.query({
       query: (id) => ({ url: `list_services?/${id}` }),
     }),
+
+    addAdvertisement: builder.mutation({
+      query: (body: IAddAdvertisement) => {
+        return {
+          url: "add_advertisement",
+          method: "post",
+          body,
+        };
+      },
+    }),
   }),
 });
 
@@ -121,4 +135,5 @@ export const {
   useResetPasswordMutation,
   useGetUserQuery,
   useGetProviderServicesMutation,
+  useAddAdvertisementMutation,
 } = authApi;

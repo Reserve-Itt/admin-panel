@@ -19,7 +19,7 @@ export interface IsignUpProvider {
 
 export interface IAuthState {
   token?: string;
-  success?: true;
+  success?: boolean;
   userData?: {
     _id?: string;
     tax_number?: string;
