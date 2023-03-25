@@ -64,7 +64,23 @@ export const authSlice = createSlice({
     logout: (state) => {
       localStorage.clear();
       state.token = undefined;
-      state.userData = undefined;
+      state.userData = {
+        __v:undefined,
+        _id:undefined,
+        address:undefined,
+        createdAt:undefined,
+        description:undefined,
+        email:undefined,
+        fcmTokens:undefined,
+        isVerified:undefined,
+        ownerName:undefined,
+        phoneNumber:undefined,
+        providerName:undefined,
+        providerType:undefined,
+        role:undefined,
+        tax_number:undefined,
+        updatedAt:undefined,
+      };
       state.isUserLoggedIn = undefined;
       state.success = undefined;
     },
