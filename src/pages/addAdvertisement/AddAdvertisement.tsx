@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { TextField, Button, Typography } from "@material-ui/core";
-
+import { TextField, Button, Typography, Box } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 interface Advertisement {
     advertisementTitleText: string;
     advertisementDescriptionText: string;
@@ -9,8 +9,57 @@ interface Advertisement {
     advertisement_image: File | null;
     advertisement_image_url: string;
 }
-
+const useStyles = makeStyles((theme) => ({
+    form: {
+        marginLeft: "300px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "100%",
+        padding: theme.spacing(2),
+        borderRadius: theme.spacing(1),
+        backgroundColor: "#fff",
+        boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+    },
+    chooseImageButton: {
+        marginTop: theme.spacing(2),
+        color: "#fff",
+        backgroundColor: "#007aff",
+        padding: theme.spacing(1, 2),
+        borderRadius: theme.spacing(0.5),
+        transition: "all 0.3s ease-in-out",
+        "&:hover": {
+            backgroundColor: "#0062cc",
+        },
+    },
+    previewImage: {
+        maxWidth: "60%",
+        marginTop: theme.spacing(2),
+    },
+    submitButton: {
+        marginTop: theme.spacing(2),
+        color: "#fff",
+        backgroundColor: "#007aff",
+        padding: theme.spacing(1, 2),
+        borderRadius: theme.spacing(0.5),
+        transition: "all 0.3s ease-in-out",
+        "&:hover": {
+            backgroundColor: "#0062cc",
+        },
+    },
+    inputText: {
+        marginTop: theme.spacing(1),
+        padding: theme.spacing(1),
+        width: "100%",
+        transition: "all 0.3s ease-in-out",
+        "&:focus": {
+            outline: "none",
+            boxShadow: `0 0 5px ${theme.palette.primary.main}`,
+        },
+    },
+}));
 const AddAdvertisement = () => {
+    const classes = useStyles();
     const [advertisement, setAdvertisement] = useState<Advertisement>({
         advertisementTitleText: "",
         advertisementDescriptionText: "",
@@ -53,11 +102,11 @@ const AddAdvertisement = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log(advertisement);
-        // add your API call or form submission logic here
+        //abdusselam koc
     };
 
     return (
-        <div>
+        <Box className={classes.form} sx={{ p: 2 }}>
             <Typography variant="h4" gutterBottom>
                 Add Advertisement
             </Typography>
@@ -65,6 +114,7 @@ const AddAdvertisement = () => {
                 <TextField
                     name="advertisementTitleText"
                     label="Advertisement Title"
+                    className={classes.inputText}
                     value={advertisement.advertisementTitleText}
                     onChange={handleInputChange}
                     fullWidth
@@ -73,6 +123,7 @@ const AddAdvertisement = () => {
                 <TextField
                     name="advertisementDescriptionText"
                     label="Advertisement Description"
+                    className={classes.inputText}
                     value={advertisement.advertisementDescriptionText}
                     onChange={handleInputChange}
                     fullWidth
@@ -82,6 +133,7 @@ const AddAdvertisement = () => {
                     name="advertisementStartDate"
                     label="Start Date"
                     type="date"
+                    className={classes.inputText}
                     value={advertisement.advertisementStartDate}
                     onChange={handleInputChange}
                     fullWidth
@@ -92,6 +144,7 @@ const AddAdvertisement = () => {
                     name="advertisementEndDate"
                     label="End Date"
                     type="date"
+                    className={classes.inputText}
                     value={advertisement.advertisementEndDate}
                     onChange={handleInputChange}
                     fullWidth
@@ -103,12 +156,13 @@ const AddAdvertisement = () => {
                         accept="image/*"
                         id="advertisement_image"
                         name="advertisement_image"
+                        className={classes.inputText}
                         type="file"
                         onChange={handleImageChange}
                         style={{ display: "none" }}
                     />
                     <label htmlFor="advertisement_image">
-                        <Button variant="contained" color="primary" component="span">
+                        <Button variant="contained" color="primary" component="span" className={classes.chooseImageButton}>
                             Choose Image
                         </Button>
                     </label>
@@ -118,7 +172,7 @@ const AddAdvertisement = () => {
                         <img
                             src={advertisement.advertisement_image_url}
                             alt="Advertisement"
-                            style={{ maxWidth: "100%", marginTop: "10px" }}
+                            className={classes.previewImage}
                         />
                     </div>
                 )}
@@ -126,12 +180,13 @@ const AddAdvertisement = () => {
                     variant="contained"
                     color="primary"
                     type="submit"
-                    style={{ marginTop: "10px" }}
+                    className={classes.submitButton}
                 >
                     Submit
                 </Button>
             </form>
-        </div>
+        </Box>
+
     );
 };
 
