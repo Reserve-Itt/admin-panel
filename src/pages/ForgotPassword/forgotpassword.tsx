@@ -7,6 +7,9 @@ import { setEmail } from "../../features/emailSlice";
 import { AppErrorMessage, AppSuccesMessage } from "../../services/toastService";
 import { setIsForgotActivated } from "../../features/forgotPassworddSlice";
 import { useForgotPasswordMutation } from "../../services/ApiService/authApi";
+import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
+import {styled} from "@mui/material";
+import {blue} from "@mui/material/colors";
 
 const ForgotPassword : React.FC = ()=> {
   const [email, setLocalEmail] = useState("");
@@ -49,10 +52,16 @@ const ForgotPassword : React.FC = ()=> {
     forgothandler();
     // Add code to submit email and send password reset link
   };
-
+  const BlueReportGmailerrorred = styled(ReportGmailerrorredIcon)({
+    color: blue[500],
+    fontSize: 60,
+  });
   return (
     <div className="forgot-password-container">
       <div className="forgot-password-box">
+
+          <BlueReportGmailerrorred />
+
         <h2>Forgot Password</h2>
         <p>Enter your email to reset your password</p>
         <form onSubmit={handleSubmit}>

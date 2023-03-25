@@ -122,7 +122,7 @@ const Signup: FC<IProps> = () => {
                 />
               </div>
             </div>
-
+            <div className="input-group">
             <input
               placeholder="Description"
               type="text"
@@ -131,8 +131,8 @@ const Signup: FC<IProps> = () => {
               onChange={handleChange}
               required
             />
-
-            <div className="double-input">
+            </div>
+              <div className="double-input">
               <div className="input-group">
                 <input
                   placeholder="Tax Number"
@@ -146,47 +146,50 @@ const Signup: FC<IProps> = () => {
 
               <div className="input-group">
                 <input
+                    placeholder="Phone Number"
+                    type="text"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    required
+                />
+              </div>
+            </div>
+            <div className="input-group">
+              <input
                   placeholder="Address"
                   type="text"
                   name="adress"
                   value={formData.adress}
                   onChange={handleChange}
                   required
-                />
-              </div>
+              />
+
             </div>
             <div className="input-group">
-              <input
-                placeholder="Phone Number"
-                type="text"
-                name="phoneNumber"
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                required
-              />
+              <select
+                  name="select"
+                  className="select"
+                  value={formData.select}
+                  onChange={handleChange}
+                  required
+              >
+                <option className="option placeholder" value="" disabled hidden>
+                  Select Provider Type
+                </option>
+                <option className="option" value="FOOTBALL">
+                  Football pitch owner
+                </option>
+                <option className="option" value="HAIRDRESSER">
+                  Hairdresser
+                </option>
+                <option className="option" value="INDIVIDUAL">
+                  Individual
+                </option>
+              </select>
+
             </div>
-
-            <select
-              name="select"
-              className="select"
-              value={formData.select}
-              onChange={handleChange}
-              required
-            >
-              <option className="option" value="">
-                Select Provider Type
-              </option>
-              <option className="option" value="FOOTBALL">
-                Football pitch owner
-              </option>
-              <option className="option" value="HAIRDRESSER">
-                Hairdresser
-              </option>
-              <option className="option" value="INDIVIDUAL">
-                Individual
-              </option>
-            </select>
-
+            <div className="input-group">
             <input
               placeholder="Email"
               type="email"
@@ -195,10 +198,10 @@ const Signup: FC<IProps> = () => {
               onChange={handleChange}
               required
             />
+              </div>
 
             <div className="double-input">
               <div className="input-group">
-                <label htmlFor="password">Password</label>
                 <input
                   placeholder="Password"
                   type="password"
@@ -209,17 +212,19 @@ const Signup: FC<IProps> = () => {
                 />
               </div>
               <div className="input-group">
-                <label htmlFor="confirmPassword">Confirm Password</label>
                 <input
                   type="password"
                   name="confirmPassword"
+                  placeholder="Confirm Password"
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   required
                 />
               </div>
             </div>
-            <button type="submit">Sign Up</button>
+            <div className="input-group">
+            <button className="signup-button" type="submit">Sign Up</button>
+            </div>
           </form>
           <Link to="/login" className="login-link">
             Already have an account? Login

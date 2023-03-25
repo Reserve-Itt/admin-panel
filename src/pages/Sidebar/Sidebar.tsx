@@ -119,11 +119,11 @@ const Sidebar: FC = () => {
               </ListItemIcon>
               <ListItemText primary="Settings" />
             </ListItem>
-            <ListItem button onClick={() => handleNavigation("/offers")}>
+            <ListItem button onClick={() => handleNavigation("/addAdvertisement")}>
               <ListItemIcon>
                 <LocalOfferIcon />
               </ListItemIcon>
-              <ListItemText primary="Offers" />
+              <ListItemText primary="Add Advertisement" />
             </ListItem>
           </List>
         </div>
