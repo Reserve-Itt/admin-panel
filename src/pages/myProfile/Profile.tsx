@@ -36,6 +36,7 @@
 
         return (
             <body className="body">
+
             <div className="profile-header"><h3 className="profile-headerh3">Your Profile</h3></div>
             <EditProfile profile={dummyProfile} onSave={handleSave} />
             </body>

@@ -26,6 +26,7 @@ const AddService: React.FC = () => {
   //const user = JSON.parse(localStorage.getItem("user") || "{}"); // controls the si
 
   const { userData } = useAppSelector(SelectAuth);
+
   // handles form change.
   const serviceAddHandle = async () => {
     console.log("userdata", userData);

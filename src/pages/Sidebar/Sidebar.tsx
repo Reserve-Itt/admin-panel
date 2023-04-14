@@ -95,7 +95,7 @@ const Sidebar: FC = () => {
               </ListItemIcon>
               <ListItemText primary="About" />
             </ListItem>
-            <ListItem button onClick={() => handleNavigation("/services")}>
+            <ListItem button onClick={() => handleNavigation("/addService")}>
               <ListItemIcon>
                 <BusinessCenterIcon />
               </ListItemIcon>

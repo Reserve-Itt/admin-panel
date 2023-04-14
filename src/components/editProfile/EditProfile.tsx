@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(2),
         marginTop: "130px",
         width: '80%',
+        backgroundColor: 'white',
     },
     field: {
         margin: theme.spacing(1),
@@ -78,11 +79,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
+    const [isChanged, setIsChanged] = useState(false);
     const classes = useStyles();
     const [formData, setFormData] = useState<Profile>(profile);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
+        setIsChanged(true);
         setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
     };
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -107,103 +110,108 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
         onSave(formData);
     };
     const handleCancel = () => {
-        // Add your logic to cancel the operation here
+        setFormData(profile);
+        setIsChanged(false);
         console.log("Operation cancelled.");
     };
 
     return (
-        <form className={classes.form} onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
-                <Grid item xs={12} md={6}>
-                    <TextField
-                        name="providerName"
-                        label="Provider Name"
-                        className={classes.field}
-                        value={formData.providerName}
-                        onChange={handleInputChange}
-                    />
+        <body>
+            <img src="../../assets" alt="-----------------------------"/>
+            <form className={classes.form} onSubmit={handleSubmit}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            name="providerName"
+                            label="Provider Name"
+                            className={classes.field}
+                            value={formData.providerName}
+                            onChange={handleInputChange}/>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            name="ownerName"
+                            label="Owner Name"
+                            className={classes.field}
+                            value={formData.ownerName}
+                            onChange={handleInputChange}/>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            name="description"
+                            label="Description"
+                            className={classes.field}
+                            value={formData.description}
+                            onChange={handleInputChange}/>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            name="address"
+                            label="Address"
+                            className={classes.field}
+                            value={formData.address}
+                            onChange={handleInputChange}/>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            name="phoneNumber"
+                            label="Phone Number"
+                            className={classes.field}
+                            value={formData.phoneNumber}
+                            onChange={handleInputChange}/>
+                    </Grid>
+                    <Grid>
+                        <div>
+                            <input
+                                accept="image/*"
+                                id="advertisement_image"
+                                name="advertisement_image"
+                                className={classes.inputText}
+                                type="file"
+                                onChange={handleImageChange}
+                                style={{display: "none"}}/>
+                            <label htmlFor="advertisement_image">
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    component="span"
+                                    className={classes.chooseImageButton}
+                                >
+                                    Choose Image
+                                </Button>
+                            </label>
+                        </div>
+                        {/*{advertisement.advertisement_image_url && (
+        <div>
+            <img
+                src={advertisement.advertisement_image_url}
+                alt="Advertisement"
+                className={classes.previewImage}
+            />
+        </div>
+    )}*/}
+
+                    </Grid>
+
                 </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField
-                        name="ownerName"
-                        label="Owner Name"
-                        className={classes.field}
-                        value={formData.ownerName}
-                        onChange={handleInputChange}
-                    />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField
-                        name="description"
-                        label="Description"
-                        className={classes.field}
-                        value={formData.description}
-                        onChange={handleInputChange}
-                    />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField
-                        name="address"
-                        label="Address"
-                        className={classes.field}
-                        value={formData.address}
-                        onChange={handleInputChange}
-                    />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField
-                        name="phoneNumber"
-                        label="Phone Number"
-                        className={classes.field}
-                        value={formData.phoneNumber}
-                        onChange={handleInputChange}
-                    />
-                </Grid>
-                <Grid>
                 <div>
-                    <input
-                        accept="image/*"
-                        id="advertisement_image"
-                        name="advertisement_image"
-                        className={classes.inputText}
-                        type="file"
-                        onChange={handleImageChange}
-                        style={{ display: "none" }}
-                    />
-                    <label htmlFor="advertisement_image">
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            component="span"
-                            className={classes.chooseImageButton}
-                        >
-                            Choose Image
-                        </Button>
-                    </label>
+                    <Button type="submit" variant="contained" color="primary" className={classes.button}>
+                        Save
+                    </Button>
+
+                    <Button
+                        type="button"
+                        variant="contained"
+                        color="default"
+                        className={classes.button}
+                        onClick={handleCancel}
+                        disabled={!isChanged}
+                    >
+                        Cancel
+                    </Button>
                 </div>
-                {/*{advertisement.advertisement_image_url && (
-                    <div>
-                        <img
-                            src={advertisement.advertisement_image_url}
-                            alt="Advertisement"
-                            className={classes.previewImage}
-                        />
-                    </div>
-                )}*/}
-
-            </Grid>
-
-            </Grid>
-            <div>
-            <Button type="submit" variant="contained" color="primary" className={classes.button}>
-                Save
-            </Button>
-
-            <Button type="button" variant="contained" color="default" className={classes.button} onClick={handleCancel}>
-                Cancel
-            </Button>
-            </div>
-        </form>
+            </form>
+        </body>
     );
 };
 
