@@ -98,18 +98,8 @@ export const authApi = createApi({
       },
     }),
 
-    getProviderServices: builder.mutation({
-      query: (body: { id: string }) => {
-        return {
-          url: "list_services",
-          method: "post",
-          body,
-        };
-      },
-    }),
-
     listServices: builder.query({
-      query: (id) => ({ url: `list_services?/${id}` }),
+      query: (id) => `list_services?id=${id.id.toString()}`,
     }),
 
     addAdvertisement: builder.mutation({
@@ -134,6 +124,6 @@ export const {
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useGetUserQuery,
-  useGetProviderServicesMutation,
   useAddAdvertisementMutation,
+  useLazyListServicesQuery,
 } = authApi;

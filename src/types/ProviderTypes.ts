@@ -9,3 +9,10 @@ export interface IAddAdvertisement {
     advertisement_image_url?: string;
   };
 }
+
+export interface IProviderService {
+  serviceDescription?: string;
+  serviceDuration?: number;
+  serviceName?: string;
+  servicePrice?: number;
+}

@@ -6,6 +6,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import { AppErrorMessage, AppSuccesMessage } from "../../services";
 import { useAddServiceMutation } from "../../services/ApiService/authApi";
 import { useAppDispatch, useAppSelector } from "../../App/hooks";
+import { SelectAuth } from "../../features";
 
 interface Service {
   name: string;
@@ -24,11 +25,10 @@ const AddService: React.FC = () => {
   });
   //const user = JSON.parse(localStorage.getItem("user") || "{}"); // controls the si
 
-  const user = useAppSelector((state: any) => state.user.user);
-
+  const { userData } = useAppSelector(SelectAuth);
   // handles form change.
   const serviceAddHandle = async () => {
-    console.log("userdata", user);
+    console.log("userdata", userData);
 
     let data: IAddService = {
       providerId: "63f9d78f1f42f18c9a4c84c5",
