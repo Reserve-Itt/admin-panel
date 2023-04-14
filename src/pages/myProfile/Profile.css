@@ -7,136 +7,19 @@
     padding: 20px;
 
 }
-.box{
-    background-color: #fff9c4;
-    border: 1px solid #ffca28;
-    border-radius: 8px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+.profile-header {
+    background-color: #f2f2f2;
     padding: 20px;
-    height: 25vh;
-    width: 25vw;
-}
-.container {
-    margin-top: 70px;
-}
-.card-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px #ccc;
 }
 
-.card-header {
-    background-color: #2c3e50;
-    color: white;
+.profile-headerh3 {
+    font-size: 1.5em;
     font-weight: bold;
-
-}
-
-.card {
-    border-radius: 15px;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s;
-    margin-bottom: 20px;
-    margin-left: 75px ;
-    padding: 20px;
-    width: 13vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 20vh;
-
-}
-
-.card:hover {
-    transform: translateY(-10px);
-}
-
-.card-body {
-    text-align: center;
-}
-
-.card-title {
-    font-size: 32px;
-    font-weight: bold;
+    color: #333;
     margin-bottom: 10px;
+    text-align: center;
 }
-
-.card-text {
-    font-size: 16px;
-    color: #7f8c8d;
-    margin-bottom: 0;
-}
-
-.card1 {
-    background: linear-gradient(to bottom right, #78e08f, #63cdda);
-}
-
-.card2 {
-    background: linear-gradient(to bottom right, #ff9ff3, #f6e58d);
-}
-
-.card3 {
-    background: linear-gradient(to bottom right, #f6d365, #fda085);
-}
-
-.card4 {
-    background: linear-gradient(to bottom right, #48c6ef, #6f86d6);
-}
-
-.circle1 {
-    background-color: #78e08f;
-}
-
-.circle2 {
-    background-color: #ff9ff3;
-}
-
-.circle3 {
-    background-color: #f6d365;
-}
-
-.circle4 {
-    background-color: #48c6ef;
-}
-
-.circle {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-
-}
-
-.container2 {
-    margin-left: 70px;
-    margin-top: 40px;
-    display: flex;
-    flex-direction: row; /* this will split the divs horizontally */
-}
-
-.div1{
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
-    padding: 20px;
-}
-
-.div2{
-    margin-left: auto;
-    margin-right: 105px;
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
-    padding: 10px;
-}
-
-
 
 
