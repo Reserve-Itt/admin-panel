@@ -83,7 +83,7 @@ const Sidebar: FC = () => {
             <Typography variant="h2">ADMIN</Typography>
           </div>
           <List>
-            <ListItem button onClick={() => handleNavigation("/")}>
+            <ListItem button onClick={() => handleNavigation("/main")}>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
