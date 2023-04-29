@@ -22,13 +22,17 @@ import {
   IconButton,
 } from "@material-ui/core";
 import { Add as AddIcon } from "@material-ui/icons";
-import { useListServicesQuery } from "../../services/ApiService/authApi";
+import {
+  useListCommentsQuery,
+  useListServicesQuery,
+} from "../../services/ApiService/authApi";
 import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { SelectAuth } from "../../features";
 import { IProviderService } from "../../types";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { ListCard } from "../../components";
+import { useNavigate } from "react-router";
 
 const useStyles2 = makeStyles((theme) => ({
   root: {
@@ -171,6 +175,7 @@ const Main: React.FC = ({}) => {
   const classes = useStyles();
   const classes2 = useStyles2();
 
+  const navigate = useNavigate();
   const [openListServiceModal, setOpenListServiceModal] =
     useState<boolean>(false);
   const handleOpen = () => setOpenListServiceModal(true);
@@ -189,10 +194,35 @@ const Main: React.FC = ({}) => {
     { id: userData?._id != undefined ? userData._id.trim() : "" },
     { skip: !isUserLoggedIn }
   );
-
+  const [tservices, setServices] = useState<Array<IProviderService>>([]);
   useEffect(() => {
     if (userServicesListISucess) services = userServicesListData;
   }, [userServicesListData]);
+
+  /// comment list operation
+  const {
+    data: commentData,
+    isSuccess: commentIsSuccess,
+    isError: CommentIserror,
+    error: commentError,
+    isLoading: commentIsLoading,
+  } = useListCommentsQuery(
+    { id: userData?._id != undefined ? userData._id.trim() : "" },
+    { skip: !isUserLoggedIn }
+  );
+  useEffect(() => {
+    console.log("commentData  ", commentData);
+  }, [commentIsSuccess]);
+
+  // if there is comment error
+  useEffect(() => {
+    console.log("commentError  ", commentError);
+  }, [CommentIserror]);
+
+  // if there is comment loading
+  useEffect(() => {
+    console.log("commentIsLoading  ", commentIsLoading);
+  }, [commentIsLoading]);
 
   const test = () => {
     services.forEach((e) => {
@@ -268,7 +298,9 @@ const Main: React.FC = ({}) => {
               color="primary"
               startIcon={<AddIcon />}
               className={classes.addButton}
-              onClick={handleOpen}
+              onClick={() => {
+                navigate("/addservice");
+              }}
             >
               Add New Service
             </Button>
@@ -354,3 +386,6 @@ const Main: React.FC = ({}) => {
 };
 
 export default Main;
+function AppErrorMessage(message: any) {
+  throw new Error("Function not implemented.");
+}

@@ -1,3 +1,6 @@
+
+//TODO:file form data olarak gönderilecek.
+
 import React, { FC, useEffect, useState } from "react";
 import { TextField, Button, Typography, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -5,6 +8,7 @@ import { useAddAdvertisementMutation } from "../../services/ApiService/authApi";
 import { useAppSelector } from "../../App/hooks";
 import { SelectAuth } from "../../features";
 import { AppErrorMessage, AppSuccesMessage } from "../../services";
+import { IAddAdvertisement } from "../../types";
 interface Advertisement {
   advertisementTitleText: string;
   advertisementDescriptionText: string;
@@ -82,19 +86,17 @@ const AddAdvertisement: FC = () => {
   console.log("userDataAdd", userData);
 
   const handleClick = async () => {
-
-    await addAdvertisement({
+    let data: IAddAdvertisement = {
       providerId: userData?._id,
-      advertisement: {
-        advertisementTitleText: advertisement.advertisementTitleText,
-        advertisementDescriptionText:
-        advertisement.advertisementDescriptionText,
-        advertisementStartDate: advertisement.advertisementStartDate,
-        advertisementEndDate: advertisement.advertisementEndDate,
-        advertisement_image: advertisement.advertisement_image,
-        advertisement_image_url: "beton.com",
-      },
-    });
+      advertisementTitleText: advertisement.advertisementTitleText,
+      advertisementDescriptionText: advertisement.advertisementDescriptionText,
+      advertisementStartDate: advertisement.advertisementStartDate,
+      advertisementEndDate: advertisement.advertisementEndDate,
+      advertisement_image: advertisement.advertisement_image,
+    };
+    console.log("adverstsement data", data);
+
+    await addAdvertisement(data);
   };
 
   // success handler useEffect
@@ -153,7 +155,7 @@ const AddAdvertisement: FC = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(advertisement);
-    handleClick();
+    //  handleClick();
   };
 
   return (
@@ -237,6 +239,7 @@ const AddAdvertisement: FC = () => {
           color="primary"
           type="submit"
           className={classes.submitButton}
+          onClick={handleClick}
         >
           Submit
         </Button>

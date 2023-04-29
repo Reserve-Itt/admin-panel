@@ -3,6 +3,8 @@ import {
   IAddAdvertisement,
   IAddService,
   IAuthState,
+  IProfile,
+  IProviderUpdateRequest,
   IsignUpProvider,
 } from "../../types";
 
@@ -102,6 +104,20 @@ export const authApi = createApi({
       query: (id) => `list_services?id=${id.id.toString()}`,
     }),
 
+    UpdateProvider: builder.mutation({
+      query: (body: IProviderUpdateRequest) => {
+        return {
+          url: "update",
+          method: "PATCH",
+          body,
+        };
+      },
+    }),
+
+    listComments: builder.query({
+      query: (id) => `list_comments?id=${id.id.toString()}`,
+    }),
+
     addAdvertisement: builder.mutation({
       query: (body: IAddAdvertisement) => {
         return {
@@ -126,4 +142,6 @@ export const {
   useGetUserQuery,
   useAddAdvertisementMutation,
   useLazyListServicesQuery,
+  useUpdateProviderMutation,
+  useListCommentsQuery,
 } = authApi;

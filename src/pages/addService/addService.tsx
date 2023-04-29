@@ -56,9 +56,8 @@ const AddService: React.FC = () => {
   // handles form change.
   const serviceAddHandle = async () => {
     console.log("userdata", userData);
-
     let data: IAddService = {
-      providerId: "63f9d78f1f42f18c9a4c84c5",
+      providerId: userData?._id,
       services: {
         serviceDescription: service.description,
         serviceDuration: service.duration,
