@@ -82,13 +82,13 @@ const AddAdvertisement: FC = () => {
   console.log("userDataAdd", userData);
 
   const handleClick = async () => {
-    
+
     await addAdvertisement({
       providerId: userData?._id,
       advertisement: {
         advertisementTitleText: advertisement.advertisementTitleText,
         advertisementDescriptionText:
-          advertisement.advertisementDescriptionText,
+        advertisement.advertisementDescriptionText,
         advertisementStartDate: advertisement.advertisementStartDate,
         advertisementEndDate: advertisement.advertisementEndDate,
         advertisement_image: advertisement.advertisement_image,

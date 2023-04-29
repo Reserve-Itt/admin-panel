@@ -16,8 +16,39 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { AccountCircle, Password } from "@mui/icons-material";
 import { IAuthState } from "../../types";
+import {LockOutlined} from "@material-ui/icons";
+import logo from '../../assets/reserve_it_logo-removebg-preview.png';
+import Typist from "react-typist";
 
 interface LoginProps {}
+
+function LoginTypist() {
+  const [typistDone, setTypistDone] = useState(false);
+
+  const handleTypingDone = () => {
+    setTypistDone(true);
+  };
+
+  useEffect(() => {
+    if (typistDone) {
+      setTimeout(() => {
+        setTypistDone(false);
+      }, 1000);
+    }
+  }, [typistDone]);
+
+  return (
+      <Typist
+          avgTypingDelay={50}
+          onTypingDone={handleTypingDone}
+          cursor={{ show: false }}
+      >
+        <span className="typist-wrapper">Hello Dear Customers!</span>
+        <Typist.Backspace count={15} delay={1000} />
+        <span className="typist-wrapper">, Reserve-It for your convenience!</span>
+      </Typist>
+  );
+}
 
 const Login: React.FC<LoginProps> = () => {
   // email state
@@ -37,7 +68,7 @@ const Login: React.FC<LoginProps> = () => {
   const { isUserLoggedIn } = useAppSelector(SelectAuth);
 
   const navigate = useNavigate();
-  const useStyles = makeStyles((theme) => ({
+  makeStyles((theme) => ({
     root: {
       display: "flex",
       flexDirection: "column",
@@ -53,7 +84,7 @@ const Login: React.FC<LoginProps> = () => {
       width: "25ch",
     },
   }));
-  // userlogin object
+// userlogin object
   const [
     loginUser,
     {
@@ -69,6 +100,8 @@ const Login: React.FC<LoginProps> = () => {
   const loginHandle = async () => {
     await loginUser({ email: email, password: password });
   };
+
+
 
   useEffect(() => {
     // controls the login process
@@ -124,101 +157,86 @@ const Login: React.FC<LoginProps> = () => {
     // Handle login logic here
   };
 
+
+
   return (
-    <>
-      <div className="login-container">
-        <form onSubmit={handleSubmit} className="login-form">
-          <h1 className="welcome-header">Welcome</h1>
-          {/*  <div>
-            <label htmlFor="email">Email</label>
-            <input
-                placeholder="e-mail"
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>*/}
-          <FormControl sx={{ m: 1, width: "45ch" }} variant="standard">
-            <InputLabel
-              style={{ backgroundColor: "rgba(0, 188, 212, 0.5)" }}
-              htmlFor="input-with-icon-adornment"
-            >
-              E-mail
-            </InputLabel>
-            <Input
-              id="input-with-icon-adornment"
-              onChange={(e) => setEmail(e.target.value)}
-              startAdornment={
-                <InputAdornment position="start">
-                  <AccountCircle />
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-          <div>
-            {/* <label htmlFor="password">Password</label>
-            <input
-                placeholder="password"
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+      <>
+        <div className="login-container">
+          <div className="login-form2">
+            <img src={logo} alt="Logo" style={{ height: "375px", width: "400px"}} />
 
-            <TextField label="Password" type="password" className={classes.input}  value={password}
-                       onChange={(e) => setPassword(e.target.value)} />*/}
-
+            <LoginTypist />
+          </div>
+          <form onSubmit={handleSubmit} className="login-form">
+            <div className="form-group">
+              <p className="login-text">Sign in to your account</p>
             <FormControl sx={{ m: 1, width: "45ch" }} variant="standard">
               <InputLabel
-                style={{ backgroundColor: "rgba(0, 188, 212, 0.5)" }}
-                htmlFor="standard-adornment-password"
+                  style={{ backgroundColor: "rgb(255,255,255)" }}
+                  htmlFor="input-with-icon-adornment"
               >
-                Password
+                E-mail
               </InputLabel>
               <Input
-                id="standard-adornment-password"
-                type={showPassword ? "text" : "password"}
-                onChange={(e: {
-                  target: { value: React.SetStateAction<string> };
-                }) => setPassword(e.target.value)}
-                startAdornment={
-                  <InputAdornment position="start">
-                    <Password />
-                  </InputAdornment>
-                }
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
+                  id="input-with-icon-adornment"
+                  onChange={(e) => setEmail(e.target.value)}
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <AccountCircle />
+                    </InputAdornment>
+                  }
               />
             </FormControl>
-          </div>
-          <button className="submit-button" type="submit">
-            {isLoginLoading ? (
-              <ClipLoader
-                color={"red"}
-                loading={true}
-                size={30}
-                aria-label="Loading Spinner"
-                data-testid="loader"
-              />
-            ) : (
-              "Login"
-            )}
-          </button>
-          <a href="/signup">Signup</a>
-          <a href="/forgot-password">Forgot Password</a>
-        </form>
-      </div>
-    </>
+            <div>
+              <FormControl sx={{ m: 1, width: "45ch" }} variant="standard">
+                <InputLabel
+                    style={{ backgroundColor: "rgb(255,255,255)" }}
+                    htmlFor="standard-adornment-password"
+                >
+                  Password
+                </InputLabel>
+                <Input
+                    id="standard-adornment-password"
+                    type={showPassword ? "text" : "password"}
+                    onChange={(e) => setPassword(e.target.value)}
+                    startAdornment={
+                      <InputAdornment position="start">
+                        <LockOutlined />
+                      </InputAdornment>
+                    }
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                />
+              </FormControl>
+            </div>
+            </div>
+            <button className="submit-button" type="submit">
+              {isLoginLoading ? (
+                  <ClipLoader
+                      color={"red"}
+                      loading={true}
+                      size={30}
+                      aria-label="Loading Spinner"
+                      data-testid="loader"
+                  />
+              ) : (
+                  "Login"
+              )}
+            </button>
+            <a href="/signup">Don't you have an account? Signup here.</a>
+            <a href="/forgot-password">Forgot Password</a>
+          </form>
+        </div>
+      </>
   );
 };
 

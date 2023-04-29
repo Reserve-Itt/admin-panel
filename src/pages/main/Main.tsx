@@ -203,16 +203,7 @@ const Main: React.FC = ({}) => {
   return (
     <body className="body">
       <Container>
-        <Modal
-          open={openListServiceModal}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={ModalStyle}>
-            <>{test}</>
-          </Box>
-        </Modal>
+
 
         <Row style={{ display: "flex", flexWrap: "nowrap" }}>
           <div className="card-container">

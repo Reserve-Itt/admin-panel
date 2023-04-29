@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "./addService.css";
 
-import { IAddService } from "../../types";
+import {IAddService, IProviderService} from "../../types";
 import Sidebar from "../Sidebar/Sidebar";
 import { AppErrorMessage, AppSuccesMessage } from "../../services";
-import { useAddServiceMutation } from "../../services/ApiService/authApi";
+import {useAddServiceMutation, useListServicesQuery} from "../../services/ApiService/authApi";
 import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { SelectAuth } from "../../features";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import {ListCard} from "../../components";
 
 interface Service {
   name: string;
@@ -15,16 +18,39 @@ interface Service {
   duration: number;
 }
 
+let services: Array<IProviderService> = [
+  {
+    serviceDescription: "123123",
+    serviceDuration: 12,
+    serviceName: "2131",
+    servicePrice: 23,
+  },
+  {
+    serviceDescription: "123",
+    serviceDuration: 12,
+    serviceName: "123",
+    servicePrice: 123,
+  },
+  {
+    serviceDescription: "123123",
+    serviceDuration: 123,
+    serviceName: "12314",
+    servicePrice: 12312,
+  },
+];
 // handles form change.
 const AddService: React.FC = () => {
   const [service, setService] = useState<Service>({
-    name: "",
-    price: 0,
-    description: "",
-    duration: 0,
+    name: "123",
+    price: 10,
+    description: "123",
+    duration: 1320,
   });
   //const user = JSON.parse(localStorage.getItem("user") || "{}"); // controls the si
-
+  const [openListServiceModal, setOpenListServiceModal] =
+      useState<boolean>(false);
+  const handleOpen = () => setOpenListServiceModal(true);
+  const handleClose = () => setOpenListServiceModal(false);
   const { userData } = useAppSelector(SelectAuth);
 
   // handles form change.
@@ -94,6 +120,26 @@ const AddService: React.FC = () => {
     AppErrorMessage(data.data.message);
     console.log(data.data.message);
   }
+  const { isUserLoggedIn} = useAppSelector(SelectAuth);
+  const {
+    data: userServicesListData,
+    isSuccess: userServicesListISucess,
+    isError: userServicesListIsError,
+    error: userServicesListError,
+    isLoading: userServicesListLoading,
+  } = useListServicesQuery(
+      { id: userData?._id != undefined ? userData._id.trim() : "" },
+      { skip: !isUserLoggedIn }
+  );
+  useEffect(() => {
+    if (userServicesListISucess) services = userServicesListData;
+  }, [userServicesListData]);
+
+  const test = () => {
+    services.forEach((e) => {
+      return <ListCard Data={e} />;
+    });
+  };
 
   return (
     <>
@@ -160,6 +206,16 @@ const AddService: React.FC = () => {
             </button>
           </form>
         </div>
+        <Modal
+            open={openListServiceModal}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+        >
+          <Box>
+            <>{test}</>
+          </Box>
+        </Modal>
       </body>
     </>
   );

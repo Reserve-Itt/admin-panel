@@ -25,7 +25,7 @@ const LoginRoute: React.FC = () => {
     providerType: "Halısaha",
     profilePictureUrl: "https://via.placeholder.com/200x200",
   };
-  let val = false;
+  let val: boolean;
   const { isUserLoggedIn } = useAppSelector(SelectAuth);
   val = isUserLoggedIn ? true : false;
 
