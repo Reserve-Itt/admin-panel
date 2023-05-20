@@ -1,4 +1,3 @@
-
 import React, { FC, useEffect, useState } from "react";
 import { TextField, Button, Typography, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -92,7 +91,10 @@ const AddAdvertisement: FC = () => {
       advertisementEndDate: advertisement.advertisementEndDate,
       advertisement_image: advertisement.advertisement_image,
     };
-    console.log("adverstsement data", data);
+    if (data.advertisement_image == null) {
+      AppErrorMessage("Please select an image");
+      return;
+    }
 
     await addAdvertisement(data);
   };

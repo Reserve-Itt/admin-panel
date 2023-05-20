@@ -173,7 +173,7 @@ export const authApi = createApi({
           );
         }
         return {
-          url: "add_advertisement",
+          url: "providers/add_advertisement",
           method: "POST",
           body: formData,
         };
