@@ -303,7 +303,7 @@ const Main: React.FC = ({}) => {
                   <FaCalendarCheck className="icon" />
                 </div>
                 <Card.Body>
-                  <Card.Title>{1}</Card.Title>
+                  <Card.Title>{activeAdvertisement}</Card.Title>
                   <Card.Text>Active Advertisements</Card.Text>
                 </Card.Body>
               </Card>
