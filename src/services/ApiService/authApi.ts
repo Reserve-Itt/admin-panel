@@ -126,6 +126,10 @@ export const authApi = createApi({
       query: () => `reservation/list/statistics/provider`,
     }),
 
+    getMyAdvertisements: builder.query({
+      query: () => `providers/list_advertisements/me`,
+    }),
+
     addAdvertisement: builder.mutation({
       query: (advertisement: IAddAdvertisement) => {
         const formData = new FormData();
@@ -193,4 +197,5 @@ export const {
   useUpdateProviderMutation,
   useListCommentsQuery,
   useGetStatisticsQuery,
+  useGetMyAdvertisementsQuery,
 } = authApi;

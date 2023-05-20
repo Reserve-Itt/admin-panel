@@ -23,6 +23,7 @@ import {
 } from "@material-ui/core";
 import { Add as AddIcon } from "@material-ui/icons";
 import {
+  useGetMyAdvertisementsQuery,
   useGetStatisticsQuery,
   useListCommentsQuery,
   useListServicesQuery,
@@ -190,8 +191,6 @@ const Main: React.FC = ({}) => {
     console.log("commentIsLoading  ", commentIsLoading);
   }, [commentIsLoading]);
 
-
-  
   // statistics operation
   const {
     data: statisticsData,
@@ -229,6 +228,31 @@ const Main: React.FC = ({}) => {
       return total;
     }
   };
+
+  const {
+    data: myAdvertisementsData,
+    isSuccess: myAdvertisementsIsSuccess,
+    isError: myAdvertisementsIsError,
+    error: myAdvertisementsError,
+    isLoading: myAdvertisementsIsLoading,
+  } = useGetMyAdvertisementsQuery({});
+
+  // if there is myAdvertisements error
+  useEffect(() => {
+    console.log("myAdvertisementsError  ", myAdvertisementsError);
+  }, [myAdvertisementsIsError]);
+  // if there is myAdvertisements loading
+  useEffect(() => {
+    console.log("myAdvertisementsIsLoading  ", myAdvertisementsIsLoading);
+  }, [myAdvertisementsIsLoading]);
+
+  const [activeAdvertisement, setActiveAdvertisement] = useState<number>(0);
+  // if there is myAdvertisements data
+  useEffect(() => {
+    if (myAdvertisementsData && myAdvertisementsData.result) {
+      setActiveAdvertisement(myAdvertisementsData.result.length);
+    }
+  }, [myAdvertisementsIsSuccess]);
 
   return (
     <body className="body">
@@ -279,8 +303,8 @@ const Main: React.FC = ({}) => {
                   <FaCalendarCheck className="icon" />
                 </div>
                 <Card.Body>
-                  <Card.Title>30</Card.Title>
-                  <Card.Text>Days since last incident</Card.Text>
+                  <Card.Title>{1}</Card.Title>
+                  <Card.Text>Active Advertisements</Card.Text>
                 </Card.Body>
               </Card>
             </div>
@@ -289,33 +313,32 @@ const Main: React.FC = ({}) => {
       </Container>
       <div className="container2">
         <div className="div1">
+          <Typography variant="h4">My Services</Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
+            className={classes.addButton}
+            onClick={() => {
+              navigate("/addservice");
+            }}
+          >
+            Add New Service
+          </Button>
 
-            <Typography variant="h4">My Services</Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<AddIcon />}
-              className={classes.addButton}
-              onClick={() => {
-                navigate("/addservice");
-              }}
-            >
-              Add New Service
-            </Button>
-
-            {services.length > 0 ? (
-              services.map((service, index) => (
-                <ServicesListCard
-                  key={index}
-                  serviceDescription={service.serviceDescription}
-                  serviceName={service.serviceName}
-                  servicePrice={service.servicePrice}
-                  serviceDuration={service.serviceDuration}
-                />
-              ))
-            ) : (
-              <Typography variant="h6">No Services Found</Typography>
-            )}
+          {services.length > 0 ? (
+            services.map((service, index) => (
+              <ServicesListCard
+                key={index}
+                serviceDescription={service.serviceDescription}
+                serviceName={service.serviceName}
+                servicePrice={service.servicePrice}
+                serviceDuration={service.serviceDuration}
+              />
+            ))
+          ) : (
+            <Typography variant="h6">No Services Found</Typography>
+          )}
         </div>
 
         <div className="div2">

@@ -15,7 +15,7 @@ import Box from "@mui/material/Box";
 import { FloatingButton, ListCard, ServiceCard } from "../../components";
 import { Button } from "@material-ui/core";
 import Typography from "@mui/material/Typography";
-
+import { List } from "@material-ui/core";
 interface Service {
   name: string;
   price: number;
@@ -129,6 +129,8 @@ const AddService: React.FC = () => {
     console.log(data.data.message);
   }
   const { isUserLoggedIn } = useAppSelector(SelectAuth);
+
+  const [userServices, setUserServices] = useState<IProviderService[]>([]);
   const {
     data: userServicesListData,
     isSuccess: userServicesListISucess,
@@ -138,9 +140,30 @@ const AddService: React.FC = () => {
   } = useListServicesQuery(
     userData?._id != undefined ? userData._id.trim() : ""
   );
+
+  // if there is userServicesListData
   useEffect(() => {
-    if (userServicesListISucess) services = userServicesListData;
-  }, [userServicesListData]);
+    console.log("userServicesListData  ", userServicesListData);
+    if (userServicesListData && userServicesListData.result) {
+      setUserServices(userServicesListData.result);
+    }
+  }, [userServicesListISucess]);
+
+  //if there is erroor in userServicesList
+  useEffect(() => {
+    if (userServicesListIsError) {
+      let data: any = userServicesListError;
+      AppErrorMessage(data.data.message);
+      console.log(data.data.message);
+    }
+  }, [userServicesListIsError]);
+
+  // if there is loading
+  useEffect(() => {
+    if (userServicesListLoading) {
+      console.log("loading");
+    }
+  }, [userServicesListLoading]);
 
   const test = () => {
     services.forEach((e) => {
@@ -229,15 +252,7 @@ const AddService: React.FC = () => {
       </div>
 
       <div style={{ paddingLeft: 400 }}>
-        <ServiceCard
-          onDelete={() => {}}
-          service={{
-            serviceDuration: 0,
-            serviceName: "test",
-            serviceDescription: "test",
-            servicePrice: 0,
-          }}
-        />
+        <ServiceCard onDelete={() => {}} services={userServices} />;
       </div>
     </>
   );
