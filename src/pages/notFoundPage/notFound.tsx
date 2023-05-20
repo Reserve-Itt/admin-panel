@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const NotFound: React.FC = () => {
   const navigate = useNavigate();
   const onclickHandler = () => {
-    navigate("/login");
+    navigate("/main");
   };
 
   return (

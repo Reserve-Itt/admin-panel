@@ -222,7 +222,7 @@ const Login: React.FC<LoginProps> = () => {
             <button className="submit-button" type="submit">
               {isLoginLoading ? (
                   <ClipLoader
-                      color={"red"}
+                      color={"blue"}
                       loading={true}
                       size={30}
                       aria-label="Loading Spinner"
