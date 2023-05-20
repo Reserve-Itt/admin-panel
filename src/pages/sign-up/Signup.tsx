@@ -22,6 +22,13 @@ const Signup: FC<IProps> = () => {
     taxNumber: "",
     phoneNumber: "",
     adress: "",
+    notification_preference: "",
+    reservationGranulity: "",
+    workingStartTime: 0,
+    workingEndTime: 0,
+    longitude: 0,
+    latitude: 0,
+
   });
 
   // navigation object.
@@ -58,7 +65,16 @@ const Signup: FC<IProps> = () => {
       providerType: formData.select,
       role: "provider",
       tax_number: formData.taxNumber,
+      notification_preference: "BOTH",
+      reservationGranulity: "60",
+      workingStartTime: 9,
+      workingEndTime: 21,
+      location: {
+        type: "Point",
+        coordinates: [36.2, 32.2],
+      },
     });
+
   };
 
   // if sucessfull redirect to otp page

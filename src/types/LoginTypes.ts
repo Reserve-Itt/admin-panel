@@ -14,8 +14,20 @@ export interface IsignUpProvider {
   description?: string;
   address?: string;
   phoneNumber?: string;
+  profile_image?: any;
+  profile_image_url?: string;
   providerType?: string;
+  notification_preference?: string;
+  reservationGranulity?: string;
+  workingStartTime?: number;
+  workingEndTime?: number;
+  location?: {
+    type: string;
+    coordinates: number[];
+  };
 }
+
+
 
 export interface IAuthState {
   token?: string;
