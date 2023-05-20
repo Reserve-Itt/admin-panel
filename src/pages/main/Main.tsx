@@ -190,6 +190,9 @@ const Main: React.FC = ({}) => {
     console.log("commentIsLoading  ", commentIsLoading);
   }, [commentIsLoading]);
 
+
+  
+  // statistics operation
   const {
     data: statisticsData,
     isSuccess: statisticsIsSuccess,
@@ -197,7 +200,7 @@ const Main: React.FC = ({}) => {
     error: statisticsError,
     isLoading: statisticsIsLoading,
   } = useGetStatisticsQuery({});
-  //
+
   useEffect(() => {
     console.log("statisticsData  ", statisticsData);
   }, [statisticsIsSuccess]);
@@ -210,6 +213,23 @@ const Main: React.FC = ({}) => {
     console.log("statisticsIsLoading  ", statisticsIsLoading);
   }, [statisticsIsLoading]);
 
+  // get total number of customers of the provider
+  const getTotalNumberOfCustomers = () => {
+    let total = 0;
+    if (statisticsData) {
+      total = statisticsData.completedReservations;
+      return total;
+    }
+  };
+  // get total revenue of the provider
+  const getTotalRevenue = () => {
+    let total = 0;
+    if (statisticsData) {
+      total = statisticsData.totalEarnings;
+      return total;
+    }
+  };
+
   return (
     <body className="body">
       <Container>
@@ -220,7 +240,7 @@ const Main: React.FC = ({}) => {
                 <FaComment className="icon" />
               </div>
               <Card.Body>
-                <Card.Title>1,234</Card.Title>
+                <Card.Title>{commentList.length}</Card.Title>
                 <Card.Text>Total number of comments</Card.Text>
               </Card.Body>
             </Card>
@@ -233,7 +253,7 @@ const Main: React.FC = ({}) => {
                   <FaUsers className="icon" />
                 </div>
                 <Card.Body>
-                  <Card.Title>5,678</Card.Title>
+                  <Card.Title>{getTotalNumberOfCustomers()}</Card.Title>
                   <Card.Text>Total number of customers</Card.Text>
                 </Card.Body>
               </Card>
@@ -246,7 +266,7 @@ const Main: React.FC = ({}) => {
                   <FaMoneyBillAlt className="icon" />
                 </div>
                 <Card.Body>
-                  <Card.Title>$12,345</Card.Title>
+                  <Card.Title>{getTotalRevenue()}</Card.Title>
                   <Card.Text>Total revenue</Card.Text>
                 </Card.Body>
               </Card>

@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { SelectAuth } from "../../features";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import { ListCard } from "../../components";
+import { FloatingButton, ListCard, ServiceCard } from "../../components";
 import { Button } from "@material-ui/core";
 import Typography from "@mui/material/Typography";
 
@@ -150,82 +150,94 @@ const AddService: React.FC = () => {
 
   return (
     <>
-      <Sidebar />
+      {/* <Sidebar /> */}
+      <FloatingButton onClick={handleBigModalOpen} />
       <div>
-        <div className="buttonContainer">
-        <Button style={{color: '#fff'}} onClick={handleBigModalOpen}>Add a New Service</Button>
-      </div>
         <Modal
-            open={open}
-            onClose={handleBigModalClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+          open={open}
+          onClose={handleBigModalClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
         >
           <div className="modal-container">
-            <button className="close-button" onClick={handleBigModalClose}>x</button>
+            <button className="close-button" onClick={handleBigModalClose}>
+              x
+            </button>
             <div className="modal-content">
               <h1>Add Service</h1>
               <form onSubmit={handleSubmit}>
-                  <div className="form-group">
-                    <label htmlFor="name">Name:</label>
+                <div className="form-group">
+                  <label htmlFor="name">Name:</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={service.name}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="price">Price:</label>
+                  <div className="input-group">
+                    <span className="input-group-addon">
+                      {formatPrice(service.price)}
+                    </span>
                     <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={service.name}
+                      type="number"
+                      id="price"
+                      name="price"
+                      value={service.price}
                       onChange={handleChange}
                     />
                   </div>
+                </div>
 
-                  <div className="form-group">
-                    <label htmlFor="price">Price:</label>
-                    <div className="input-group">
-                      <span className="input-group-addon">
-                        {formatPrice(service.price)}
-                      </span>
-                      <input
-                        type="number"
-                        id="price"
-                        name="price"
-                        value={service.price}
-                        onChange={handleChange}
-                      />
-                    </div>
-                  </div>
+                <div className="form-group">
+                  <label htmlFor="description">Description:</label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    value={service.description}
+                    onChange={handleChange}
+                  />
+                </div>
 
-                  <div className="form-group">
-                    <label htmlFor="description">Description:</label>
-                    <textarea
-                      id="description"
-                      name="description"
-                      value={service.description}
+                <div className="form-group">
+                  <label htmlFor="duration">Duration:</label>
+                  <div className="input-group">
+                    <span className="input-group-addon">
+                      {formatDuration(service.duration)}
+                    </span>
+                    <input
+                      type="number"
+                      id="duration"
+                      name="duration"
+                      value={service.duration}
                       onChange={handleChange}
                     />
                   </div>
+                </div>
 
-                  <div className="form-group">
-                    <label htmlFor="duration">Duration:</label>
-                    <div className="input-group">
-                      <span className="input-group-addon">
-                        {formatDuration(service.duration)}
-                      </span>
-                      <input
-                        type="number"
-                        id="duration"
-                        name="duration"
-                        value={service.duration}
-                        onChange={handleChange}
-                      />
-                    </div>
-                  </div>
-
-                  <button className="add-service-button" type="submit">
-                    Add Service
-                  </button>
+                <button className="add-service-button" type="submit">
+                  Add Service
+                </button>
               </form>
             </div>
           </div>
         </Modal>
+      </div>
+
+      <div style={{ paddingLeft: 400 }}>
+        <ServiceCard
+          onDelete={() => {}}
+          service={{
+            serviceDuration: 0,
+            serviceName: "test",
+            serviceDescription: "test",
+            servicePrice: 0,
+          }}
+        />
       </div>
     </>
   );
