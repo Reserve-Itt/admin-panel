@@ -32,12 +32,12 @@ const useStyles = makeStyles((theme) => ({
   chooseImageButton: {
     marginTop: theme.spacing(2),
     color: "#fff",
-    backgroundColor: "#007aff",
+    backgroundColor: "#d3272f",
     padding: theme.spacing(1, 2),
     borderRadius: theme.spacing(0.5),
     transition: "all 0.3s ease-in-out",
     "&:hover": {
-      backgroundColor: "#0062cc",
+      backgroundColor: "#ff3300",
     },
   },
   previewImage: {
@@ -48,12 +48,12 @@ const useStyles = makeStyles((theme) => ({
   submitButton: {
     marginTop: theme.spacing(2),
     color: "#fff",
-    backgroundColor: "#007aff",
+    backgroundColor: "#d3272f",
     padding: theme.spacing(1, 2),
     borderRadius: theme.spacing(0.5),
     transition: "all 0.3s ease-in-out",
     "&:hover": {
-      backgroundColor: "#0062cc",
+      backgroundColor: "#ff3300",
     },
   },
   inputText: {
