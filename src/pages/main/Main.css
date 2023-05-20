@@ -1,23 +1,12 @@
 .body{
     margin-left: 300px;
-    top: 0;
     background-color: #fff;
-    border-radius: 4px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+}
 
-}
-.box{
-    background-color: #fff9c4;
-    border: 1px solid #ffca28;
-    border-radius: 8px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    height: 25vh;
-    width: 25vw;
-}
 .container {
     margin-top: 70px;
+    border-bottom: 1px solid #464340;
+    padding: 0;
 }
 .card-container {
     display: flex;
@@ -39,14 +28,14 @@
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s;
     margin-bottom: 20px;
-    margin-left: 75px ;
+    margin-left: 45px ;
     padding: 20px;
     width: 13vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 20vh;
+    height: 15vh;
 
 }
 
@@ -121,20 +110,26 @@
     flex-direction: row; /* this will split the divs horizontally */
 }
 
-.div1{
-    background-color: #f5f5f5;
+.div1 {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: #f1f1f1;
     border-radius: 10px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
     padding: 20px;
+    height: 400px;
 }
 
+
+
 .div2{
-    margin-left: auto;
-    margin-right: 105px;
+    margin-left: 70px;
     background-color: #f5f5f5;
     border-radius: 10px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
     padding: 10px;
+    height: 400px;
+    width: 40%;
 }
 
 
