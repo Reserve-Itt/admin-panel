@@ -5,6 +5,7 @@ import {
   IProviderService,
   IProfile,
   IProviderUpdateRequest,
+  IProviderServices,
 } from "./ProviderTypes";
 export type {
   IsignUpProvider,
@@ -14,4 +15,5 @@ export type {
   IProviderService,
   IProfile,
   IProviderUpdateRequest,
+  IProviderServices,
 };

@@ -1,6 +1,4 @@
 
-//TODO:file form data olarak gönderilecek.
-
 import React, { FC, useEffect, useState } from "react";
 import { TextField, Button, Typography, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";

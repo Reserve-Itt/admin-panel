@@ -4,7 +4,7 @@ export interface IAddAdvertisement {
   advertisementDescriptionText?: string;
   advertisementStartDate?: string;
   advertisementEndDate?: string;
-  advertisement_image?: any;
+  advertisement_image?: File | null;
   advertisement_image_url?: string;
 }
 
@@ -37,4 +37,10 @@ export interface IProviderUpdateRequest {
   workingStartTime?: number;
   workingEndTime?: number;
   id?: string;
+}
+export interface IProviderServices {
+  serviceName?: String;
+  servicePrice?: number;
+  serviceDescription?: string;
+  serviceDuration?: number;
 }
