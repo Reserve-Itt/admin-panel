@@ -304,7 +304,7 @@ const Main: React.FC = ({}) => {
             >
               Add New Service
             </Button>
-            <List className={classes.list}>
+          {/*  <List className={classes.list}>
               {services.slice(0, 3).map((service, index) => (
                 <ListItem key={index} className={classes.listItem}>
                   <ListItemAvatar>
@@ -320,10 +320,10 @@ const Main: React.FC = ({}) => {
                   />
                   <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="edit">
-                      {/* Add edit icon */}
+
                     </IconButton>
                     <IconButton edge="end" aria-label="delete">
-                      {/* Add delete icon */}
+
                     </IconButton>
                   </ListItemSecondaryAction>
                 </ListItem>
@@ -331,7 +331,7 @@ const Main: React.FC = ({}) => {
               <ListItem className={classes.listItem}>
                 <Button onClick={handleOpen}>See all services</Button>
               </ListItem>
-            </List>
+            </List>*/}
           </div>
         </div>
         <div className="div2">

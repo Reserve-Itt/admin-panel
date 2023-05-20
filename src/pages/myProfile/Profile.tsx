@@ -16,7 +16,7 @@
         address: '123 Main St',
         phoneNumber: '555-1234',
         profile_image: {},
-        profile_image_url: 'https://example.com/profile.jpg',
+        profile_image_url: 'https://static.wixstatic.com/media/nsplsh_e146901c9b23447babcf72e12229a5a5~mv2.jpg" alt="Description of the image',
         reservationGranulity: '15 minutes',
         workingStartTime: 8,
         workingEndTime: 17,
@@ -25,7 +25,7 @@
 
     const handleSave = () => {
         console.log('Saving profile:');
-        // do something with the updated profile data
+
     };
     const Profile: React.FC<ProfileProps> = ({
                                                  name,

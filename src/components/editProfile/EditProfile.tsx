@@ -149,7 +149,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
 
   return (
     <body>
-      <img src="../../assets" alt="-----------------------------" />
+    <img src="https://static.wixstatic.com/media/nsplsh_e146901c9b23447babcf72e12229a5a5~mv2.jpg" alt="Description of the image" width="300" height="200"/>
       <form className={classes.form} onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>

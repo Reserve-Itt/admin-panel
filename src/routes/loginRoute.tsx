@@ -18,6 +18,7 @@ import {
   Otp,
 } from "../pages";
 import AddAdvertisement from "../pages/addAdvertisement/AddAdvertisement";
+import Reservations from "../pages/myReservations/Reservations";
 const LoginRoute: React.FC = () => {
   const userDummy = {
     name: "Enes ",
@@ -35,6 +36,7 @@ const LoginRoute: React.FC = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/OTP" element={<Otp />} />
+        <Route path="/reservations" element={<Reservations />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/confirm-password" element={<ConfirmPassword />} />
         <Route path="/addAdvertisement" element={<AddAdvertisement />} />
