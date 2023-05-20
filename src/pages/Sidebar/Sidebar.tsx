@@ -7,6 +7,7 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
+  Box,
 } from "@material-ui/core";
 import {
   Inbox as InboxIcon,
@@ -19,7 +20,8 @@ import {
   LocalOffer as LocalOfferIcon,
 } from "@material-ui/icons";
 import { useNavigate } from "react-router-dom";
-
+import { Stack } from "@mui/material";
+import logoImage from '../../images/whiteLogoRedBackground.jpg'; // Import the image file
 const drawerWidth = 300;
 
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: "#d3272f", // Set the background color here
   },
   drawerContainer: {
     overflow: "auto",
@@ -46,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "2rem",
     color: "red",
     fontWeight: "bold",
+  },
+  listItemIcon: {
+    color: "white", // Set the color of the ListItemIcon to white
   },
 }));
 
@@ -68,7 +74,7 @@ const Sidebar: FC = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} >
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -80,50 +86,76 @@ const Sidebar: FC = () => {
       >
         <div className={classes.drawerContainer}>
           <div className={classes.title}>
-            <Typography variant="h2">ADMIN</Typography>
+            <Stack spacing={2} alignItems={"center"}>
+
+              {/* <Typography variant="h5" className={classes.listItemIcon}>Logo</Typography> */}
+
+              <div style={{ maxWidth: '200px' }}>
+              <img src={logoImage} alt="Logo" style={{ width: '100%', height: 'auto' }} />
+              </div>
+
+              <Typography variant="h5" className={classes.listItemIcon}>Reserve It Admin Panel</Typography>
+              
+
+            </Stack>
+
           </div>
           <List>
             <ListItem button onClick={() => handleNavigation("/main")}>
-              <ListItemIcon>
+              <ListItemIcon className={classes.listItemIcon}>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary="Home" />
+              <ListItemText primary="Home"
+                primaryTypographyProps={{ style: { color: "white" } }} // Set the color to white
+              />
             </ListItem>
             <ListItem button onClick={() => handleNavigation("/profile")}>
-              <ListItemIcon>
+              <ListItemIcon className={classes.listItemIcon}>
                 <MailIcon />
               </ListItemIcon>
-              <ListItemText primary="About" />
+              <ListItemText primary="About"
+                primaryTypographyProps={{ style: { color: "white" } }} // Set the color to white
+              />
             </ListItem>
             <ListItem button onClick={() => handleNavigation("/addService")}>
-              <ListItemIcon>
+              <ListItemIcon className={classes.listItemIcon}>
                 <BusinessCenterIcon />
               </ListItemIcon>
-              <ListItemText primary="My Services" />
+              <ListItemText primary="My Services"
+                primaryTypographyProps={{ style: { color: "white" } }} // Set the color to white
+              />
             </ListItem>
             <ListItem button onClick={() => handleNavigation("/reservations")}>
-              <ListItemIcon>
+              <ListItemIcon className={classes.listItemIcon}>
                 <EventNoteIcon />
               </ListItemIcon>
-              <ListItemText primary="My Reservations" />
+              <ListItemText primary="My Reservations"
+                primaryTypographyProps={{ style: { color: "white" } }} // Set the color to white
+              />
             </ListItem>
             <ListItem button onClick={() => handleNavigation("/clients")}>
-              <ListItemIcon>
+              <ListItemIcon className={classes.listItemIcon}>
                 <PeopleIcon />
               </ListItemIcon>
-              <ListItemText primary="Clients" />
+              <ListItemText primary="Clients"
+                primaryTypographyProps={{ style: { color: "white" } }} // Set the color to white
+              />
             </ListItem>
             <ListItem button onClick={() => handleNavigation("/settings")}>
-              <ListItemIcon>
+              <ListItemIcon className={classes.listItemIcon}>
                 <BuildIcon />
               </ListItemIcon>
-              <ListItemText primary="Settings" />
+              <ListItemText primary="Settings"
+                primaryTypographyProps={{ style: { color: "white" } }} // Set the color to white
+              />
             </ListItem>
             <ListItem button onClick={() => handleNavigation("/addAdvertisement")}>
-              <ListItemIcon>
+              <ListItemIcon className={classes.listItemIcon}>
                 <LocalOfferIcon />
               </ListItemIcon>
-              <ListItemText primary="Add Advertisement" />
+              <ListItemText primary="Add Advertisement"
+                primaryTypographyProps={{ style: { color: "white" } }} // Set the color to white
+              />
             </ListItem>
           </List>
         </div>

@@ -269,7 +269,7 @@ const Main: React.FC = ({}) => {
       </Container>
       <div className="container2">
         <div className="div1">
-          <div className={classes.root}>
+
             <Typography variant="h4">My Services</Typography>
             <Button
               variant="contained"
@@ -296,8 +296,8 @@ const Main: React.FC = ({}) => {
             ) : (
               <Typography variant="h6">No Services Found</Typography>
             )}
-          </div>
         </div>
+
         <div className="div2">
           <>
             {Array.isArray(commentList) && (
