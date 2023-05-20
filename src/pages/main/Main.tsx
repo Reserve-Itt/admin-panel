@@ -23,15 +23,20 @@ import {
 } from "@material-ui/core";
 import { Add as AddIcon } from "@material-ui/icons";
 import {
+  useGetStatisticsQuery,
   useListCommentsQuery,
   useListServicesQuery,
 } from "../../services/ApiService/authApi";
 import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { SelectAuth } from "../../features";
-import { IProviderService } from "../../types";
+import { IProviderComments, IProviderService } from "../../types";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { ListCard } from "../../components";
+import {
+  ListCard,
+  ProviderCommentsList,
+  ServicesListCard,
+} from "../../components";
 import { useNavigate } from "react-router";
 
 const useStyles2 = makeStyles((theme) => ({
@@ -110,71 +115,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-let services: Array<IProviderService> = [
-  {
-    serviceDescription: "",
-    serviceDuration: 0,
-    serviceName: "",
-    servicePrice: 0,
-  },
-  {
-    serviceDescription: "",
-    serviceDuration: 0,
-    serviceName: "",
-    servicePrice: 0,
-  },
-  {
-    serviceDescription: "",
-    serviceDuration: 0,
-    serviceName: "",
-    servicePrice: 0,
-  },
-];
-
-const comments = [
-  {
-    id: 1,
-    date: "Mar 17",
-    point: 10,
-    author: "John Doe",
-    stars: 4,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  {
-    id: 2,
-    date: "Mar 16",
-    point: 5,
-    author: "Jane Smith",
-    stars: 3,
-    description:
-      "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    id: 3,
-    date: "Mar 15",
-    point: 8,
-    author: "Bob Johnson",
-    stars: 5,
-    description:
-      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-];
-const ModalStyle = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
 const Main: React.FC = ({}) => {
   const classes = useStyles();
   const classes2 = useStyles2();
-
+  const [services, setServices] = useState<Array<IProviderService>>([]);
   const navigate = useNavigate();
   const [openListServiceModal, setOpenListServiceModal] =
     useState<boolean>(false);
@@ -183,6 +127,8 @@ const Main: React.FC = ({}) => {
 
   const appDispatch = useAppDispatch();
   const { isUserLoggedIn, userData } = useAppSelector(SelectAuth);
+  const [commentList, setCommentList] = useState<Array<IProviderComments>>([]);
+
   // userlogin object
   const {
     data: userServicesListData,
@@ -191,13 +137,27 @@ const Main: React.FC = ({}) => {
     error: userServicesListError,
     isLoading: userServicesListLoading,
   } = useListServicesQuery(
-    { id: userData?._id != undefined ? userData._id.trim() : "" },
-    { skip: !isUserLoggedIn }
+    userData?._id != undefined ? userData._id.trim() : ""
   );
-  const [tservices, setServices] = useState<Array<IProviderService>>([]);
+
+  // if there is userServicesListError
   useEffect(() => {
-    if (userServicesListISucess) services = userServicesListData;
-  }, [userServicesListData]);
+    console.log("userServicesListError  ", userServicesListError);
+  }, [userServicesListIsError]);
+
+  // if there is userServicesListLoading
+  useEffect(() => {
+    console.log("userServicesListLoading  ", userServicesListLoading);
+  }, [userServicesListLoading]);
+
+  // if there is userServicesListData
+  useEffect(() => {
+    console.log("userServicesListData  ", userServicesListData);
+    if (userServicesListData && userServicesListData.result) {
+      setServices(userServicesListData.result);
+      console.log(userServicesListData);
+    }
+  }, [userServicesListISucess]);
 
   /// comment list operation
   const {
@@ -210,31 +170,49 @@ const Main: React.FC = ({}) => {
     { id: userData?._id != undefined ? userData._id.trim() : "" },
     { skip: !isUserLoggedIn }
   );
-  useEffect(() => {
-    console.log("commentData  ", commentData);
-  }, [commentIsSuccess]);
 
+  useEffect(() => {
+    console.log("commentList  ", commentList);
+  }, [commentList]);
+  useEffect(() => {
+    if (commentData && commentData.result) {
+      setCommentList(commentData.result);
+    }
+
+    // console.log("commentData  ", commentData);
+  }, [commentIsSuccess]);
   // if there is comment error
   useEffect(() => {
     console.log("commentError  ", commentError);
   }, [CommentIserror]);
-
   // if there is comment loading
   useEffect(() => {
     console.log("commentIsLoading  ", commentIsLoading);
   }, [commentIsLoading]);
 
-  const test = () => {
-    services.forEach((e) => {
-      return <ListCard Data={e} />;
-    });
-  };
+  const {
+    data: statisticsData,
+    isSuccess: statisticsIsSuccess,
+    isError: statisticsIsError,
+    error: statisticsError,
+    isLoading: statisticsIsLoading,
+  } = useGetStatisticsQuery({});
+  //
+  useEffect(() => {
+    console.log("statisticsData  ", statisticsData);
+  }, [statisticsIsSuccess]);
+  // if there is statistics error
+  useEffect(() => {
+    console.log("statisticsError  ", statisticsError);
+  }, [statisticsIsError]);
+  // if there is statistics loading
+  useEffect(() => {
+    console.log("statisticsIsLoading  ", statisticsIsLoading);
+  }, [statisticsIsLoading]);
 
   return (
     <body className="body">
       <Container>
-
-
         <Row style={{ display: "flex", flexWrap: "nowrap" }}>
           <div className="card-container">
             <Card className="card card1">
@@ -304,80 +282,27 @@ const Main: React.FC = ({}) => {
             >
               Add New Service
             </Button>
-          {/*  <List className={classes.list}>
-              {services.slice(0, 3).map((service, index) => (
-                <ListItem key={index} className={classes.listItem}>
-                  <ListItemAvatar>
-                    <Avatar>
-                      {service.serviceName != undefined
-                        ? service.serviceName[0]
-                        : ""}
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={service.serviceName}
-                    secondary={`${service.servicePrice} - ${service.serviceDescription}`}
-                  />
-                  <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="edit">
 
-                    </IconButton>
-                    <IconButton edge="end" aria-label="delete">
-
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-              <ListItem className={classes.listItem}>
-                <Button onClick={handleOpen}>See all services</Button>
-              </ListItem>
-            </List>*/}
+            {services.length > 0 ? (
+              services.map((service, index) => (
+                <ServicesListCard
+                  key={index}
+                  serviceDescription={service.serviceDescription}
+                  serviceName={service.serviceName}
+                  servicePrice={service.servicePrice}
+                  serviceDuration={service.serviceDuration}
+                />
+              ))
+            ) : (
+              <Typography variant="h6">No Services Found</Typography>
+            )}
           </div>
         </div>
         <div className="div2">
           <>
-            <List className={classes2.root}>
-              {comments.map((comment) => (
-                <ListItem key={comment.id} className={classes2.listItem}>
-                  <ListItemAvatar>
-                    <Avatar>{comment.author[0]}</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={
-                      <>
-                        {/* <Typography className={classes2.point}>{comment.point} point{comment.point !== 1 && 's'}</Typography>*/}
-                        <Typography className={classes2.description}>
-                          {comment.description}
-                        </Typography>
-                        <Typography className={classes2.author}>
-                          {comment.author}
-                        </Typography>
-                        <div className={classes2.stars}>
-                          {[...Array(comment.stars)].map((_, index) => (
-                            <StarIcon
-                              key={index}
-                              className={classes2.starIcon}
-                            />
-                          ))}
-                        </div>
-                      </>
-                    }
-                    secondary={
-                      <Typography className={classes2.date}>
-                        {comment.date}
-                      </Typography>
-                    }
-                  />
-                </ListItem>
-              ))}
-            </List>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes2.button}
-            >
-              See all comments
-            </Button>
+            {Array.isArray(commentList) && (
+              <ProviderCommentsList comments={commentList} />
+            )}
           </>
         </div>
       </div>
@@ -386,6 +311,3 @@ const Main: React.FC = ({}) => {
 };
 
 export default Main;
-function AppErrorMessage(message: any) {
-  throw new Error("Function not implemented.");
-}

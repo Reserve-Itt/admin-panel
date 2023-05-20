@@ -1,2 +1,4 @@
 import { ListCard } from "./listCard";
-export { ListCard };
+import ProviderCommentsList from "./providerCommentsList/ProviderCommentsList";
+import ServicesListCard from "./servicesListCard/ServicesListCard";
+export { ListCard, ServicesListCard, ProviderCommentsList };

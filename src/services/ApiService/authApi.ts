@@ -11,7 +11,7 @@ import {
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://reserve-it-backend-vtjraj6liq-ey.a.run.app/providers/",
+    baseUrl: "https://reserve-it-backend-vtjraj6liq-ey.a.run.app/",
     prepareHeaders: (headers) => {
       const user: IAuthState = JSON.parse(localStorage.getItem("user") || "{}");
       const token = user.token;
@@ -27,7 +27,7 @@ export const authApi = createApi({
     loginUser: builder.mutation({
       query: (body: { email: string; password: string }) => {
         return {
-          url: "login",
+          url: "providers/login",
           method: "post",
           body,
         };
@@ -36,7 +36,7 @@ export const authApi = createApi({
     signUpUser: builder.mutation({
       query: (body: IsignUpProvider) => {
         return {
-          url: "signup",
+          url: "providers/signup",
           method: "post",
           body,
         };
@@ -46,7 +46,7 @@ export const authApi = createApi({
     verifyOtp: builder.mutation({
       query: (body: { otp_code: number; email: string }) => {
         return {
-          url: "verify_otp",
+          url: "providers/verify_otp",
           method: "post",
           body,
         };
@@ -56,7 +56,7 @@ export const authApi = createApi({
     resendOtp: builder.mutation({
       query: (body: { email: string }) => {
         return {
-          url: "resend_otp",
+          url: "providers/resend_otp",
           method: "post",
           body,
         };
@@ -66,7 +66,7 @@ export const authApi = createApi({
     forgotPassword: builder.mutation({
       query: (body: { email: string }) => {
         return {
-          url: "forgot_password",
+          url: "providers/forgot_password",
           method: "post",
           body,
         };
@@ -76,7 +76,7 @@ export const authApi = createApi({
     resetPassword: builder.mutation({
       query: (body: { email: string; password: string }) => {
         return {
-          url: "reset_password",
+          url: "providers/reset_password",
           method: "post",
           body,
         };
@@ -85,7 +85,7 @@ export const authApi = createApi({
     addService: builder.mutation({
       query: (body: IAddService) => {
         return {
-          url: "add_service",
+          url: "providers/add_service",
           method: "post",
           body,
         };
@@ -95,19 +95,23 @@ export const authApi = createApi({
     getUser: builder.query({
       query: () => {
         return {
-          url: "me",
+          url: "providers/me",
         };
       },
     }),
 
     listServices: builder.query({
-      query: (id) => `list_services?id=${id.id.toString()}`,
+      query: (id: string) => {
+        return {
+          url: "providers/list_services?id=" + id,
+        };
+      },
     }),
 
     UpdateProvider: builder.mutation({
       query: (body: IProviderUpdateRequest) => {
         return {
-          url: "update",
+          url: "providers/update",
           method: "PATCH",
           body,
         };
@@ -115,7 +119,11 @@ export const authApi = createApi({
     }),
 
     listComments: builder.query({
-      query: (id) => `list_comments?id=${id.id.toString()}`,
+      query: (id) => `providers/list_comments?id=${id.id.toString()}`,
+    }),
+
+    getStatistics: builder.query({
+      query: () => `reservation/list/statistics/provider`,
     }),
 
     addAdvertisement: builder.mutation({
@@ -184,4 +192,5 @@ export const {
   useLazyListServicesQuery,
   useUpdateProviderMutation,
   useListCommentsQuery,
+  useGetStatisticsQuery,
 } = authApi;

@@ -44,3 +44,19 @@ export interface IProviderServices {
   serviceDescription?: string;
   serviceDuration?: number;
 }
+
+export interface IProviderComments {
+  commentedAt?: string;
+  userId?: string;
+  comment: string;
+  commentRate: number;
+}
+
+export interface IProviderStatistics {
+  success?: boolean;
+  newReservations?: number;
+  ongoingReservations?: number;
+  completedReservations?: number;
+  cancelledRejectedReservations?: number;
+  totalEarnings?: number;
+}

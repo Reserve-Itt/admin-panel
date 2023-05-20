@@ -136,8 +136,7 @@ const AddService: React.FC = () => {
     error: userServicesListError,
     isLoading: userServicesListLoading,
   } = useListServicesQuery(
-    { id: userData?._id != undefined ? userData._id.trim() : "" },
-    { skip: !isUserLoggedIn }
+    userData?._id != undefined ? userData._id.trim() : ""
   );
   useEffect(() => {
     if (userServicesListISucess) services = userServicesListData;
@@ -237,14 +236,6 @@ const AddService: React.FC = () => {
           </Box>
         </Modal>
       </div>
-
-
-      
-
-
-
-
-
     </>
   );
 };
@@ -252,15 +243,15 @@ const AddService: React.FC = () => {
 export default AddService;
 
 const style = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '50%',
-  bgcolor: 'background.paper',
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "50%",
+  bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
 };

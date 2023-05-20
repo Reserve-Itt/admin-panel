@@ -6,6 +6,8 @@ import {
   IProfile,
   IProviderUpdateRequest,
   IProviderServices,
+  IProviderComments,
+  IProviderStatistics,
 } from "./ProviderTypes";
 export type {
   IsignUpProvider,
@@ -16,4 +18,6 @@ export type {
   IProfile,
   IProviderUpdateRequest,
   IProviderServices,
+  IProviderComments,
+  IProviderStatistics,
 };
