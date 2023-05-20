@@ -46,10 +46,10 @@ let services: Array<IProviderService> = [
 // handles form change.
 const AddService: React.FC = () => {
   const [service, setService] = useState<Service>({
-    name: "123",
-    price: 10,
-    description: "123",
-    duration: 1320,
+    name: "",
+    price: 0,
+    description: "",
+    duration: 0,
   });
   //const user = JSON.parse(localStorage.getItem("user") || "{}"); // controls the si
   const [openListServiceModal, setOpenListServiceModal] =
@@ -152,18 +152,20 @@ const AddService: React.FC = () => {
     <>
       <Sidebar />
       <div>
-        <Button onClick={handleBigModalOpen}>Open modal</Button>
+        <div className="buttonContainer">
+        <Button style={{color: '#fff'}} onClick={handleBigModalOpen}>Add a New Service</Button>
+      </div>
         <Modal
-          open={open}
-          onClose={handleBigModalClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+            open={open}
+            onClose={handleBigModalClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
-            <body className="body">
-              <div className="add-service">
-                <h1>Add Service</h1>
-                <form onSubmit={handleSubmit}>
+          <div className="modal-container">
+            <button className="close-button" onClick={handleBigModalClose}>x</button>
+            <div className="modal-content">
+              <h1>Add Service</h1>
+              <form onSubmit={handleSubmit}>
                   <div className="form-group">
                     <label htmlFor="name">Name:</label>
                     <input
@@ -220,20 +222,9 @@ const AddService: React.FC = () => {
                   <button className="add-service-button" type="submit">
                     Add Service
                   </button>
-                </form>
-              </div>
-              <Modal
-                open={openListServiceModal}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box>
-                  <>{test}</>
-                </Box>
-              </Modal>
-            </body>
-          </Box>
+              </form>
+            </div>
+          </div>
         </Modal>
       </div>
     </>
