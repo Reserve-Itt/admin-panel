@@ -1,15 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./addService.css";
 
-import {IAddService, IProviderService} from "../../types";
+import { IAddService, IProviderService } from "../../types";
 import Sidebar from "../Sidebar/Sidebar";
 import { AppErrorMessage, AppSuccesMessage } from "../../services";
-import {useAddServiceMutation, useListServicesQuery} from "../../services/ApiService/authApi";
+import {
+  useAddServiceMutation,
+  useListServicesQuery,
+} from "../../services/ApiService/authApi";
 import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { SelectAuth } from "../../features";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import {ListCard} from "../../components";
+import { ListCard } from "../../components";
+import { Button } from "@material-ui/core";
+import Typography from "@mui/material/Typography";
 
 interface Service {
   name: string;
@@ -48,10 +53,14 @@ const AddService: React.FC = () => {
   });
   //const user = JSON.parse(localStorage.getItem("user") || "{}"); // controls the si
   const [openListServiceModal, setOpenListServiceModal] =
-      useState<boolean>(false);
+    useState<boolean>(false);
   const handleOpen = () => setOpenListServiceModal(true);
   const handleClose = () => setOpenListServiceModal(false);
   const { userData } = useAppSelector(SelectAuth);
+
+  const [open, setOpen] = React.useState(false);
+  const handleBigModalOpen = () => setOpen(true);
+  const handleBigModalClose = () => setOpen(false);
 
   // handles form change.
   const serviceAddHandle = async () => {
@@ -119,7 +128,7 @@ const AddService: React.FC = () => {
     AppErrorMessage(data.data.message);
     console.log(data.data.message);
   }
-  const { isUserLoggedIn} = useAppSelector(SelectAuth);
+  const { isUserLoggedIn } = useAppSelector(SelectAuth);
   const {
     data: userServicesListData,
     isSuccess: userServicesListISucess,
@@ -127,8 +136,8 @@ const AddService: React.FC = () => {
     error: userServicesListError,
     isLoading: userServicesListLoading,
   } = useListServicesQuery(
-      { id: userData?._id != undefined ? userData._id.trim() : "" },
-      { skip: !isUserLoggedIn }
+    { id: userData?._id != undefined ? userData._id.trim() : "" },
+    { skip: !isUserLoggedIn }
   );
   useEffect(() => {
     if (userServicesListISucess) services = userServicesListData;
@@ -143,81 +152,115 @@ const AddService: React.FC = () => {
   return (
     <>
       <Sidebar />
-      <body className="body">
-        <div className="add-service">
-          <h1>Add Service</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="name">Name:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={service.name}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="price">Price:</label>
-              <div className="input-group">
-                <span className="input-group-addon">
-                  {formatPrice(service.price)}
-                </span>
-                <input
-                  type="number"
-                  id="price"
-                  name="price"
-                  value={service.price}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="description">Description:</label>
-              <textarea
-                id="description"
-                name="description"
-                value={service.description}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="duration">Duration:</label>
-              <div className="input-group">
-                <span className="input-group-addon">
-                  {formatDuration(service.duration)}
-                </span>
-                <input
-                  type="number"
-                  id="duration"
-                  name="duration"
-                  value={service.duration}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            <button className="add-service-button" type="submit">
-              Add Service
-            </button>
-          </form>
-        </div>
+      <div>
+        <Button onClick={handleBigModalOpen}>Open modal</Button>
         <Modal
-            open={openListServiceModal}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+          open={open}
+          onClose={handleBigModalClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
         >
-          <Box>
-            <>{test}</>
+          <Box sx={style}>
+            <body className="body">
+              <div className="add-service">
+                <h1>Add Service</h1>
+                <form onSubmit={handleSubmit}>
+                  <div className="form-group">
+                    <label htmlFor="name">Name:</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={service.name}
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="price">Price:</label>
+                    <div className="input-group">
+                      <span className="input-group-addon">
+                        {formatPrice(service.price)}
+                      </span>
+                      <input
+                        type="number"
+                        id="price"
+                        name="price"
+                        value={service.price}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="description">Description:</label>
+                    <textarea
+                      id="description"
+                      name="description"
+                      value={service.description}
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="duration">Duration:</label>
+                    <div className="input-group">
+                      <span className="input-group-addon">
+                        {formatDuration(service.duration)}
+                      </span>
+                      <input
+                        type="number"
+                        id="duration"
+                        name="duration"
+                        value={service.duration}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+
+                  <button className="add-service-button" type="submit">
+                    Add Service
+                  </button>
+                </form>
+              </div>
+              <Modal
+                open={openListServiceModal}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box>
+                  <>{test}</>
+                </Box>
+              </Modal>
+            </body>
           </Box>
         </Modal>
-      </body>
+      </div>
+
+
+      
+
+
+
+
+
     </>
   );
 };
 
 export default AddService;
+
+const style = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '50%',
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+};

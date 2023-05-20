@@ -119,11 +119,51 @@ export const authApi = createApi({
     }),
 
     addAdvertisement: builder.mutation({
-      query: (body: IAddAdvertisement) => {
+      query: (advertisement: IAddAdvertisement) => {
+        const formData = new FormData();
+        if (advertisement.providerId) {
+          formData.append("providerId", advertisement.providerId);
+        }
+        if (advertisement.advertisementTitleText) {
+          formData.append(
+            "advertisementTitleText",
+            advertisement.advertisementTitleText
+          );
+        }
+        if (advertisement.advertisementDescriptionText) {
+          formData.append(
+            "advertisementDescriptionText",
+            advertisement.advertisementDescriptionText
+          );
+        }
+        if (advertisement.advertisementStartDate) {
+          formData.append(
+            "advertisementStartDate",
+            advertisement.advertisementStartDate
+          );
+        }
+        if (advertisement.advertisementEndDate) {
+          formData.append(
+            "advertisementEndDate",
+            advertisement.advertisementEndDate
+          );
+        }
+        if (advertisement.advertisement_image) {
+          formData.append(
+            "advertisement_image",
+            advertisement.advertisement_image
+          );
+        }
+        if (advertisement.advertisement_image_url) {
+          formData.append(
+            "advertisement_image_url",
+            advertisement.advertisement_image_url
+          );
+        }
         return {
           url: "add_advertisement",
-          method: "post",
-          body,
+          method: "POST",
+          body: formData,
         };
       },
     }),
