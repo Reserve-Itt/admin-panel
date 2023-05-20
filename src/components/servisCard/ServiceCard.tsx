@@ -1,0 +1,89 @@
+import React, { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  makeStyles,
+} from "@material-ui/core";
+
+interface IService {
+  serviceName?: string;
+  servicePrice?: number;
+  serviceDescription?: string;
+  serviceDuration?: number;
+}
+
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 300,
+    boxShadow: "0px 3px 15px rgba(0,0,0,0.2)",
+    transition: "transform 0.2s",
+    "&:hover": {
+      transform: "scale(1.05)",
+    },
+  },
+  media: {
+    height: 140,
+  },
+});
+
+interface ServiceCardProps {
+  service: IService;
+  onDelete: (serviceName: string) => void;
+}
+
+const ServiceCard: React.FC<ServiceCardProps> = ({ service, onDelete }) => {
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handleDelete = () => {
+    onDelete(service.serviceName || "");
+    setOpen(false);
+  };
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const imageUrl = `https://picsum.photos/seed/${service.serviceName}/300/200`;
+
+  return (
+    <Card className={classes.root}>
+      <CardMedia className={classes.media} image={imageUrl} title={service.serviceName} />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="h2">
+          {service.serviceName}
+        </Typography>
+        <Typography color="textSecondary">Price: {service.servicePrice}</Typography>
+        <Typography color="textSecondary">Duration: {service.serviceDuration} minutes</Typography>
+        <Typography variant="body2" component="p">
+          {service.serviceDescription}
+        </Typography>
+        <Button color="secondary" onClick={handleOpen}>
+          Delete
+        </Button>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>Confirm Delete</DialogTitle>
+          <DialogContent>
+            <DialogContentText>Are you sure you want to delete this service?</DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleDelete} color="secondary">
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default ServiceCard;
