@@ -113,7 +113,7 @@ const ReservationCard: React.FC<{ reservation: IproviderReservations }> = ({
     };
 
     const commentsTextStyles = {
-        marginTop: 0,
+        marginTop: 2,
         marginBottom: "5px",
         fontSize: "1rem",
         color: "#333", // Darker color
@@ -163,7 +163,7 @@ const ReservationCard: React.FC<{ reservation: IproviderReservations }> = ({
             </div>
             {isReservationFeedbackGiven && (
                 <div style={commentsStyles}>
-                    <h4 style={commentsHeaderStyles}>Reservation Comments:</h4>
+                    <h4 style={commentsHeaderStyles}>Reservation Comment</h4>
                     {reservationComment?.map(
                         (comment: IproviderReservationComment, index: number) => (
                             <div key={index}>
