@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { TextField, Button, makeStyles, Grid } from "@material-ui/core";
+import {
+  TextField,
+  Button,
+  makeStyles,
+  Grid,
+  Paper,
+} from "@material-ui/core";
 import { IProfile } from "../../types";
-import { useUpdateProviderMutation } from "../../services/ApiService/authApi";
-import { AppErrorMessage, AppSuccesMessage } from "../../services";
+import {
+  AppErrorMessage,
+  AppSuccesMessage,
+} from "../../services";
 import { useAppSelector } from "../../App/hooks";
 import { SelectAuth } from "../../features";
+import { useUpdateProviderMutation } from "../../services/ApiService/authApi";
 
 interface EditProfileProps {
   profile: IProfile;
@@ -17,9 +26,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     margin: theme.spacing(2),
-    marginTop: "130px",
+    marginTop: theme.spacing(4),
     width: "80%",
-    backgroundColor: "white",
+    padding: theme.spacing(4),
+    backgroundColor: "#f5f5f5",
   },
   field: {
     margin: theme.spacing(1),
@@ -85,6 +95,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
     setIsChanged(true);
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
     if (file) {
@@ -146,9 +157,8 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
   useEffect(() => {}, [providerDataIsLoading]);
 
   return (
-    <body>
-    <img src="https://static.wixstatic.com/media/nsplsh_e146901c9b23447babcf72e12229a5a5~mv2.jpg" alt="Description of the image" width="300" height="200"/>
-      <form className={classes.form} onSubmit={handleSubmit}>
+    <Paper className={classes.form}>
+      <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             <TextField
@@ -226,64 +236,62 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
             />
           </Grid>
 
+          <Grid item xs={12}>
+            <input
+              accept="image/*"
+              id="profile_image"
+              name="profile_image"
+              className={classes.inputText}
+              type="file"
+              onChange={handleImageChange}
+              style={{ display: "none" }}
+            />
+            <label htmlFor="profile_image">
+              <Button
+                variant="contained"
+                color="primary"
+                component="span"
+                className={classes.chooseImageButton}
+              >
+                Choose Image
+              </Button>
+            </label>
+            {previewImage && (
+              <div>
+                <img
+                  src={previewImage}
+                  alt="Profile"
+                  className={classes.previewImage}
+                />
+              </div>
+            )}
+          </Grid>
 
+          <Grid item xs={12}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              onClick={handleProfileUpdate}
+            >
+              Save
+            </Button>
 
-            <Grid>
-              <input
-                  accept="image/*"
-                  id="advertisement_image"
-                  name="advertisement_image"
-                  className={classes.inputText}
-                  type="file"
-                  onChange={handleImageChange}
-                  style={{ display: "none" }}
-              />
-              <label htmlFor="advertisement_image">
-                <Button
-                    variant="contained"
-                    color="primary"
-                    component="span"
-                    className={classes.chooseImageButton}
-                >
-                  Choose Image
-                </Button>
-              </label>
-              {previewImage && (
-                  <div>
-                    <img
-                        src={previewImage}
-                        alt="Advertisement"
-                        className={classes.previewImage}
-                    />
-                  </div>
-              )}
-
+            <Button
+              type="button"
+              variant="contained"
+              color="default"
+              className={classes.button}
+              onClick={handleCancel}
+              disabled={!isChanged}
+            >
+              Cancel
+            </Button>
           </Grid>
         </Grid>
-        <div>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={handleProfileUpdate}
-          >
-            Save
-          </Button>
-
-          <Button
-            type="button"
-            variant="contained"
-            color="default"
-            className={classes.button}
-            onClick={handleCancel}
-            disabled={!isChanged}
-          >
-            Cancel
-          </Button>
-        </div>
       </form>
-    </body>
+    </Paper>
   );
 };
 
