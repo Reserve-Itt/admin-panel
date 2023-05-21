@@ -2,6 +2,7 @@ import React, { Children, useEffect, useState } from "react";
 import "./Main.css";
 import Sidebar from "../Sidebar/Sidebar";
 import { Container, Row, Col, Card } from "react-bootstrap";
+import Modal from "@mui/material/Modal";
 import {
   FaComment,
   FaUsers,
@@ -32,13 +33,14 @@ import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { SelectAuth } from "../../features";
 import { IProviderComments, IProviderService } from "../../types";
 import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
+
 import {
   ListCard,
   ProviderCommentsList,
   ServicesListCard,
 } from "../../components";
 import { useNavigate } from "react-router";
+import AdvertisementCard from "../../components/advertisementCard/advertisementCard";
 
 const useStyles2 = makeStyles((theme) => ({
   root: {
@@ -261,6 +263,44 @@ const Main: React.FC = ({}) => {
     }
   }, [myAdvertisementsIsSuccess]);
   useEffect(() => {}, [activeAdvertisement]);
+  const [open, setOpen] = React.useState(false);
+  const handleBigModalOpen = () => setOpen(true);
+  const handleBigModalClose = () => setOpen(false);
+
+
+
+
+  const advertisementData = [
+    {
+      advertisementTitleText: "Kurban Bayramına özel %10 indirim",
+      advertisementDescriptionText: "Kurban Bayramına özel %10 indirim",
+      advertisementStartDate: "2023-05-16",
+      advertisementEndDate: "2023-05-24",
+      advertisementImageUrl: "https://static.wixstatic.com/media/nsplsh_e146901c9b23447babcf72e12229a5a5~mv2.jpg",
+    },
+    {
+      advertisementTitleText: "Yaz indirimi",
+      advertisementDescriptionText: "Tüm ürünlerde %20 indirim fırsatı!",
+      advertisementStartDate: "2023-06-01",
+      advertisementEndDate: "2023-06-30",
+      advertisementImageUrl: "https://static.wixstatic.com/media/nsplsh_e146901c9b23447babcf72e12229a5a5~mv2.jpg",
+    },
+    {
+      advertisementTitleText: "Yaz indirimi",
+      advertisementDescriptionText: "Tüm ürünlerde %20 indirim fırsatı!",
+      advertisementStartDate: "2023-06-01",
+      advertisementEndDate: "2023-06-30",
+      advertisementImageUrl: "https://static.wixstatic.com/media/nsplsh_e146901c9b23447babcf72e12229a5a5~mv2.jpg",
+    },
+    {
+      advertisementTitleText: "Yaz indirimi",
+      advertisementDescriptionText: "Tüm ürünlerde %20 indirim fırsatı!",
+      advertisementStartDate: "2023-06-01",
+      advertisementEndDate: "2023-06-30",
+      advertisementImageUrl: "https://static.wixstatic.com/media/nsplsh_e146901c9b23447babcf72e12229a5a5~mv2.jpg",
+    },
+
+  ];
 
   return (
     <div className="body">
@@ -306,13 +346,14 @@ const Main: React.FC = ({}) => {
           </Col>
           <Col md={3}>
             <div className="card-container">
-              <Card className="card card4">
+              <Card onClick={handleBigModalOpen} className="card card4">
                 <div className="circle circle4">
                   <FaCalendarCheck className="icon" />
                 </div>
                 <Card.Body>
                   <Card.Title>{activeAdvertisement}</Card.Title>
-                  <Card.Text>Active Advertisements</Card.Text>
+                  <Card.Text>Active advertisements</Card.Text>
+                 {/* <button onClick={handleBigModalOpen} className="advertiesement-button">See Them</button>*/}
                 </Card.Body>
               </Card>
             </div>
