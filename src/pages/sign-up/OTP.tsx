@@ -7,12 +7,12 @@ import {
 } from "../../services/ApiService/authApi";
 import { AppErrorMessage, AppSuccesMessage } from "../../services/toastService";
 import { useNavigate } from "react-router";
-import { setUser } from "../../features/authSlice";
+import { SelectAuth, setUser } from "../../features/authSlice";
 import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { ClipLoader } from "react-spinners";
 import { setIsForgotActivated } from "../../features/forgotPassworddSlice";
 import { error } from "console";
-import { SelectForgotEmail } from "../../features";
+import { SelectForgotEmail, selectEmail } from "../../features";
 
 const Otp: React.FC = () => {
   // otp state
@@ -62,34 +62,35 @@ const Otp: React.FC = () => {
   // const isForgotActivated: { isForgotActivated: boolean } = JSON.parse(
   //   localStorage.getItem("isForgotActivated") || "{}"
   // );
-  const email = useAppSelector((state: any) => state.email.email);
-  const {isForgotActivated} = useAppSelector(SelectForgotEmail );
+  const { email } = useAppSelector(selectEmail);
+  const { isForgotActivated } = useAppSelector(SelectForgotEmail);
   // otp verification handler
   const otpSendHandle = async () => {
     console.log("email", email);
-
-    await sendOtp({ email: email.email, otp_code: Number(otp) });
+    if (email) await sendOtp({ email: email, otp_code: Number(otp) });
   };
-
   // resend otp handler rtk
   const otpResendHandle = async () => {
-    await resendOtp({ email: email.email });
+    if (email) await resendOtp({ email: email });
   };
 
   //? otp verification function result handler
   // if sucessfull redirect to otp page
-  if (isOtpUpSuccess) {
-    AppSuccesMessage("Sign Up SuccesFull");
-    appDispatch(setUser(loginData));
-    if (isForgotActivated) {
-      navigate("/confirm-password");
-      appDispatch(setIsForgotActivated({ isForgotActivated: false }));
-    } else {
-      navigate("/profile");
-    }
 
-    // if error show error in app message
-  }
+  useEffect(() => {
+    if (isOtpUpSuccess) {
+      AppSuccesMessage("Verification SuccesFull");
+      appDispatch(setUser(loginData));
+      console.log("isForgotActivated", isForgotActivated);
+      if (isForgotActivated) {
+        navigate("/confirm-password");
+        appDispatch(setIsForgotActivated({ isForgotActivated: false }));
+      } else {
+        navigate("/profile");
+      }
+      // if error show error in app message
+    }
+  }, [isOtpUpSuccess]);
 
   // otp submitr main handler
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
