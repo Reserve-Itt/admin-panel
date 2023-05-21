@@ -114,6 +114,13 @@ const useStyles = makeStyles((theme) => ({
   addButton: {
     marginBottom: theme.spacing(2),
   },
+  stickyButton: {
+    position: "sticky",
+    top: theme.spacing(2),
+    zIndex: 1,
+    backgroundColor: '#e50505',
+    width: 400,
+  },
 }));
 
 const Main: React.FC = ({}) => {
@@ -313,18 +320,19 @@ const Main: React.FC = ({}) => {
       </Container>
       <div className="container2">
         <div className="div1">
-          <Typography variant="h4">My Services</Typography>
+          <Typography className="services-header" variant="h4">My Services</Typography>
           <Button
-            variant="contained"
-            color="primary"
-            startIcon={<AddIcon />}
-            className={classes.addButton}
-            onClick={() => {
-              navigate("/addservice");
-            }}
+              variant="contained"
+              color="primary"
+              startIcon={<AddIcon />}
+              className={`${classes.addButton} ${classes.stickyButton}`}
+              onClick={() => {
+                navigate("/addservice");
+              }}
           >
             Add New Service
           </Button>
+
 
           {services.length > 0 ? (
             services.map((service, index) => (

@@ -12,6 +12,7 @@ const useStyles = makeStyles({
   card: {
     maxWidth: 400,
     margin: "1rem",
+    marginLeft: 0,
     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
     borderRadius: "10px",
     overflow: "hidden",

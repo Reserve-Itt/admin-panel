@@ -18,6 +18,7 @@ const useStyles = makeStyles({
     padding: "1rem",
     backgroundColor: "#f5f5f5",
     borderRadius: "0.5rem",
+    borderBottom: "2px solid #ddd",
   },
   description: {
     fontSize: "1.25rem",
