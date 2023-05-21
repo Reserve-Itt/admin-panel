@@ -55,7 +55,7 @@
 
 .card-text {
     font-size: 16px;
-    color: #7f8c8d;
+    color: #000000;
     margin-bottom: 0;
 }
 
@@ -73,6 +73,10 @@
 
 .card4 {
     background: #48c6ef;
+}
+.card4:hover {
+    background: #c3d5da;
+    cursor: pointer;
 }
 
 .circle1 {
@@ -143,7 +147,32 @@
     margin-right: 70px;
 
 }
+.advertiesement-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    background-color: #48c6ef;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border-top: 2px solid #2e7d32 ;
+    border-left: 2px solid #2e7d32 ;
+    border-right: 2px solid #2e7d32 ;
+    transition: background-color 0.3s ease-in-out;
+}
 
+.advertiesement-button:hover {
+    background-color: #388e3c;
+    color: #f1f1f1;
+}
+
+.advertiesement-button:active {
+    background-color: #2e7d32;
+}
 
 
 
