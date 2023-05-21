@@ -63,17 +63,18 @@
     height: 70px;
     width: 70px;
     align-items: center;
-    background: #f52828;
+    background: none;
     border-radius: 50%;
-    color: #ffffff;
+    color: #e01414;
     font-size: 34px;
     cursor: pointer;
-    position: absolute;
+    position: sticky;
     top: -30px;
     right: 20px;
+
 }
 .close-button:hover{
-    background-color: #7f8c8d;
+    background-color: #e31818;
     color: #dddddd;
 }
 
