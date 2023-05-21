@@ -138,7 +138,7 @@ export const authApi = createApi({
           formData.append("id", body.id);
         }
         if (body.profile_image) {
-          formData.append("provider_image", body.profile_image);
+          formData.append("profile_image", body.profile_image);
         }
 
         return {
