@@ -37,14 +37,14 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     marginTop: theme.spacing(2),
-    width: "40%",
+    width: "20%",
     alignSelf: "center",
-    marginRight: theme.spacing(1),
     backgroundColor: "#4caf50",
     color: "white",
     borderRadius: "5px",
     padding: "10px",
     fontWeight: "bold",
+    marginRight: theme.spacing(2),
     border: "none",
     boxShadow: "0px 2px 4px rgba(0,0,0,0.25)",
     cursor: "pointer",
@@ -157,7 +157,17 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
   useEffect(() => {}, [providerDataIsLoading]);
 
   return (
+
     <Paper className={classes.form}>
+      {formData.profile_image_url && !previewImage && (
+          <div>
+            <img src={formData.profile_image_url} alt="Profile" style={{ width: 300, height: 300, borderRadius: '50%' }} />
+          </div>
+      )}
+      {previewImage && (
+          <div>
+            <img src={previewImage} alt="Profile" style={{ width: 300, height: 300, borderRadius: '50%' }} />
+          </div>)}
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
@@ -256,15 +266,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
                 Choose Image
               </Button>
             </label>
-            {previewImage && (
-              <div>
-                <img
-                  src={previewImage}
-                  alt="Profile"
-                  className={classes.previewImage}
-                />
-              </div>
-            )}
+
           </Grid>
 
           <Grid item xs={12}>
