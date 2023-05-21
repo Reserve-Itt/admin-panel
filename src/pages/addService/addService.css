@@ -120,6 +120,15 @@
 background-color: #7f8c8d;
     color: #dddddd;
 }
+.header-part{
+    display: flex;
+    align-items: center;
+   height: 200px;
+    margin-left: 300px;
+   justify-content: center;
+
+
+}
 
 .modal-content {
     margin-top: 30px;

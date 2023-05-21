@@ -178,6 +178,9 @@ const AddService: React.FC = () => {
       {/* <Sidebar /> */}
       <FloatingButton onClick={handleBigModalOpen} />
       <div>
+        <div className="header-part">
+          <h1>SERVICES</h1>
+        </div>
         <Modal
           open={open}
           onClose={handleBigModalClose}
