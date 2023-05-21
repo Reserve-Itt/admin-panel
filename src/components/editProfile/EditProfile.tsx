@@ -75,6 +75,9 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
 
   const [isChanged, setIsChanged] = useState(false);
   const classes = useStyles();
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+
   const [formData, setFormData] = useState<IProfile>(profile);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,20 +88,15 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
     if (file) {
-      /*     setAdvertisement((prevState) => ({
-                ...prevState,
-                advertisement_image: file,
-            }));
-            const reader = new FileReader();
-            reader.onload = () => {
-                setAdvertisement((prevState) => ({
-                    ...prevState,
-                    advertisement_image_url: reader.result as string,
-                }));
-            };
-            reader.readAsDataURL(file);*/
+      setSelectedImage(file);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSave(formData);
@@ -228,37 +226,38 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
             />
           </Grid>
 
-          <Grid>
-            {/* <div>
+
+
+            <Grid>
               <input
-                accept="image/*"
-                id="advertisement_image"
-                name="advertisement_image"
-                className={classes.inputText}
-                type="file"
-                onChange={handleImageChange}
-                style={{ display: "none" }}
+                  accept="image/*"
+                  id="advertisement_image"
+                  name="advertisement_image"
+                  className={classes.inputText}
+                  type="file"
+                  onChange={handleImageChange}
+                  style={{ display: "none" }}
               />
               <label htmlFor="advertisement_image">
                 <Button
-                  variant="contained"
-                  color="primary"
-                  component="span"
-                  className={classes.chooseImageButton}
+                    variant="contained"
+                    color="primary"
+                    component="span"
+                    className={classes.chooseImageButton}
                 >
                   Choose Image
                 </Button>
               </label>
-            </div> */}
-            {/*{advertisement.advertisement_image_url && (
-        <div>
-            <img
-                src={advertisement.advertisement_image_url}
-                alt="Advertisement"
-                className={classes.previewImage}
-            />
-        </div>
-    )}*/}
+              {previewImage && (
+                  <div>
+                    <img
+                        src={previewImage}
+                        alt="Advertisement"
+                        className={classes.previewImage}
+                    />
+                  </div>
+              )}
+
           </Grid>
         </Grid>
         <div>

@@ -116,10 +116,18 @@
     background-color: #f1f1f1;
     border-radius: 10px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
-    padding: 10px;
-    height: 400px;
-    width: 550px;
+
+    height: 420px;
+    width: 500px;
     margin-left: 45px;
+    align-items: center;
+    justify-content: center;
+    padding-left: 70px;
+
+}
+.services-header{
+
+    width: 250px;
 }
 
 
@@ -134,6 +142,7 @@
     width: 600px;
 
 }
+
 
 
 
