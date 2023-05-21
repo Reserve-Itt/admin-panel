@@ -107,17 +107,47 @@ export const authApi = createApi({
         };
       },
     }),
-
     UpdateProvider: builder.mutation({
       query: (body: IProviderUpdateRequest) => {
+        const formData = new FormData();
+        if (body.address) {
+          formData.append("address", body.address);
+        }
+        if (body.description) {
+          formData.append("description", body.description);
+        }
+        if (body.ownerName) {
+          formData.append("ownerName", body.ownerName);
+        }
+        if (body.phoneNumber) {
+          formData.append("phoneNumber", body.phoneNumber);
+        }
+        if (body.providerName) {
+          formData.append("providerName", body.providerName);
+        }
+        if (body.reservationGranulity) {
+          formData.append("reservationGranulity", body.reservationGranulity);
+        }
+        if (body.workingStartTime) {
+          formData.append("workingStartTime", body.workingStartTime.toString());
+        }
+        if (body.workingEndTime) {
+          formData.append("workingEndTime", body.workingEndTime.toString());
+        }
+        if (body.id) {
+          formData.append("id", body.id);
+        }
+        if (body.profile_image) {
+          formData.append("provider_image", body.profile_image);
+        }
+
         return {
           url: "providers/update",
           method: "PATCH",
-          body,
+          body: formData,
         };
       },
     }),
-
     listComments: builder.query({
       query: (id) => `providers/list_comments?id=${id.id.toString()}`,
     }),
@@ -212,5 +242,4 @@ export const {
   useGetOngiongReservationsQuery,
   useGetCompletedReservationsQuery,
   useGetCancelledReservationsQuery,
-
 } = authApi;

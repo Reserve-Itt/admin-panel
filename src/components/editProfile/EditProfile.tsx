@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  TextField,
-  Button,
-  makeStyles,
-  Grid,
-  Paper,
-} from "@material-ui/core";
+import { TextField, Button, makeStyles, Grid, Paper } from "@material-ui/core";
 import { IProfile } from "../../types";
-import {
-  AppErrorMessage,
-  AppSuccesMessage,
-} from "../../services";
+import { AppErrorMessage, AppSuccesMessage } from "../../services";
 import { useAppSelector } from "../../App/hooks";
 import { SelectAuth } from "../../features";
 import { useUpdateProviderMutation } from "../../services/ApiService/authApi";
@@ -120,17 +111,35 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
   };
 
   const handleProfileUpdate = async () => {
-    await UpdateProvider({
-      providerName: formData.providerName,
-      ownerName: formData.ownerName,
-      description: formData.description,
-      address: formData.address,
-      phoneNumber: formData.phoneNumber,
-      workingStartTime: formData.workingStartTime,
-      workingEndTime: formData.workingEndTime,
-      reservationGranulity: formData.reservationGranulity,
-      id: userData?._id,
-    });
+    if (!userData?._id) return AppErrorMessage("User id not found!");
+    if (selectedImage != null) {
+      console.log("selectedImage exists");
+      await UpdateProvider({
+        providerName: formData.providerName,
+        ownerName: formData.ownerName,
+        description: formData.description,
+        address: formData.address,
+        phoneNumber: formData.phoneNumber,
+        workingStartTime: formData.workingStartTime,
+        workingEndTime: formData.workingEndTime,
+        reservationGranulity: formData.reservationGranulity,
+        id: userData?._id,
+        profile_image: selectedImage,
+      });
+    } else {
+      console.log("selectedImage not exists");
+      await UpdateProvider({
+        providerName: formData.providerName,
+        ownerName: formData.ownerName,
+        description: formData.description,
+        address: formData.address,
+        phoneNumber: formData.phoneNumber,
+        workingStartTime: formData.workingStartTime,
+        workingEndTime: formData.workingEndTime,
+        reservationGranulity: formData.reservationGranulity,
+        id: userData?._id,
+      });
+    }
   };
 
   const [
@@ -155,19 +164,31 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
   }, [providerDataIsError]);
 
   useEffect(() => {}, [providerDataIsLoading]);
-
+  useEffect(() => {
+    if (selectedImage) {
+      console.log("selectedImage: ", selectedImage);
+    }
+  }, [selectedImage]);
   return (
-
     <Paper className={classes.form}>
       {formData.profile_image_url && !previewImage && (
-          <div>
-            <img src={formData.profile_image_url} alt="Profile" style={{ width: 300, height: 300, borderRadius: '50%' }} />
-          </div>
+        <div>
+          <img
+            src={formData.profile_image_url}
+            alt="Profile"
+            style={{ width: 300, height: 300, borderRadius: "50%" }}
+          />
+        </div>
       )}
       {previewImage && (
-          <div>
-            <img src={previewImage} alt="Profile" style={{ width: 300, height: 300, borderRadius: '50%' }} />
-          </div>)}
+        <div>
+          <img
+            src={previewImage}
+            alt="Profile"
+            style={{ width: 300, height: 300, borderRadius: "50%" }}
+          />
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
@@ -241,7 +262,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
               label="Reservation Granulity"
               placeholder="30 minutes"
               className={classes.field}
-              value={formData.reservationGranulity}
+              value={formData.reservationGranulity + " Minutes"}
               onChange={handleInputChange}
             />
           </Grid>
@@ -266,7 +287,6 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
                 Choose Image
               </Button>
             </label>
-
           </Grid>
 
           <Grid item xs={12}>

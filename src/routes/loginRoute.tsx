@@ -36,16 +36,13 @@ const LoginRoute: React.FC = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/OTP" element={<Otp />} />
-        <Route path="/reservations" element={<Reservations />} />
+      <Route path="/reservations" element={<Reservations />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/confirm-password" element={<ConfirmPassword />} />
-        <Route path="/addAdvertisement" element={<AddAdvertisement />} />
+      <Route path="/addAdvertisement" element={<AddAdvertisement />} />
       <Route path="/not-found" element={<NotFound />} />
       <Route path="/main" element={val ? <Main /> : <Login />} />
-      <Route
-        path="/profile"
-        element={val ? <Profile {...userDummy} /> : <Login />}
-      />
+      <Route path="/profile" element={val ? <Profile /> : <Login />} />
       <Route path="/beton" element={val ? <Beton /> : <Login />} />
       <Route path="/addService" element={val ? <AddService /> : <Login />} />
       <Route path="*" element={<NotFound />} />

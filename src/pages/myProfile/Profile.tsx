@@ -1,40 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import EditProfile from "../../components/editProfile/EditProfile";
-
-interface ProfileProps {
-  name: string;
-  surname: string;
-  providerType: string;
-  profilePictureUrl: string;
-}
-const dummyProfile = {
-  providerName: "My Provider",
-  ownerName: "John Doe",
-  description: "Lorem ipsum dolor sit amet",
-  address: "123 Main St",
-  phoneNumber: "555-1234",
-  profile_image: {},
-  profile_image_url:
-    'https://static.wixstatic.com/media/nsplsh_e146901c9b23447babcf72e12229a5a5~mv2.jpg',
-  reservationGranulity: "15 minutes",
-  workingStartTime: 8,
-  workingEndTime: 17,
-};
+import { useGetUserQuery } from "../../services/ApiService/authApi";
+import { IProfile } from "../../types";
+import { AppBlockingSharp } from "@mui/icons-material";
 
 const handleSave = () => {
   console.log("Saving profile:");
 };
-const Profile: React.FC<ProfileProps> = ({
-  name,
-  surname,
-  providerType,
-  profilePictureUrl,
-}) => {
+const Profile: React.FC = ({}) => {
+  const [userData, setUserData] = useState<IProfile>();
+  const {
+    data: Profiledata,
+    isLoading: ProfileIsLoading,
+    isError: ProfileIsError,
+    error: ProfileError,
+  } = useGetUserQuery({});
+
+  useEffect(() => {
+    if (ProfileIsError) console.log("ProfileError: ", ProfileError);
+    if (Profiledata) {
+      setUserData(Profiledata);
+    }
+  }, [ProfileIsLoading, ProfileError]);
+
   return (
-    <body className="centered-content">
-      <EditProfile profile={dummyProfile} onSave={handleSave} />
-    </body>
+    <>
+      {!userData && <div className="centered-content">Loading...</div>}
+      {userData && (
+        <div className="centered-content">
+          <EditProfile profile={userData} onSave={handleSave} />
+        </div>
+      )}
+    </>
   );
 };
 

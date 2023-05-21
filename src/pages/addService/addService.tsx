@@ -44,6 +44,12 @@ let services: Array<IProviderService> = [
   },
 ];
 // handles form change.
+const serviceDummy = {
+  name: "",
+  price: 0,
+  description: "",
+  duration: 0,
+};
 const AddService: React.FC = () => {
   const [service, setService] = useState<Service>({
     name: "",
@@ -116,18 +122,20 @@ const AddService: React.FC = () => {
       isLoading: isAddServiceLoading,
     },
   ] = useAddServiceMutation({});
+  useEffect(() => {
+    if (isAddServiceSuccess) {
+      AppSuccesMessage("Add Service SuccesFull");
+      // sets user data and writes it to browser.
+      //appDispatch(setUser(loginData));
+      // navigate("/main");
+    } else if (isAddServiceError) {
+      // if there is an error writes it to app message.
+      let data: any = addServiceError;
+      AppErrorMessage(data.data.message);
+      console.log(data.data.message);
+    }
+  }, [addServiceError, isAddServiceSuccess]);
 
-  if (isAddServiceSuccess) {
-    AppSuccesMessage("Add Service SuccesFull");
-    // sets user data and writes it to browser.
-    //appDispatch(setUser(loginData));
-    // navigate("/main");
-  } else if (isAddServiceError) {
-    // if there is an error writes it to app message.
-    let data: any = addServiceError;
-    AppErrorMessage(data.data.message);
-    console.log(data.data.message);
-  }
   const { isUserLoggedIn } = useAppSelector(SelectAuth);
 
   const [userServices, setUserServices] = useState<IProviderService[]>([]);
@@ -164,12 +172,6 @@ const AddService: React.FC = () => {
       console.log("loading");
     }
   }, [userServicesListLoading]);
-
-  const test = () => {
-    services.forEach((e) => {
-      return <ListCard Data={e} />;
-    });
-  };
 
   return (
     <>

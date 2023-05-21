@@ -6,6 +6,7 @@ import { useAppSelector } from "../../App/hooks";
 import { SelectAuth } from "../../features";
 import { AppErrorMessage, AppSuccesMessage } from "../../services";
 import { IAddAdvertisement } from "../../types";
+import { Sidebar } from "../Sidebar";
 
 interface Advertisement {
   advertisementTitleText: string;
@@ -182,104 +183,107 @@ const AddAdvertisement: FC = () => {
   const imageUrl = `https://picsum.photos/seed/${userData?.providerType}/750/800`;
   console.log("imageUrl", imageUrl);
   return (
-    <div>
-      <div className={classes.container}>
-        <Box className={classes.form}>
-          <Typography variant="h4" gutterBottom>
-            Add Advertisement
-          </Typography>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              name="advertisementTitleText"
-              label="Advertisement Title"
-              className={classes.inputText}
-              value={advertisement.advertisementTitleText}
-              onChange={handleInputChange}
-              fullWidth
-              required
-            />
-            <TextField
-              name="advertisementDescriptionText"
-              label="Advertisement Description"
-              className={classes.inputText}
-              value={advertisement.advertisementDescriptionText}
-              onChange={handleInputChange}
-              fullWidth
-              required
-            />
-            <TextField
-              name="advertisementStartDate"
-              label="Start Date"
-              type="date"
-              className={classes.inputText}
-              value={advertisement.advertisementStartDate}
-              onChange={handleInputChange}
-              fullWidth
-              required
-              InputLabelProps={{ shrink: true }}
-            />
-            <TextField
-              name="advertisementEndDate"
-              label="End Date"
-              type="date"
-              className={classes.inputText}
-              value={advertisement.advertisementEndDate}
-              onChange={handleInputChange}
-              fullWidth
-              required
-              InputLabelProps={{ shrink: true }}
-            />
-            <div>
-              <input
-                accept="image/*"
-                id="advertisement_image"
-                name="advertisement_image"
+    <>
+      <Sidebar />
+      <div>
+        <div className={classes.container}>
+          <Box className={classes.form}>
+            <Typography variant="h4" gutterBottom>
+              Add Advertisement
+            </Typography>
+            <form onSubmit={handleSubmit}>
+              <TextField
+                name="advertisementTitleText"
+                label="Advertisement Title"
                 className={classes.inputText}
-                type="file"
-                onChange={handleImageChange}
-                style={{ display: "none" }}
+                value={advertisement.advertisementTitleText}
+                onChange={handleInputChange}
+                fullWidth
+                required
               />
-              <label htmlFor="advertisement_image">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  component="span"
-                  className={classes.chooseImageButton}
-                >
-                  Choose Image
-                </Button>
-              </label>
-            </div>
-            {advertisement.advertisement_image_url && (
+              <TextField
+                name="advertisementDescriptionText"
+                label="Advertisement Description"
+                className={classes.inputText}
+                value={advertisement.advertisementDescriptionText}
+                onChange={handleInputChange}
+                fullWidth
+                required
+              />
+              <TextField
+                name="advertisementStartDate"
+                label="Start Date"
+                type="date"
+                className={classes.inputText}
+                value={advertisement.advertisementStartDate}
+                onChange={handleInputChange}
+                fullWidth
+                required
+                InputLabelProps={{ shrink: true }}
+              />
+              <TextField
+                name="advertisementEndDate"
+                label="End Date"
+                type="date"
+                className={classes.inputText}
+                value={advertisement.advertisementEndDate}
+                onChange={handleInputChange}
+                fullWidth
+                required
+                InputLabelProps={{ shrink: true }}
+              />
               <div>
-                <img
-                  src={advertisement.advertisement_image_url}
-                  alt="Advertisement"
-                  className={classes.previewImage}
+                <input
+                  accept="image/*"
+                  id="advertisement_image"
+                  name="advertisement_image"
+                  className={classes.inputText}
+                  type="file"
+                  onChange={handleImageChange}
+                  style={{ display: "none" }}
                 />
+                <label htmlFor="advertisement_image">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    component="span"
+                    className={classes.chooseImageButton}
+                  >
+                    Choose Image
+                  </Button>
+                </label>
               </div>
-            )}
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              className={classes.submitButton}
-              onClick={handleClick}
-            >
-              Submit
-            </Button>
-          </form>
-        </Box>
-        <Box
-          className={classes.form2}
-          style={{ backgroundImage: `url(${imageUrl})` }}
-        >
-          <Typography variant="h6" className={classes.fancyText}>
-            Unleash Your Brand's Potential with Powerful Advertising!
-          </Typography>
-        </Box>
+              {advertisement.advertisement_image_url && (
+                <div>
+                  <img
+                    src={advertisement.advertisement_image_url}
+                    alt="Advertisement"
+                    className={classes.previewImage}
+                  />
+                </div>
+              )}
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                className={classes.submitButton}
+                onClick={handleClick}
+              >
+                Submit
+              </Button>
+            </form>
+          </Box>
+          <Box
+            className={classes.form2}
+            style={{ backgroundImage: `url(${imageUrl})` }}
+          >
+            <Typography variant="h6" className={classes.fancyText}>
+              Unleash Your Brand's Potential with Powerful Advertising!
+            </Typography>
+          </Box>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

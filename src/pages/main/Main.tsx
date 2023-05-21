@@ -118,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
     position: "sticky",
     top: theme.spacing(2),
     zIndex: 1,
-    backgroundColor: '#e50505',
+    backgroundColor: "#e50505",
     width: 400,
   },
 }));
@@ -263,7 +263,7 @@ const Main: React.FC = ({}) => {
   useEffect(() => {}, [activeAdvertisement]);
 
   return (
-    <body className="body">
+    <div className="body">
       <Container>
         <Row style={{ display: "flex", flexWrap: "nowrap" }}>
           <div className="card-container">
@@ -321,19 +321,20 @@ const Main: React.FC = ({}) => {
       </Container>
       <div className="container2">
         <div className="div1">
-          <Typography className="services-header" variant="h4">My Services</Typography>
+          <Typography className="services-header" variant="h4">
+            My Services
+          </Typography>
           <Button
-              variant="contained"
-              color="primary"
-              startIcon={<AddIcon />}
-              className={`${classes.addButton} ${classes.stickyButton}`}
-              onClick={() => {
-                navigate("/addservice");
-              }}
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
+            className={`${classes.addButton} ${classes.stickyButton}`}
+            onClick={() => {
+              navigate("/addservice");
+            }}
           >
             Add New Service
           </Button>
-
 
           {services.length > 0 ? (
             services.map((service, index) => (
@@ -358,7 +359,7 @@ const Main: React.FC = ({}) => {
           </>
         </div>
       </div>
-    </body>
+    </div>
   );
 };
 

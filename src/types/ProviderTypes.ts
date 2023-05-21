@@ -37,6 +37,7 @@ export interface IProviderUpdateRequest {
   workingStartTime?: number;
   workingEndTime?: number;
   id?: string;
+  profile_image?: File;
 }
 export interface IProviderServices {
   serviceName?: String;
