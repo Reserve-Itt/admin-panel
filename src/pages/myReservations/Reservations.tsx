@@ -121,7 +121,7 @@ const MyReservationsPage: React.FC = () => {
     }
 
     return (
-      <ul>
+      <ul style={{ listStyle: 'none', padding: 0 }}>
         {reservations.map((reservation) => (
           <li key={reservation._id}>
             <ReservationCard reservation={reservation} />
@@ -133,7 +133,6 @@ const MyReservationsPage: React.FC = () => {
 
   return (
     <div className="my-reservations-page">
-      <h2>My Reservations</h2>
       <div className="tab-buttons">
         <button
           className={activeTab === "active" ? "active" : ""}

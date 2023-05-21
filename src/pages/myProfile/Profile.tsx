@@ -16,7 +16,7 @@ const dummyProfile = {
   phoneNumber: "555-1234",
   profile_image: {},
   profile_image_url:
-    'https://static.wixstatic.com/media/nsplsh_e146901c9b23447babcf72e12229a5a5~mv2.jpg" alt="Description of the image',
+    'https://static.wixstatic.com/media/nsplsh_e146901c9b23447babcf72e12229a5a5~mv2.jpg',
   reservationGranulity: "15 minutes",
   workingStartTime: 8,
   workingEndTime: 17,
@@ -32,7 +32,7 @@ const Profile: React.FC<ProfileProps> = ({
   profilePictureUrl,
 }) => {
   return (
-    <body className="body">
+    <body className="centered-content">
       <EditProfile profile={dummyProfile} onSave={handleSave} />
     </body>
   );
