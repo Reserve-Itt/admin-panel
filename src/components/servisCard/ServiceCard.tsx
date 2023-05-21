@@ -33,6 +33,11 @@ const useStyles = makeStyles({
   media: {
     height: 140,
   },
+  deleteButton: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: "1rem",
+  },
 });
 
 interface ServiceCardProps {
@@ -54,46 +59,48 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, onDelete }) => {
   const imageUrl = `https://picsum.photos/seed/${service.serviceName}/300/200`;
 
   return (
-    <Card className={classes.root}>
-      <CardMedia
-        className={classes.media}
-        image={imageUrl}
-        title={service.serviceName}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="h2">
-          {service.serviceName}
-        </Typography>
-        <Typography color="textSecondary">
-          Price: {service.servicePrice}
-        </Typography>
-        <Typography color="textSecondary">
-          Duration: {service.serviceDuration} minutes
-        </Typography>
-        <Typography variant="body2" component="p">
-          {service.serviceDescription}
-        </Typography>
-        <Button color="secondary" onClick={handleOpen}>
-          Delete
-        </Button>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Confirm Delete</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to delete this service?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={handleDelete} color="secondary">
+      <Card className={classes.root}>
+        <CardMedia
+            className={classes.media}
+            image={imageUrl}
+            title={service.serviceName}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {service.serviceName}
+          </Typography>
+          <Typography color="textSecondary">
+            Price: {service.servicePrice}
+          </Typography>
+          <Typography color="textSecondary">
+            Duration: {service.serviceDuration} minutes
+          </Typography>
+          <Typography variant="body2" component="p">
+            {service.serviceDescription}
+          </Typography>
+          <div className={classes.deleteButton}>
+            <Button color="secondary" onClick={handleOpen}>
               Delete
             </Button>
-          </DialogActions>
-        </Dialog>
-      </CardContent>
-    </Card>
+          </div>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>Confirm Delete</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Are you sure you want to delete this service?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={handleDelete} color="secondary">
+                Delete
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </CardContent>
+      </Card>
   );
 };
 
@@ -104,13 +111,13 @@ interface ServiceListProps {
 
 const ServiceList: React.FC<ServiceListProps> = ({ services, onDelete }) => {
   return (
-    <Grid container spacing={2}>
-      {services.map((service) => (
-        <Grid item xs={12} sm={6} md={4} key={service.serviceName}>
-          <ServiceCard service={service} onDelete={onDelete} />
-        </Grid>
-      ))}
-    </Grid>
+      <Grid container spacing={2}>
+        {services.map((service) => (
+            <Grid item xs={12} sm={6} md={4} key={service.serviceName}>
+              <ServiceCard service={service} onDelete={onDelete} />
+            </Grid>
+        ))}
+      </Grid>
   );
 };
 
