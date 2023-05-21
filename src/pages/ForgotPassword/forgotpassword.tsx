@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./forgotpassword.css";
 import { useNavigate } from "react-router-dom";
 
@@ -7,11 +7,11 @@ import { setEmail } from "../../features/emailSlice";
 import { AppErrorMessage, AppSuccesMessage } from "../../services/toastService";
 import { setIsForgotActivated } from "../../features/forgotPassworddSlice";
 import { useForgotPasswordMutation } from "../../services/ApiService/authApi";
-import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
-import {styled} from "@mui/material";
-import {blue} from "@mui/material/colors";
+import ReportGmailerrorredIcon from "@mui/icons-material/ReportGmailerrorred";
+import { styled } from "@mui/material";
+import { blue } from "@mui/material/colors";
 
-const ForgotPassword : React.FC = ()=> {
+const ForgotPassword: React.FC = () => {
   const [email, setLocalEmail] = useState("");
   const navigate = useNavigate();
   // main slice usage
@@ -31,20 +31,21 @@ const ForgotPassword : React.FC = ()=> {
   const forgothandler = async () => {
     await forgotPassword({ email: email });
   };
-
-  if (isForgotSuccess) {
-    appDispatch(setEmail({ email: email }));
-    navigate("/otp");
-    AppSuccesMessage("forgot operation succesfull");
-    appDispatch(setIsForgotActivated({ isForgotActivated: true }));
-  } else if (isForgotError) {
-    let data: any = forgotError;
-    // data status may change because we have two different error.
-    // one type comes from nestJs and the other one comes from our rest api
-    // the nest js comes with status code 400.
-    if (data.status == 400) AppErrorMessage("bad request");
-    else AppErrorMessage(data.data.message);
-  }
+  useEffect(() => {
+    if (isForgotSuccess) {
+      appDispatch(setEmail({ email: email }));
+      navigate("/otp");
+      AppSuccesMessage("forgot operation succesfull");
+      appDispatch(setIsForgotActivated({ isForgotActivated: true }));
+    } else if (isForgotError) {
+      let data: any = forgotError;
+      // data status may change because we have two different error.
+      // one type comes from nestJs and the other one comes from our rest api
+      // the nest js comes with status code 400.
+      if (data.status == 400) AppErrorMessage("bad request");
+      else AppErrorMessage(data.data.message);
+    }
+  }, [isForgotSuccess, isForgotError]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,8 +60,7 @@ const ForgotPassword : React.FC = ()=> {
   return (
     <div className="forgot-password-container">
       <div className="forgot-password-box">
-
-          <BlueReportGmailerrorred />
+        <BlueReportGmailerrorred />
 
         <h2>Forgot Password</h2>
         <p>Enter your email to reset your password</p>

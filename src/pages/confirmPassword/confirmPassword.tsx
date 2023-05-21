@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { ClipLoader } from "react-spinners";
 import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { useResetPasswordMutation } from "../../services/ApiService/authApi";
 import { AppErrorMessage, AppSuccesMessage } from "../../services";
 import "./confirmPassword.css";
+import { emailSlice, selectEmail } from "../../features";
 
 const ConfirmPassword: React.FC = () => {
   const [password, setPassword] = useState("");
@@ -27,27 +28,34 @@ const ConfirmPassword: React.FC = () => {
   // const email: { email: string } = JSON.parse(
   //   localStorage.getItem("email") || "{}"
   // );
-  //tODO: değişikiliği kontrol et
-  const email = useAppSelector((state: any) => state.email.email);
+
+  const { email } = useAppSelector(selectEmail);
 
   const resetPasswordHandler = async () => {
-    resetPassword({ email: email.email, password: password });
+    resetPassword({ email: email ? email : "", password: password });
   };
 
-  if (isResetSuccess) {
-    navigate("/profile");
-    AppSuccesMessage("reseting password succesfull");
-  } else if (isResetError) {
-    let data: any = resetError;
-    // data status may change because we have two different error.
-    // one type comes from nestJs and the other one comes from our rest api
-    // the nest js comes with status code 400.
-    if (data.status == 400) AppErrorMessage("bad request");
-    else AppErrorMessage(data.data.message);
-  }
+  useEffect(() => {
+    if (isResetSuccess) {
+      navigate("/login");
+      AppSuccesMessage("reseting password succesfull");
+    } else if (isResetError) {
+      let data: any = resetError;
+      // data status may change because we have two different error.
+      // one type comes from nestJs and the other one comes from our rest api
+      // the nest js comes with status code 400.
+      if (data.status == 400) AppErrorMessage("bad request");
+      else AppErrorMessage(data.data.message);
+    }
+  }, [isResetSuccess]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (password === confirmPassword) {
+      resetPasswordHandler();
+    } else {
+      AppErrorMessage("Passwords do not match");
+    }
     if (password === confirmPassword && password.length > 5) {
       resetPasswordHandler();
     } else {
@@ -79,7 +87,6 @@ const ConfirmPassword: React.FC = () => {
               />
             </label>
             <button type="submit">
-              {" "}
               {isResetLoading ? (
                 <ClipLoader
                   color={"red"}

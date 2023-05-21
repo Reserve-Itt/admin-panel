@@ -28,7 +28,6 @@ const Signup: FC<IProps> = () => {
     workingEndTime: 0,
     longitude: 0,
     latitude: 0,
-
   });
 
   // navigation object.
@@ -54,6 +53,7 @@ const Signup: FC<IProps> = () => {
 
   // function to handle signup.
   const handleSignUp = async () => {
+    getlanglat(formData.adress);
     await signUpUser({
       address: formData.adress,
       description: formData.description,
@@ -71,10 +71,44 @@ const Signup: FC<IProps> = () => {
       workingEndTime: 21,
       location: {
         type: "Point",
-        coordinates: [36.2, 32.2],
+
+        coordinates: [
+          formData.longitude == 0 ? 32.85427 : formData.longitude,
+          formData.latitude == 0 ? 39.925533 : formData.latitude,
+        ],
       },
     });
+  };
 
+  // to get lang and lot from user.
+  const getlanglat = (adress: string) => {
+    const apiKey = "ad44dfd0e8df4aac9938ffdb9effbe18";
+    let address = adress;
+
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
+      address
+    )}&key=${apiKey}`;
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data); // log the entire response object
+        if (
+          data &&
+          data.results &&
+          data.results[0] &&
+          data.results[0].geometry &&
+          data.results[0].geometry.lat &&
+          data.results[0].geometry.lng
+        ) {
+          let lat = data.results[0].geometry.lat;
+          let lng = data.results[0].geometry.lng;
+          setFormData({ ...formData, longitude: lng, latitude: lat });
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching geocoding data:", error);
+      });
   };
 
   // if sucessfull redirect to otp page
@@ -107,7 +141,7 @@ const Signup: FC<IProps> = () => {
     else AppErrorMessage("the password and confirm password must be the same.");
   };
   return (
-    <body className="main-container">
+    <div className="main-container">
       <div className="signup-container">
         <div className="slogan-container">
           <h1>Welcome to Reserve-It</h1>
@@ -139,16 +173,16 @@ const Signup: FC<IProps> = () => {
               </div>
             </div>
             <div className="input-group">
-            <input
-              placeholder="Description"
-              type="text"
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              required
-            />
+              <input
+                placeholder="Description"
+                type="text"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                required
+              />
             </div>
-              <div className="double-input">
+            <div className="double-input">
               <div className="input-group">
                 <input
                   placeholder="Tax Number"
@@ -162,33 +196,32 @@ const Signup: FC<IProps> = () => {
 
               <div className="input-group">
                 <input
-                    placeholder="Phone Number"
-                    type="text"
-                    name="phoneNumber"
-                    value={formData.phoneNumber}
-                    onChange={handleChange}
-                    required
+                  placeholder="Phone Number"
+                  type="text"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  required
                 />
               </div>
             </div>
             <div className="input-group">
               <input
-                  placeholder="Address"
-                  type="text"
-                  name="adress"
-                  value={formData.adress}
-                  onChange={handleChange}
-                  required
+                placeholder="Address"
+                type="text"
+                name="adress"
+                value={formData.adress}
+                onChange={handleChange}
+                required
               />
-
             </div>
             <div className="input-group">
               <select
-                  name="select"
-                  className="select"
-                  value={formData.select}
-                  onChange={handleChange}
-                  required
+                name="select"
+                className="select"
+                value={formData.select}
+                onChange={handleChange}
+                required
               >
                 <option className="option placeholder" value="" disabled hidden>
                   Select Provider Type
@@ -203,18 +236,17 @@ const Signup: FC<IProps> = () => {
                   Individual
                 </option>
               </select>
-
             </div>
             <div className="input-group">
-            <input
-              placeholder="Email"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-              </div>
+              <input
+                placeholder="Email"
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
             <div className="double-input">
               <div className="input-group">
@@ -239,7 +271,9 @@ const Signup: FC<IProps> = () => {
               </div>
             </div>
             <div className="input-group">
-            <button className="signup-button" type="submit">Sign Up</button>
+              <button className="signup-button" type="submit">
+                Sign Up
+              </button>
             </div>
           </form>
           <Link to="/login" className="login-link">
@@ -247,7 +281,7 @@ const Signup: FC<IProps> = () => {
           </Link>
         </div>
       </div>
-    </body>
+    </div>
   );
 };
 
