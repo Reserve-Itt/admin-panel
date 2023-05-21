@@ -127,7 +127,18 @@ export const authApi = createApi({
     }),
 
     getMyAdvertisements: builder.query({
-      query: () => `providers/list_advertisements/me`,
+      query: () => `providers/list/advertisements/me`,
+    }),
+
+    getOngiongReservations: builder.query({
+      query: () => `reservation/list/provider/ongoing`,
+    }),
+    getCompletedReservations: builder.query({
+      query: () => `reservation/list/provider/completed`,
+    }),
+
+    getCancelledReservations: builder.query({
+      query: () => `reservation/list/provider/cancelled`,
     }),
 
     addAdvertisement: builder.mutation({
@@ -198,4 +209,8 @@ export const {
   useListCommentsQuery,
   useGetStatisticsQuery,
   useGetMyAdvertisementsQuery,
+  useGetOngiongReservationsQuery,
+  useGetCompletedReservationsQuery,
+  useGetCancelledReservationsQuery,
+
 } = authApi;

@@ -60,3 +60,27 @@ export interface IProviderStatistics {
   cancelledRejectedReservations?: number;
   totalEarnings?: number;
 }
+
+export interface IproviderReservationComment {
+  userId?: string;
+  comment?: string;
+  commentRate?: number;
+  commentedAt?: string;
+}
+
+export interface IproviderReservations {
+  _id?: string;
+  providerId?: string;
+  userId?: string;
+  reservationStartDate?: string;
+  reservationEndDate?: string;
+  reservationTime?: string;
+  reservationStatus?: string;
+  isReservationFeedbackGiven?: boolean;
+  reservationPrice?: number;
+  reservationComment?: IproviderReservationComment[];
+  reservationServices?: String[];
+  createdAt?: string;
+  updatedAt?: string;
+  __v?: number;
+}

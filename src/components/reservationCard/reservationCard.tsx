@@ -1,32 +1,136 @@
-import React from 'react';
-import './reservationCard.css';
+import React from "react";
+import {
+  IproviderReservations,
+  IproviderReservationComment,
+} from "../../types";
 
-type Reservation = {
-    id: number;
-    status: string;
-    providerName: string;
-    date: string;
-    cost: number;
-};
+type FlexDirection = "row" | "row-reverse" | "column" | "column-reverse";
 
-interface ReservationCardProps {
-    reservation: Reservation;
-}
+const ReservationCard: React.FC<{ reservation: IproviderReservations }> = ({
+  reservation,
+}) => {
+  const {
+    reservationStartDate,
+    reservationEndDate,
+    reservationTime,
+    reservationPrice,
+    reservationServices,
+    createdAt,
+    isReservationFeedbackGiven,
+    reservationComment,
+  } = reservation;
 
-const ReservationCard: React.FC<ReservationCardProps> = ({ reservation }) => {
-    return (
-        <div className="reservation-card">
-            <div className="reservation-details">
-                <h3>{reservation.providerName}</h3>
-                <p>Date: {reservation.date}</p>
-                <p className="cost">Cost: {reservation.cost}</p>
-            </div>
-            <div className="reservation-cost">
-                <img src="https://static.wixstatic.com/media/nsplsh_e146901c9b23447babcf72e12229a5a5~mv2.jpg" alt="Provider Image" className="provider-image"  />
+  const formattedStartDate =
+    reservationStartDate &&
+    new Date(reservationStartDate).toLocaleString("en-US", {
+      hour: "numeric",
+      month: "short",
+      year: "numeric",
+    });
 
-            </div>
+  const formattedEndDate =
+    reservationEndDate &&
+    new Date(reservationEndDate).toLocaleString("en-US", {
+      hour: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+
+  const formattedCreatedAt =
+    createdAt &&
+    new Date(createdAt).toLocaleString("en-US", {
+      hour: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+
+  const cardStyles = {
+    display: "flex",
+    flexDirection: "column" as FlexDirection | undefined,
+    justifyContent: "space-between",
+    border: "1px solid #ccc",
+    borderRadius: "5px",
+    padding: "10px",
+    marginBottom: "10px",
+    boxShadow: "0px 3px 15px rgba(0, 0, 0, 0.2)",
+  };
+
+  const detailsStyles = {
+    display: "flex",
+    flexDirection: "column" as FlexDirection | undefined,
+  };
+
+  const h3Styles = {
+    marginTop: 0,
+    marginBottom: "5px",
+    fontSize: "1.2rem",
+    fontWeight: "bold",
+  };
+
+  const pStyles = {
+    marginTop: 0,
+    marginBottom: "5px",
+    fontSize: "1rem",
+  };
+
+  const costStyles = {
+    fontWeight: "bold",
+    fontSize: "1.2rem",
+  };
+
+  const commentsStyles = {
+    marginTop: "10px",
+    padding: "10px",
+    border: "1px solid #ccc",
+    borderRadius: "5px",
+    backgroundColor: "#f5f5f5",
+  };
+
+  const commentsHeaderStyles = {
+    marginTop: 0,
+    marginBottom: "10px",
+    fontSize: "1.2rem",
+    fontWeight: "bold",
+  };
+
+  const commentsTextStyles = {
+    marginTop: 0,
+    marginBottom: "5px",
+    fontSize: "1rem",
+  };
+
+  return (
+    <div style={cardStyles}>
+      <div style={detailsStyles}>
+        <h3 style={h3Styles}>{reservationServices?.join(", ")}</h3>
+        <div>
+          <p style={pStyles}>Start Date: {formattedStartDate}</p>
+          <p style={pStyles}>End Date: {formattedEndDate}</p>
         </div>
-    );
+        <p style={pStyles}>Time: {reservationTime}</p>
+        <p style={costStyles}>Cost: {reservationPrice}</p>
+        <p style={pStyles}>Created At: {formattedCreatedAt}</p>
+        {isReservationFeedbackGiven && (
+          <div style={commentsStyles}>
+            <h4 style={commentsHeaderStyles}>Reservation Comments:</h4>
+            {reservationComment?.map(
+              (comment: IproviderReservationComment, index: number) => (
+                <div key={index}>
+                  <p style={commentsTextStyles}>Comment: {comment.comment}</p>
+                  <p style={commentsTextStyles}>
+                    Comment Rate: {comment.commentRate}
+                  </p>
+                  <p style={commentsTextStyles}>
+                    Commented At: {comment.commentedAt}
+                  </p>
+                </div>
+              )
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default ReservationCard;

@@ -253,6 +253,7 @@ const Main: React.FC = ({}) => {
       setActiveAdvertisement(myAdvertisementsData.result.length);
     }
   }, [myAdvertisementsIsSuccess]);
+  useEffect(() => {}, [activeAdvertisement]);
 
   return (
     <body className="body">

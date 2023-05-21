@@ -8,6 +8,8 @@ import {
   IProviderServices,
   IProviderComments,
   IProviderStatistics,
+  IproviderReservations,
+  IproviderReservationComment,
 } from "./ProviderTypes";
 export type {
   IsignUpProvider,
@@ -20,4 +22,6 @@ export type {
   IProviderServices,
   IProviderComments,
   IProviderStatistics,
+  IproviderReservations,
+  IproviderReservationComment,
 };

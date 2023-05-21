@@ -1,45 +1,65 @@
-.reservation-card {
+/* .reservation-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 20px;
-    background-color: #f5f5f5;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-    display: flex;
-}
-
-.reservation-card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.reservation-details {
-    flex: 1;
-}
-
-.reservation-details h3 {
+    border-radius: 5px;
+    padding: 10px;
     margin-bottom: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-}
-
-.reservation-details p {
-    margin: 5px 0;
-    font-size: 14px;
-    color: #888;
-}
-
-.reservation-cost {
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .reservation-details {
     display: flex;
-    align-items: flex-end;
-}
-
-.reservation-cost .cost {
+    flex-direction: column;
+  }
+  
+  .reservation-details h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
     font-weight: bold;
-}
-
-.provider-image {
-    width: 300px;
-    height: 200px;
-    margin-right: 10px;
-}
+  }
+  
+  .reservation-details p {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1rem;
+  }
+  
+  .reservation-details .cost {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  
+  .reservation-details .comments {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+  }
+  
+  .reservation-details .comments h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .reservation-details .comments p {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    .reservation-card {
+      flex-direction: row;
+    }
+  
+    .reservation-details {
+      flex: 1;
+      margin-right: 10px;
+    }
+  } */
