@@ -68,7 +68,7 @@
     color: #e01414;
     font-size: 34px;
     cursor: pointer;
-    position: sticky;
+    position: absolute;
     top: -30px;
     right: 20px;
 

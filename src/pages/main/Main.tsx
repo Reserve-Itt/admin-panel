@@ -303,7 +303,31 @@ const Main: React.FC = ({}) => {
   ];
 
   return (
-    <div className="body">
+    <body className="body">
+    <div>
+      <Modal
+          open={open}
+          onClose={handleBigModalClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+      >
+        <div className="modal-container">
+          <button className="close-button" onClick={handleBigModalClose}>
+            x
+          </button>
+          {advertisementData.map((advertisement, index) => (
+              <AdvertisementCard
+                  key={index}
+                  advertisementTitleText={advertisement.advertisementTitleText}
+                  advertisementDescriptionText={advertisement.advertisementDescriptionText}
+                  advertisementStartDate={advertisement.advertisementStartDate}
+                  advertisementEndDate={advertisement.advertisementEndDate}
+                  advertisementImageUrl={advertisement.advertisementImageUrl}
+              />
+          ))}
+          </div>
+    </Modal>
+    </div>
       <Container>
         <Row style={{ display: "flex", flexWrap: "nowrap" }}>
           <div className="card-container">
@@ -362,20 +386,19 @@ const Main: React.FC = ({}) => {
       </Container>
       <div className="container2">
         <div className="div1">
-          <Typography className="services-header" variant="h4">
-            My Services
-          </Typography>
+          <Typography className="services-header" variant="h4">My Services</Typography>
           <Button
-            variant="contained"
-            color="primary"
-            startIcon={<AddIcon />}
-            className={`${classes.addButton} ${classes.stickyButton}`}
-            onClick={() => {
-              navigate("/addservice");
-            }}
+              variant="contained"
+              color="primary"
+              startIcon={<AddIcon />}
+              className={`${classes.addButton} ${classes.stickyButton}`}
+              onClick={() => {
+                navigate("/addservice");
+              }}
           >
             Add New Service
           </Button>
+
 
           {services.length > 0 ? (
             services.map((service, index) => (
@@ -400,7 +423,7 @@ const Main: React.FC = ({}) => {
           </>
         </div>
       </div>
-    </div>
+    </body>
   );
 };
 
