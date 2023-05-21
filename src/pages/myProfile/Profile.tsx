@@ -32,7 +32,7 @@ const Profile: React.FC<ProfileProps> = ({
   profilePictureUrl,
 }) => {
   return (
-    <body className="body">
+    <body className="centered-content">
       <EditProfile profile={dummyProfile} onSave={handleSave} />
     </body>
   );

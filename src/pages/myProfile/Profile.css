@@ -1,11 +1,10 @@
-.body {
+.centered-content{
     margin-left: 300px;
     background-color: #fff;
-    display: flex;
     align-items: center;
     justify-content: center;
+    display: flex;
     height: 100vh;
 }
-
 
 
