@@ -13,6 +13,7 @@ const NotFound: React.FC = () => {
   return (
     <Box
       sx={{
+        marginLeft: "300px",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

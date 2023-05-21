@@ -60,19 +60,19 @@
 }
 
 .card1 {
-    background: linear-gradient(to bottom right, #78e08f, #63cdda);
+    background: #78e08f;
 }
 
 .card2 {
-    background: linear-gradient(to bottom right, #ff9ff3, #f6e58d);
+    background: #ff9ff3;
 }
 
 .card3 {
-    background: linear-gradient(to bottom right, #f6d365, #fda085);
+    background: #f6d365;
 }
 
 .card4 {
-    background: linear-gradient(to bottom right, #48c6ef, #6f86d6);
+    background: #48c6ef;
 }
 
 .circle1 {
