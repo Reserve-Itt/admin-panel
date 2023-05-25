@@ -188,11 +188,8 @@ const AddService: React.FC = () => {
           aria-describedby="modal-modal-description"
         >
           <div className="modal-container">
-            <button className="close-button" onClick={handleBigModalClose}>
-              x
-            </button>
             <div className="modal-content">
-              <h1>Add Service</h1>
+              <h1 style={{backgroundColor:'#d8242c' ,color:'white'}}>Add Service</h1>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label htmlFor="name">Name:</label>

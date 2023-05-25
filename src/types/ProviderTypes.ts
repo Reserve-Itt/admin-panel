@@ -85,3 +85,43 @@ export interface IproviderReservations {
   updatedAt?: string;
   __v?: number;
 }
+
+export interface IAdvertisement {
+  // providerId: string;
+  // advertisementTitleText: string;
+  // advertisementDescriptionText: string;
+  // advertisementStartDate: string;
+  // advertisementEndDate: string;
+  // advertisement_image_url?: string;
+
+  providerId?: string;
+  advertisementTitleText?: string;
+  advertisementDescriptionText?: string;
+  advertisementStartDate?: string;
+  advertisementEndDate?: string;
+  advertisement_image_url?: string;
+}
+
+export interface IAdvertisementsData {
+  // _id: string;
+  // providerId: string;
+  // advertisements: IAdvertisement[];
+  // createdAt: string;
+  // updatedAt: string;
+  // __v: number;
+
+  _id?: string;
+  providerId?: string;
+  advertisements?: IAdvertisement[];
+  createdAt?: string;
+  updatedAt?: string;
+  __v?: number;
+}
+
+export interface IGetAdvertisementsResponse {
+  // success: boolean;
+  // result: IAdvertisementsData[];
+
+  success?: boolean;
+  result?: IAdvertisementsData[];
+}

@@ -22,7 +22,7 @@ export const authApi = createApi({
       return headers;
     },
   }),
-
+  tagTypes: ["services", "providers", "reservations", "advertisements"],
   endpoints: (builder) => ({
     loginUser: builder.mutation({
       query: (body: { email: string; password: string }) => {
@@ -90,6 +90,7 @@ export const authApi = createApi({
           body,
         };
       },
+      invalidatesTags: ["services"],
     }),
 
     getUser: builder.query({
@@ -98,6 +99,7 @@ export const authApi = createApi({
           url: "providers/me",
         };
       },
+      providesTags: ["providers"],
     }),
 
     listServices: builder.query({
@@ -106,6 +108,7 @@ export const authApi = createApi({
           url: "providers/list_services?id=" + id,
         };
       },
+      providesTags: ["services"],
     }),
     UpdateProvider: builder.mutation({
       query: (body: IProviderUpdateRequest) => {
@@ -147,6 +150,7 @@ export const authApi = createApi({
           body: formData,
         };
       },
+      invalidatesTags: ["providers"],
     }),
     listComments: builder.query({
       query: (id) => `providers/list_comments?id=${id.id.toString()}`,
@@ -158,6 +162,7 @@ export const authApi = createApi({
 
     getMyAdvertisements: builder.query({
       query: () => `providers/list/advertisements/me`,
+      providesTags: ["advertisements"],
     }),
 
     getOngiongReservations: builder.query({
@@ -170,6 +175,8 @@ export const authApi = createApi({
     getCancelledReservations: builder.query({
       query: () => `reservation/list/provider/cancelled`,
     }),
+
+    
 
     addAdvertisement: builder.mutation({
       query: (advertisement: IAddAdvertisement) => {
@@ -219,6 +226,7 @@ export const authApi = createApi({
           body: formData,
         };
       },
+      invalidatesTags: ["advertisements"],
     }),
   }),
 });

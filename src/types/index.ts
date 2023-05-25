@@ -10,6 +10,9 @@ import {
   IProviderStatistics,
   IproviderReservations,
   IproviderReservationComment,
+  IAdvertisement,
+  IAdvertisementsData,
+  IGetAdvertisementsResponse,
 } from "./ProviderTypes";
 export type {
   IsignUpProvider,
@@ -24,4 +27,7 @@ export type {
   IProviderStatistics,
   IproviderReservations,
   IproviderReservationComment,
+  IAdvertisement,
+  IAdvertisementsData,
+  IGetAdvertisementsResponse,
 };

@@ -11,17 +11,7 @@ import {
 } from "react-icons/fa";
 import { makeStyles } from "@material-ui/core/styles";
 import StarIcon from "@material-ui/icons/Star";
-import {
-  Typography,
-  Button,
-  List,
-  ListItem,
-  ListItemAvatar,
-  Avatar,
-  ListItemText,
-  ListItemSecondaryAction,
-  IconButton,
-} from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
 import { Add as AddIcon } from "@material-ui/icons";
 import {
   useGetMyAdvertisementsQuery,
@@ -31,14 +21,13 @@ import {
 } from "../../services/ApiService/authApi";
 import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { SelectAuth } from "../../features";
-import { IProviderComments, IProviderService } from "../../types";
-import Box from "@mui/material/Box";
-
 import {
-  ListCard,
-  ProviderCommentsList,
-  ServicesListCard,
-} from "../../components";
+  IAdvertisement,
+  IProviderComments,
+  IProviderService,
+} from "../../types";
+
+import { ProviderCommentsList, ServicesListCard } from "../../components";
 import { useNavigate } from "react-router";
 import AdvertisementCard from "../../components/advertisementCard/advertisementCard";
 
@@ -238,6 +227,8 @@ const Main: React.FC = ({}) => {
     }
   };
 
+  const [advertisementData, setAdvertisementData] =
+    useState<IAdvertisement[]>();
   const {
     data: myAdvertisementsData,
     isSuccess: myAdvertisementsIsSuccess,
@@ -258,76 +249,65 @@ const Main: React.FC = ({}) => {
   const [activeAdvertisement, setActiveAdvertisement] = useState<number>(0);
   // if there is myAdvertisements data
   useEffect(() => {
-    if (myAdvertisementsData && myAdvertisementsData.result) {
-      setActiveAdvertisement(myAdvertisementsData.result.length);
+    console.log("myAdvertisementsData  ", myAdvertisementsData);
+    if (
+      myAdvertisementsData &&
+      myAdvertisementsData.result &&
+      myAdvertisementsData.result[0].advertisements
+    ) {
+      console.log("here");
+      setActiveAdvertisement(
+        myAdvertisementsData.result[0].advertisements.length
+      );
+      setAdvertisementData(myAdvertisementsData.result[0].advertisements);
     }
   }, [myAdvertisementsIsSuccess]);
-  useEffect(() => {}, [activeAdvertisement]);
+
+  useEffect(() => {
+    console.log("activeAdvertisement  ", activeAdvertisement);
+  }, [activeAdvertisement]);
+  useEffect(() => {
+    console.log("advertisementData  ", advertisementData);
+  }, [advertisementData]);
+
   const [open, setOpen] = React.useState(false);
   const handleBigModalOpen = () => setOpen(true);
   const handleBigModalClose = () => setOpen(false);
 
-
-
-
-  const advertisementData = [
-    {
-      advertisementTitleText: "Kurban Bayramına özel %10 indirim",
-      advertisementDescriptionText: "Kurban Bayramına özel %10 indirim",
-      advertisementStartDate: "2023-05-16",
-      advertisementEndDate: "2023-05-24",
-      advertisementImageUrl: "https://static.wixstatic.com/media/nsplsh_e146901c9b23447babcf72e12229a5a5~mv2.jpg",
-    },
-    {
-      advertisementTitleText: "Yaz indirimi",
-      advertisementDescriptionText: "Tüm ürünlerde %20 indirim fırsatı!",
-      advertisementStartDate: "2023-06-01",
-      advertisementEndDate: "2023-06-30",
-      advertisementImageUrl: "https://static.wixstatic.com/media/nsplsh_e146901c9b23447babcf72e12229a5a5~mv2.jpg",
-    },
-    {
-      advertisementTitleText: "Yaz indirimi",
-      advertisementDescriptionText: "Tüm ürünlerde %20 indirim fırsatı!",
-      advertisementStartDate: "2023-06-01",
-      advertisementEndDate: "2023-06-30",
-      advertisementImageUrl: "https://static.wixstatic.com/media/nsplsh_e146901c9b23447babcf72e12229a5a5~mv2.jpg",
-    },
-    {
-      advertisementTitleText: "Yaz indirimi",
-      advertisementDescriptionText: "Tüm ürünlerde %20 indirim fırsatı!",
-      advertisementStartDate: "2023-06-01",
-      advertisementEndDate: "2023-06-30",
-      advertisementImageUrl: "https://static.wixstatic.com/media/nsplsh_e146901c9b23447babcf72e12229a5a5~mv2.jpg",
-    },
-
-  ];
+  const handleActiveAdvertisementButtonOnclik = () => {
+    if (advertisementData != undefined && advertisementData.length > 0) {
+      handleBigModalOpen();
+    } else {
+      alert("You don't have any active advertisements");
+    }
+  };
 
   return (
     <body className="body">
-    <div>
-      <Modal
+      <div>
+        <Modal
+          key={advertisementData?.length}
           open={open}
           onClose={handleBigModalClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
-      >
-        <div className="modal-container">
-          <button className="close-button" onClick={handleBigModalClose}>
-            x
-          </button>
-          {advertisementData.map((advertisement, index) => (
+        >
+          <div className="modal-container">
+            {advertisementData?.map((advertisement, index) => (
               <AdvertisementCard
-                  key={index}
-                  advertisementTitleText={advertisement.advertisementTitleText}
-                  advertisementDescriptionText={advertisement.advertisementDescriptionText}
-                  advertisementStartDate={advertisement.advertisementStartDate}
-                  advertisementEndDate={advertisement.advertisementEndDate}
-                  advertisementImageUrl={advertisement.advertisementImageUrl}
+                key={index}
+                advertisementTitleText={advertisement.advertisementTitleText}
+                advertisementDescriptionText={
+                  advertisement.advertisementDescriptionText
+                }
+                advertisementStartDate={advertisement.advertisementStartDate}
+                advertisementEndDate={advertisement.advertisementEndDate}
+                advertisement_image_url={advertisement.advertisement_image_url}
               />
-          ))}
+            ))}
           </div>
-    </Modal>
-    </div>
+        </Modal>
+      </div>
       <Container>
         <Row style={{ display: "flex", flexWrap: "nowrap" }}>
           <div className="card-container">
@@ -370,14 +350,17 @@ const Main: React.FC = ({}) => {
           </Col>
           <Col md={3}>
             <div className="card-container">
-              <Card onClick={handleBigModalOpen} className="card card4">
+              <Card
+                onClick={handleActiveAdvertisementButtonOnclik}
+                className="card card4"
+              >
                 <div className="circle circle4">
                   <FaCalendarCheck className="icon" />
                 </div>
                 <Card.Body>
                   <Card.Title>{activeAdvertisement}</Card.Title>
                   <Card.Text>Active advertisements</Card.Text>
-                 {/* <button onClick={handleBigModalOpen} className="advertiesement-button">See Them</button>*/}
+                  {/* <button onClick={handleBigModalOpen} className="advertiesement-button">See Them</button>*/}
                 </Card.Body>
               </Card>
             </div>
@@ -386,19 +369,17 @@ const Main: React.FC = ({}) => {
       </Container>
       <div className="container2">
         <div className="div1">
-          <Typography className="services-header" variant="h4">My Services</Typography>
           <Button
-              variant="contained"
-              color="primary"
-              startIcon={<AddIcon />}
-              className={`${classes.addButton} ${classes.stickyButton}`}
-              onClick={() => {
-                navigate("/addservice");
-              }}
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
+            className={`${classes.addButton} ${classes.stickyButton}`}
+            onClick={() => {
+              navigate("/addservice");
+            }}
           >
             Add New Service
           </Button>
-
 
           {services.length > 0 ? (
             services.map((service, index) => (
