@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 
 const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
   const { userData } = useAppSelector(SelectAuth);
-
+  const [granularityError, setGranularityError] = useState<string>("");
   const [isChanged, setIsChanged] = useState(false);
   const classes = useStyles();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -85,6 +85,9 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
     const { name, value } = event.target;
     setIsChanged(true);
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    if (name === "reservationGranulity") {
+      validateGranularity(value);
+    }
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,7 +104,12 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSave(formData);
+    if (granularityError) {
+      AppErrorMessage("Granularity must be a number");
+    } else {
+      AppSuccesMessage("Profile updated successfully");
+      onSave(formData);
+    }
   };
 
   const handleCancel = () => {
@@ -145,8 +153,6 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
   const [
     UpdateProvider,
     {
-      data: providerData,
-      isSuccess: providerDataIsSuccess,
       isError: providerDataIsError,
       error: providerDataError,
       isLoading: providerDataIsLoading,
@@ -154,166 +160,176 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
   ] = useUpdateProviderMutation({});
 
   useEffect(() => {
-    if (providerDataIsSuccess) {
-      AppSuccesMessage("Profile updated successfully!");
-      console.log("providerData: ", providerData);
-    }
-  }, [providerDataIsSuccess]);
-  useEffect(() => {
     if (providerDataIsError) AppErrorMessage(providerDataError?.toString());
   }, [providerDataIsError]);
 
-  useEffect(() => {}, [providerDataIsLoading]);
   useEffect(() => {
     if (selectedImage) {
       console.log("selectedImage: ", selectedImage);
     }
   }, [selectedImage]);
+
+  const validateGranularity = (value: string) => {
+    if (!value) {
+      setGranularityError("Granularity is required");
+    } else if (!/^\d+$/.test(value)) {
+      setGranularityError("Granularity must be a number");
+    } else {
+      setGranularityError("");
+    }
+  };
+
+  useEffect(() => {
+    validateGranularity(formData.reservationGranulity);
+  }, [formData.reservationGranulity]);
+
   return (
-    <Paper className={classes.form}>
-      {formData.profile_image_url && !previewImage && (
-        <div>
-          <img
-            src={formData.profile_image_url}
-            alt="Profile"
-            style={{ width: 300, height: 300, borderRadius: "50%" }}
-          />
-        </div>
-      )}
-      {previewImage && (
-        <div>
-          <img
-            src={previewImage}
-            alt="Profile"
-            style={{ width: 300, height: 300, borderRadius: "50%" }}
-          />
-        </div>
-      )}
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
-            <TextField
-              name="providerName"
-              label="Provider Name"
-              className={classes.field}
-              value={formData.providerName}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              name="ownerName"
-              label="Owner Name"
-              className={classes.field}
-              value={formData.ownerName}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              name="description"
-              label="Description"
-              className={classes.field}
-              value={formData.description}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              name="address"
-              label="Address"
-              className={classes.field}
-              value={formData.address}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              name="phoneNumber"
-              label="Phone Number"
-              className={classes.field}
-              value={formData.phoneNumber}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              name="workingStartTime"
-              label="work starts at"
-              placeholder="mm:hh"
-              className={classes.field}
-              value={formData.workingStartTime}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              name="workingEndTime"
-              label="Work ends at"
-              placeholder="mm:hh"
-              className={classes.field}
-              value={formData.workingEndTime}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField
-              name="reservationGranulity"
-              label="Reservation Granulity"
-              placeholder="30 minutes"
-              className={classes.field}
-              value={formData.reservationGranulity}
-              onChange={handleInputChange}
-            />
-          </Grid>
+      <Paper className={classes.form}>
+        {formData.profile_image_url && !previewImage && (
+            <div>
+              <img
+                  src={formData.profile_image_url}
+                  alt="Profile"
+                  style={{ width: 300, height: 300, borderRadius: "50%" }}
+              />
+            </div>
+        )}
+        {previewImage && (
+            <div>
+              <img
+                  src={previewImage}
+                  alt="Profile"
+                  style={{ width: 300, height: 300, borderRadius: "50%" }}
+              />
+            </div>
+        )}
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
+              <TextField
+                  name="providerName"
+                  label="Provider Name"
+                  className={classes.field}
+                  value={formData.providerName}
+                  onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                  name="ownerName"
+                  label="Owner Name"
+                  className={classes.field}
+                  value={formData.ownerName}
+                  onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                  name="description"
+                  label="Description"
+                  className={classes.field}
+                  value={formData.description}
+                  onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                  name="address"
+                  label="Address"
+                  className={classes.field}
+                  value={formData.address}
+                  onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                  name="phoneNumber"
+                  label="Phone Number"
+                  className={classes.field}
+                  value={formData.phoneNumber}
+                  onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                  name="workingStartTime"
+                  label="work starts at"
+                  placeholder="mm:hh"
+                  className={classes.field}
+                  value={formData.workingStartTime}
+                  onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                  name="workingEndTime"
+                  label="Work ends at"
+                  placeholder="mm:hh"
+                  className={classes.field}
+                  value={formData.workingEndTime}
+                  onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                  name="reservationGranulity"
+                  label="Reservation Granulity"
+                  placeholder="30 minutes"
+                  className={classes.field}
+                  value={formData.reservationGranulity}
+                  onChange={handleInputChange}
+                  error={!!granularityError}
+                  helperText={granularityError}
+              />
+            </Grid>
 
-          <Grid item xs={12}>
-            <input
-              accept="image/*"
-              id="profile_image"
-              name="profile_image"
-              className={classes.inputText}
-              type="file"
-              onChange={handleImageChange}
-              style={{ display: "none" }}
-            />
-            <label htmlFor="profile_image">
+            <Grid item xs={12}>
+              <input
+                  accept="image/*"
+                  id="profile_image"
+                  name="profile_image"
+                  className={classes.inputText}
+                  type="file"
+                  onChange={handleImageChange}
+                  style={{ display: "none" }}
+              />
+              <label htmlFor="profile_image">
+                <Button
+                    variant="contained"
+                    color="primary"
+                    component="span"
+                    className={classes.chooseImageButton}
+                >
+                  Choose Image
+                </Button>
+              </label>
+            </Grid>
+
+            <Grid item xs={12}>
               <Button
-                variant="contained"
-                color="primary"
-                component="span"
-                className={classes.chooseImageButton}
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={handleProfileUpdate}
               >
-                Choose Image
+                Save
               </Button>
-            </label>
-          </Grid>
 
-          <Grid item xs={12}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              onClick={handleProfileUpdate}
-            >
-              Save
-            </Button>
-
-            <Button
-              type="button"
-              variant="contained"
-              color="default"
-              className={classes.button}
-              onClick={handleCancel}
-              disabled={!isChanged}
-            >
-              Cancel
-            </Button>
+              <Button
+                  type="button"
+                  variant="contained"
+                  color="default"
+                  className={classes.button}
+                  onClick={handleCancel}
+                  disabled={!isChanged}
+              >
+                Cancel
+              </Button>
+            </Grid>
           </Grid>
-        </Grid>
-      </form>
-    </Paper>
+        </form>
+      </Paper>
   );
 };
 
