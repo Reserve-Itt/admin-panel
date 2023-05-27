@@ -262,7 +262,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ profile, onSave }) => {
               label="Reservation Granulity"
               placeholder="30 minutes"
               className={classes.field}
-              value={formData.reservationGranulity + " Minutes"}
+              value={formData.reservationGranulity}
               onChange={handleInputChange}
             />
           </Grid>
