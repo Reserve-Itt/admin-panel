@@ -252,8 +252,8 @@ const Main: React.FC = ({}) => {
     console.log("myAdvertisementsData  ", myAdvertisementsData);
     if (
       myAdvertisementsData &&
-      myAdvertisementsData.result &&
-      myAdvertisementsData.result[0].advertisements
+      myAdvertisementsData?.result &&
+      myAdvertisementsData?.result[0]?.advertisements
     ) {
       console.log("here");
       setActiveAdvertisement(
