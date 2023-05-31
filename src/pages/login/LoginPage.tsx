@@ -24,7 +24,7 @@ interface LoginProps {}
 
 function LoginTypist() {
   const [typistDone, setTypistDone] = useState(false);
-
+  const navigate = useNavigate();
   const handleTypingDone = () => {
     setTypistDone(true);
   };
@@ -232,8 +232,9 @@ const Login: React.FC<LoginProps> = () => {
                   "Login"
               )}
             </button>
-            <a href="/signup">Don't you have an account? Signup here.</a>
-            <a href="/forgot-password">Forgot Password</a>
+            <a onClick={() => navigate("/signup")}>Don't you have an account? Signup here.</a>
+
+            <a onClick={() => navigate("/forgot-password")} >Forgot Password</a>
           </form>
         </div>
       </>
